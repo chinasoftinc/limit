@@ -1,0 +1,38 @@
+<?xml version="1.0"?>
+<project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd" xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<dependencies>
+		<dependency>
+			<groupId>${project.groupId}</groupId>
+			<artifactId>limit-core</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+
+		<!-- ueditor -->
+		<dependency>
+			<groupId>ueditor</groupId>
+			<artifactId>ueditor</artifactId>
+			<version>1.43</version>
+			<scope>system</scope>
+			<systemPath>${project.basedir}/src/main/webapp/WEB-INF/lib/ueditor/ueditor-1.1.1.jar</systemPath>
+		</dependency>
+		<dependency>
+			<groupId>json</groupId>
+			<artifactId>json</artifactId>
+			<version>1.0</version>
+			<scope>system</scope>
+			<systemPath>${project.basedir}/src/main/webapp/WEB-INF/lib/ueditor/json.jar</systemPath>
+		</dependency>
+	</dependencies>
+
+
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>limit</groupId>
+		<artifactId>limit</artifactId>
+		<version>0.0.1-SNAPSHOT</version>
+	</parent>
+	<artifactId>limit-view</artifactId>
+	<packaging>war</packaging>
+	<name>apple-project Maven Webapp</name>
+	<url>http://maven.apache.org</url>
+</project>
