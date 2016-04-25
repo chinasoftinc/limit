@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="apple.module.user.mapper.UserRoleSupportMapper">
+	<resultMap id="UserResultMap" type="apple.module.user.model.User">
+		<id column="id" property="id" jdbcType="BIGINT" />
+		<result column="nickname" property="nickname" jdbcType="VARCHAR" />
+		<result column="password" property="password" jdbcType="VARCHAR" />
+		<result column="username" property="username" jdbcType="VARCHAR" />
+		<result column="status" property="status" jdbcType="CHAR" />
+		<result column="email" property="email" jdbcType="VARCHAR" />
+		<result column="last_access_time" property="lastAccessTime" jdbcType="DATE" />
+		<result column="last_access_adress" property="lastAccessAdress" jdbcType="VARCHAR" />
+		<result column="create_user_id" property="createUserId" jdbcType="BIGINT" />
+		<result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+	</resultMap>
+
+	<!-- 根据角色id查询所有用户 -->
+	<select id="selectUserOfRoleId" parameterType="java.lang.Long" resultMap="UserResultMap">
+		SELECT *
+		FROM KERNEL_USER u
+		INNER JOIN KERNEL_USER_ROLE ur ON u.id = ur.user_id
+		WHERE ur.role_id = #{roleId} AND u.status
+		!= '9'
+	</select>
+
+	<!-- 查询用户分页数据, 级联角色 -->
+	<select id="selectPageUser" parameterType="apple.module.user.model.UserSupportExam" resultMap="UserResultMap">
+		SELECT * FROM KERNEL_USER u
+		<if test="filter.searchRoleId != null">INNER JOIN KERNEL_USER_ROLE ur ON u.id = ur.user_id</if>
+		<where>
+			<trim prefixOverrides="AND" suffixOverrides="AND">
+				AND u.status != '9'
+				<if test="filter.nickname != null &amp;&amp; filter.nickname != ''">AND u.nickname LIKE '%${filter.nickname}%'</if>
+				<if test="filter.username != null &amp;&amp; filter.username != ''">AND u.username LIKE '%${filter.username}%'</if>
+				<if test="filter.status != null &amp;&amp; filter.status != ''">AND u.status = #{filter.status}</if>
+				<if test="filter.searchRoleId != null &amp;&amp; filter.searchRoleId != ''">AND ur.role_id = #{filter.searchRoleId}</if>
+			</trim>
+		</where>
+		<if test="filter.orderBy != null">
+			<foreach collection="filter.orderBy" item="orderBy" open="ORDER BY" separator=",">u.${orderBy}</foreach>
+		</if>
+		<if test="pagination != null">LIMIT #{pagination.limitIndex}, #{pagination.pageSize}</if>
+	</select>
+
+	<!-- 查询用户总记录, 级联角色 -->
+	<select id="selectPageUserCount" parameterType="apple.module.user.model.UserSupportExam" resultType="java.lang.Integer">
+		SELECT count(*)
+		FROM KERNEL_USER u
+		<if test="filter.searchRoleId != null">INNER JOIN KERNEL_USER_ROLE ur ON u.id = ur.user_id</if>
+		<where>
+			<trim prefixOverrides="AND" suffixOverrides="AND">
+				AND u.status != '9'
+				<if test="filter.nickname != null &amp;&amp; filter.nickname != ''">AND u.nickname LIKE '%${filter.nickname}%'</if>
+				<if test="filter.username != null &amp;&amp; filter.username != ''">AND u.username LIKE '%${filter.username}%'</if>
+				<if test="filter.status != null &amp;&amp; filter.status != ''">AND u.status = #{filter.status}</if>
+				<if test="filter.searchRoleId != null">AND ur.role_id = #{filter.searchRoleId}</if>
+			</trim>
+		</where>
+	</select>
+</mapper>

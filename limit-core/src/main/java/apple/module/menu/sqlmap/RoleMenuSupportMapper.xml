@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="apple.module.menu.mapper.RoleMenuSupportMapper">
+	<resultMap id="MenuResultMap" type="apple.module.menu.model.Menu">
+		<id column="id" property="id" jdbcType="BIGINT" />
+		<result column="menu_name" property="menuName" jdbcType="VARCHAR" />
+		<result column="menu_url" property="menuUrl" jdbcType="VARCHAR" />
+		<result column="parent_id" property="parentId" jdbcType="BIGINT" />
+		<result column="privilege_code" property="privilegeCode" jdbcType="BIGINT" />
+		<result column="privilege_pos" property="privilegePos" jdbcType="INTEGER" />
+		<result column="description" property="description" jdbcType="VARCHAR" />
+		<result column="menu_order" property="menuOrder" jdbcType="INTEGER" />
+	</resultMap>
+
+	<!-- 根据角色ID集合查询所有菜单 -->
+	<select id="selectMenusByRoleIds" parameterType="java.util.List" resultMap="MenuResultMap">
+		SELECT DISTINCT m.* FROM KERNEL_MENU m
+		INNER JOIN KERNEL_ROLE_MENU rm ON m.id = rm.menu_id
+		WHERE rm.role_id IN
+		<foreach collection="list" separator="," open="(" close=")" item="roleId">
+			#{roleId}
+		</foreach>
+	</select>
+
+</mapper>

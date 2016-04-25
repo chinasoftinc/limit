@@ -1,0 +1,37 @@
+  缓存注解
+  	分析: 针对dao方法级的缓存策略
+  		1. KeyGenerator 
+  			首先要区分写入的记录数(单例或多例), 如果是单例只刷新单例和该单例对应的所有多例缓存, 如果是多例那么刷新该多例 (和多例对应的所有单例, 但是这通常不好做)
+  		            例如: 商品 (1:*)评论, product(id:1) : remark(id:2)
+  			           评论的商品外键id必然是有的, 那么插入一评论的key生成策略为: remark:single_product_1_remark_2
+  			           当查询该商品的第一页评论时的生成的key将会是: 			  remark:list_product_1_<param_serlizer>
+  			           当更新该id2评论时, 刷新的缓存key为:			  	  remark:list_product_1...,  重写的key为 remark:single_product_1_remark_2
+  			           当删除该id1商品的部分评论时, 刷新的缓存key为:	      remark:list_product_1..., remark:single_product_1...
+   
+   		对于多表级联这种查询或更新, 应该严谨出现, 不要试图去缓存该类读写的数据, 真的很难搞
+   		例如: 查询和该商品信息和该商品的评论信息到一个自定义DTO, 应该拆分为两步, 使用不同实体对应的dao方法, 而不是一个方法一条SQL写死, 这样缓存就会失去方向
+   
+   	2. Key生成需要的一些必要条件
+   		对于单例来说, id作为第二条件, 外键id作为第一条件, 通常这取决于业务逻辑限定的实体结构
+   		而对于多例key的生成, 外键id作为第一条件, 查询条件或查询DTO序列化文本作为第二条件
+   
+   	3. 多外键关系:
+   
+   分析:
+   	对于单体的dml操作, 刷新列表, 该单体, 其他(如count)
+   	对于列表的dml操作, 刷新列表, 所有单体, 其他(如count)
+   
+   	刷新
+  			判断dml是单体/列表或其他条件更新, 判断方式: 单体和列表其他依据写死
+  			若是单体需要获得id, 方案: 若是long, 直接定义为id, 若是model, 直接强转getid, 若是insert, 不做单击刷新处理, 制作列表和其他刷新
+  			key: UserDaoImp_unique_{id} ; UserDaoImp_hash*
+  
+  			列表或其他条件更新
+  			key: UserDaoImp*
+  		
+  		查询
+  			单体查询
+  			key: UserDaoImp_unique_{id}
+  
+  			若是列表或其他条件查询
+  			key: UserDaoImp_hash  field: 查询参数的toString
