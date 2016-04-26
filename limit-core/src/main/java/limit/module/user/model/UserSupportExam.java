@@ -1,6 +1,6 @@
 package limit.module.user.model;
 
-import limit.common.base.entity.AbstractModel;
+import limit.common.base.entity.PageModel;
 import limit.common.base.entity.Entity;
 import limit.common.dto.Pagination;
 
@@ -13,7 +13,7 @@ public class UserSupportExam extends Entity<UserSupportExam> {
 	// 分页查询dto
 	private Pagination pagination;
 	// 查询过滤条件
-	private AbstractModel<User> filter;
+	private PageModel<User> filter;
 
 	public Pagination getPagination() {
 		return pagination;
@@ -23,11 +23,11 @@ public class UserSupportExam extends Entity<UserSupportExam> {
 		this.pagination = pagination;
 	}
 
-	public AbstractModel<User> getFilter() {
+	public PageModel<User> getFilter() {
 		return filter;
 	}
 
-	public void setFilter(AbstractModel<User> filter) {
+	public void setFilter(PageModel<User> filter) {
 		this.filter = filter;
 	}
 

@@ -1,12 +1,12 @@
 package limit.module.area.model;
 
-import limit.common.base.entity.AbstractModel;
+import limit.common.base.entity.PageModel;
 
 /**
  * 地区model
  * @author niebx
  */
-public class Area extends AbstractModel<Area> {
+public class Area extends PageModel<Area> {
 	private static final long serialVersionUID = 864258146403639343L;
 
 	private Long areaid;

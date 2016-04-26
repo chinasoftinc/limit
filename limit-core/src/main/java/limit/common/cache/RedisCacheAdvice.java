@@ -29,10 +29,13 @@ public class RedisCacheAdvice implements InitializingBean {
 
 	// 缓存切面
 	public Object around(ProceedingJoinPoint point) throws Throwable {
+		
 		// 业务方法执行结果
 		Object invokeResult = null;
+		
 		// 缓存key
 		String cacheKey = null;
+		
 		// 转型为方法切入点
 		final MethodInvocationProceedingJoinPoint methodPoint = (MethodInvocationProceedingJoinPoint) point;
 

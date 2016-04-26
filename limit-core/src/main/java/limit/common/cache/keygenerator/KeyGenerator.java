@@ -12,9 +12,7 @@ import limit.module.user.dao.UserDao;
 
 /**
  * <pre>
- * 缓存key生成超类
- * 		1. 所有key生成类继承该类
- * 		2. 所有dml方法按分类写死在继承类中
+ * 缓存key生成超类 1. 所有key生成类继承该类 2. 所有dml方法按分类写死在继承类中
  * @author niebinxiao
  */
 public abstract class KeyGenerator {
@@ -32,10 +30,10 @@ public abstract class KeyGenerator {
 	protected static List<String> commonHashSaveDMLs = Arrays.asList(new String[] { "deleteByPrimaryKey", "insert", "insertSelective", "updateByPrimaryKeySelective", "updateByPrimaryKey" });;
 
 	// 获取自定义的单例写入方法
-	protected abstract List<String> getUniqueDMLs();
+	protected abstract List<String> getCustomUniqueDMLs();
 
 	// 获取自定义的多例写入方法
-	protected abstract List<String> getHashDMLs();
+	protected abstract List<String> getCustomHashDMLs();
 
 	/**
 	 * 根据切入点获取实体对应的缓存key生成器
@@ -47,7 +45,7 @@ public abstract class KeyGenerator {
 		if (UserDao.class.isInstance(target)) {
 			return new UserKeyGenerator();
 		}
-		return null;
+		return new CommonKeyGenerator();
 	}
 
 	/**
@@ -85,11 +83,11 @@ public abstract class KeyGenerator {
 		ArrayList<String> dmls = new ArrayList<String>();
 		dmls.addAll(commonHashSaveDMLs);
 		dmls.addAll(commonUniqueSaveDMLs);
-		if (CollectionUtils.isNotEmpty(getUniqueDMLs())) {
-			dmls.addAll(getUniqueDMLs());
+		if (CollectionUtils.isNotEmpty(getCustomUniqueDMLs())) {
+			dmls.addAll(getCustomUniqueDMLs());
 		}
-		if (CollectionUtils.isNotEmpty(getHashDMLs())) {
-			dmls.addAll(getHashDMLs());
+		if (CollectionUtils.isNotEmpty(getCustomHashDMLs())) {
+			dmls.addAll(getCustomHashDMLs());
 		}
 		return dmls.contains(methodName);
 	}
@@ -104,8 +102,8 @@ public abstract class KeyGenerator {
 		// 获取所有单例写入方法
 		ArrayList<String> dmls = new ArrayList<String>();
 		dmls.addAll(commonUniqueSaveDMLs);
-		if (CollectionUtils.isNotEmpty(getUniqueDMLs())) {
-			dmls.addAll(getUniqueDMLs());
+		if (CollectionUtils.isNotEmpty(getCustomUniqueDMLs())) {
+			dmls.addAll(getCustomUniqueDMLs());
 		}
 		return dmls.contains(methodName);
 	}

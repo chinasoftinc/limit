@@ -1,12 +1,12 @@
 package limit.module.menu.model;
 
-import limit.common.base.entity.AbstractModel;
+import limit.common.base.entity.PageModel;
 
 /**
  * 角色菜单关联
  * @author Binxiao
  */
-public class RoleMenu extends AbstractModel<RoleMenu> {
+public class RoleMenu extends PageModel<RoleMenu> {
 	private static final long serialVersionUID = -7320686147632179461L;
 
 	private Long id;

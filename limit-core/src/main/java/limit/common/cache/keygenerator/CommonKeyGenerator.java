@@ -8,14 +8,13 @@ import org.springframework.aop.aspectj.MethodInvocationProceedingJoinPoint;
 import com.alibaba.fastjson.JSON;
 
 import limit.common.base.entity.PageModel;
-import limit.module.user.dao.UserDao;
 
-public class UserKeyGenerator extends KeyGenerator {
-
-	private static final String DAO_NAME = UserDao.class.getName();
+public class CommonKeyGenerator extends KeyGenerator {
 
 	@Override
 	public List<String> dmlRefushKeys(MethodInvocationProceedingJoinPoint point) {
+		String className = point.getTarget().getClass().getName();
+
 		if (this.isUniqueDML(point)) {
 			Object[] args = point.getArgs();
 			if (args != null && args.length == 1) {
@@ -25,20 +24,21 @@ public class UserKeyGenerator extends KeyGenerator {
 				else if (args[0] instanceof PageModel)
 					id = String.valueOf(((PageModel<?>) args[0]).getId());
 				// unique刷新unique对应的单例缓存和所有hash缓存
-				return Arrays.asList(new String[] { DAO_NAME + UNIQUE_WORD + id, DAO_NAME + HASH_WORD + "*" });
+				return Arrays.asList(new String[] { className + UNIQUE_WORD + id, className + HASH_WORD + "*" });
 			}
 		}
 		// 其他刷新所有缓存
-		return Arrays.asList(new String[] { DAO_NAME + "*" });
+		return Arrays.asList(new String[] { className + "*" });
 	}
 
 	@Override
 	public String selectCacheKey(MethodInvocationProceedingJoinPoint point) {
+		String className = point.getTarget().getClass().getName();
 		Object[] args = point.getArgs();
 		if (args != null && args.length == 1 && args[0] instanceof Long) {
-			return DAO_NAME + UNIQUE_WORD + String.valueOf(args[0]);
+			return className + UNIQUE_WORD + String.valueOf(args[0]);
 		}
-		return DAO_NAME + HASH_WORD;
+		return className + HASH_WORD;
 	}
 
 	@Override
@@ -65,5 +65,4 @@ public class UserKeyGenerator extends KeyGenerator {
 	protected List<String> getCustomHashDMLs() {
 		return null;
 	}
-
 }

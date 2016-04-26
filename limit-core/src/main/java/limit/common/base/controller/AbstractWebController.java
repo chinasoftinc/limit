@@ -22,7 +22,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.servlet.ModelAndView;
 
-import limit.common.base.entity.AbstractModel;
+import limit.common.base.entity.PageModel;
 import limit.common.context.Constants;
 import limit.common.exception.BusinessException;
 import limit.common.exception.ExceptionCode;
@@ -32,6 +32,84 @@ import limit.common.exception.ExceptionCode;
  */
 public abstract class AbstractWebController {
 	protected final Logger logger = LoggerFactory.getLogger(this.getClass());
+
+	/**
+	 * 设置添加标记
+	 * @param mv
+	 */
+	public void setAddOperation(ModelAndView mv) {
+		mv.addObject("operation", "add");
+	}
+
+	/**
+	 * 设置修改标记
+	 * @param mv
+	 */
+	public void setEditOperation(ModelAndView mv) {
+		mv.addObject("operation", "edit");
+	}
+
+	/**
+	 * 判断是否是添加操作
+	 * @param form
+	 * @return
+	 */
+	public boolean isAddOperation(PageModel<?> form) {
+		return "add".equals(form.getOperation());
+	}
+
+	/**
+	 * 判断是否是编辑操作
+	 * @param form
+	 * @return
+	 */
+	public boolean isEditOperation(PageModel<?> form) {
+		return "edit".equals(form.getOperation());
+	}
+
+	/**
+	 * 设置当前窗口id
+	 * @param mv
+	 * @param form
+	 */
+	public void setCurrentWinId(ModelAndView mv, PageModel<?> form) {
+		mv.addObject("winId", form.getWinId());
+	}
+
+	/**
+	 * 设置父窗口id
+	 * @param mv
+	 * @param form
+	 */
+	public void setParentWinId(ModelAndView mv, PageModel<?> form) {
+		mv.addObject("parentWinId", form.getParentWinId());
+	}
+
+	/**
+	 * 设置操作成功响应页面
+	 * @param mv
+	 */
+	public void setSuccessView(ModelAndView mv) {
+		mv.setViewName("/common/tip/success");
+	}
+
+	/**
+	 * 设置操作完成响应页面
+	 * @param mv
+	 */
+	public void setCompleteView(ModelAndView mv) {
+		mv.setViewName("/common/tip/complete");
+	}
+
+	/**
+	 * 设置操作错误响应页面
+	 * @param mv
+	 */
+	public void setErrorView(ModelAndView mv, String errorMsg) {
+		mv.addObject("optRs", "false");
+		mv.addObject("errorMsg", errorMsg);
+		mv.setViewName("/common/tip/complete");
+	}
 
 	/**
 	 * 获取相对路径的服务器路径
@@ -112,84 +190,6 @@ public abstract class AbstractWebController {
 			}
 		}
 		return ip;
-	}
-
-	/**
-	 * 设置添加标记
-	 * @param mv
-	 */
-	public void setAddOperation(ModelAndView mv) {
-		mv.addObject("operation", "add");
-	}
-
-	/**
-	 * 设置修改标记
-	 * @param mv
-	 */
-	public void setEditOperation(ModelAndView mv) {
-		mv.addObject("operation", "edit");
-	}
-
-	/**
-	 * 判断是否是添加操作
-	 * @param form
-	 * @return
-	 */
-	public boolean isAddOperation(AbstractModel<?> form) {
-		return "add".equals(form.getOperation());
-	}
-
-	/**
-	 * 判断是否是编辑操作
-	 * @param form
-	 * @return
-	 */
-	public boolean isEditOperation(AbstractModel<?> form) {
-		return "edit".equals(form.getOperation());
-	}
-
-	/**
-	 * 设置当前窗口id
-	 * @param mv
-	 * @param form
-	 */
-	public void setCurrentWinId(ModelAndView mv, AbstractModel<?> form) {
-		mv.addObject("winId", form.getWinId());
-	}
-
-	/**
-	 * 设置父窗口id
-	 * @param mv
-	 * @param form
-	 */
-	public void setParentWinId(ModelAndView mv, AbstractModel<?> form) {
-		mv.addObject("parentWinId", form.getParentWinId());
-	}
-
-	/**
-	 * 设置操作成功响应页面
-	 * @param mv
-	 */
-	public void setSuccessView(ModelAndView mv) {
-		mv.setViewName("/common/tip/success");
-	}
-
-	/**
-	 * 设置操作完成响应页面
-	 * @param mv
-	 */
-	public void setCompleteView(ModelAndView mv) {
-		mv.setViewName("/common/tip/complete");
-	}
-
-	/**
-	 * 设置操作错误响应页面
-	 * @param mv
-	 */
-	public void setErrorView(ModelAndView mv, String errorMsg) {
-		mv.addObject("optRs", "false");
-		mv.addObject("errorMsg", errorMsg);
-		mv.setViewName("/common/tip/complete");
 	}
 
 	/**

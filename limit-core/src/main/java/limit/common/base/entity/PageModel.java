@@ -7,7 +7,7 @@ import java.util.List;
  * @author niebinxiao
  * @param <T>
  */
-public abstract class AbstractModel<T> extends Entity<T> {
+public abstract class PageModel<T> extends Entity<T> {
 	private static final long serialVersionUID = 1L;
 
 	// 当前页 easyui

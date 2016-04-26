@@ -2,13 +2,13 @@ package limit.module.user.model;
 
 import java.util.Date;
 
-import limit.common.base.entity.AbstractModel;
+import limit.common.base.entity.PageModel;
 
 /**
  * 系统管理员实体
  * @author niebx
  */
-public class User extends AbstractModel<User> {
+public class User extends PageModel<User> {
 	private static final long serialVersionUID = -8280432662555125485L;
 	private Long id;
 	// 昵称

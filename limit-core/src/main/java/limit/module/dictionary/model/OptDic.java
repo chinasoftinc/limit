@@ -2,13 +2,13 @@ package limit.module.dictionary.model;
 
 import java.util.List;
 
-import limit.common.base.entity.AbstractModel;
+import limit.common.base.entity.PageModel;
 
 /**
  * 选项字典
  * @author niebinxiao
  */
-public class OptDic extends AbstractModel<OptDic> {
+public class OptDic extends PageModel<OptDic> {
 	private static final long serialVersionUID = 6550637525172413165L;
 
 	private Long id;

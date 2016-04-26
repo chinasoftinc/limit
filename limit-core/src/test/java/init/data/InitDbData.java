@@ -19,7 +19,7 @@ import org.dbunit.operation.DatabaseOperation;
 import org.xml.sax.InputSource;
 
 /**
- * 描述:　Dbunit连接数据库工具类
+ * 描述: Dbunit连接数据库工具类
  * @author NieBinxiao
  */
 public class InitDbData {

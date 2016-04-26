@@ -28,7 +28,7 @@
 			<property name="enableSubPackages" value="true" />
 		</javaClientGenerator>
 
-		<table schema="表空间, 看看是否需要" tableName="kernel_user_opt" domainObjectName="UserOpt"></table>
+		<table tableName="OLD_SYS_USER" domainObjectName="Olduser"></table>
 
 	</context>
 </generatorConfiguration>

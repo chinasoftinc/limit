@@ -1,12 +1,12 @@
 package limit.module.user.model;
 
-import limit.common.base.entity.AbstractModel;
+import limit.common.base.entity.PageModel;
 
 /**
  * 角色model
  * @author Binxiao
  */
-public class Role extends AbstractModel<Role> {
+public class Role extends PageModel<Role> {
 	private static final long serialVersionUID = 3199695445228391182L;
 	private Long id;
 	// 角色说明

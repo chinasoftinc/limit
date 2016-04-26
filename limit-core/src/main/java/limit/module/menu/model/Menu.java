@@ -2,13 +2,13 @@ package limit.module.menu.model;
 
 import java.util.List;
 
-import limit.common.base.entity.AbstractModel;
+import limit.common.base.entity.PageModel;
 
 /**
  * 菜单model
  * @author niebinxiao
  */
-public class Menu extends AbstractModel<Menu> {
+public class Menu extends PageModel<Menu> {
 	private static final long serialVersionUID = 7730043709336850146L;
 
 	private Long id;

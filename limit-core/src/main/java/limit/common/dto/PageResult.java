@@ -3,7 +3,7 @@ package limit.common.dto;
 import java.util.ArrayList;
 import java.util.List;
 
-import limit.common.base.entity.AbstractModel;
+import limit.common.base.entity.PageModel;
 
 /**
  * 分页DTO
@@ -27,13 +27,13 @@ public class PageResult<T> {
 	private transient List<String> orderBy;
 
 	// 分页查询条件pojo
-	private transient AbstractModel<T> filter;
+	private transient PageModel<T> filter;
 
 	/**
 	 * 通过分页查询条件pojo构建分页查询参数
 	 * @param filter
 	 */
-	public PageResult(AbstractModel<T> filter) {
+	public PageResult(PageModel<T> filter) {
 		this.filter = filter;
 		this.initPagination(filter);
 	}
@@ -43,7 +43,7 @@ public class PageResult<T> {
 	 * @param filter 分页查询条件参数pojo
 	 * @return
 	 */
-	private void initPagination(AbstractModel<?> filter) {
+	private void initPagination(PageModel<?> filter) {
 		// 检测分页查询条件参数是否有误
 		if (filter == null || filter.getPage() == null || filter.getRows() == null) {
 			// 参数有误, 默认跳转第一页
@@ -72,11 +72,11 @@ public class PageResult<T> {
 		}
 	}
 
-	public AbstractModel<T> getFilter() {
+	public PageModel<T> getFilter() {
 		return filter;
 	}
 
-	public void setFilter(AbstractModel<T> filter) {
+	public void setFilter(PageModel<T> filter) {
 		this.filter = filter;
 	}
 
