@@ -1,0 +1,41 @@
+img {
+	width: auto\9;
+	height: auto;
+	max-width: 100%;
+	vertical-align: middle;
+	border: 0;
+	-ms-interpolation-mode: bicubic;
+}
+
+body {
+	margin: 0;
+	font-family: "Helvetica Neue", 微软雅黑, Arial, sans-serif;
+	font-size: 14px;
+	line-height: 20px;
+	color: #333333;
+	background-color: #ffffff;
+}
+
+a {
+	color: #0088cc;
+	text-decoration: none;
+}
+
+a:hover {
+	color: #005580;
+	text-decoration: underline;
+}
+
+h1, h2, h3, h4, h5, h6 {
+	margin: 10px 0;
+	font-family: inherit;
+	font-weight: bold;
+	line-height: 20px;
+	color: inherit;
+	text-rendering: optimizelegibility;
+}
+
+/* easyui validatebox 验证样式 */
+.validatebox-invalid {
+	background: #EEE9E9
+}
