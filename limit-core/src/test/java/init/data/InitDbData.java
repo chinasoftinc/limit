@@ -16,6 +16,7 @@ import org.dbunit.dataset.ReplacementDataSet;
 import org.dbunit.dataset.xml.FlatXmlDataSet;
 import org.dbunit.dataset.xml.FlatXmlProducer;
 import org.dbunit.operation.DatabaseOperation;
+import org.springframework.core.io.ClassPathResource;
 import org.xml.sax.InputSource;
 
 /**
@@ -54,7 +55,7 @@ public class InitDbData {
 	private static void connection() throws DatabaseUnitException, Exception {
 		Connection con = null;
 		Properties prop = new Properties();
-		prop.load(InitDbData.class.getClassLoader().getResourceAsStream("jdbc.properties"));
+		prop.load(new ClassPathResource("jdbc.properties").getInputStream());
 		if (prop.size() == 0) {
 			throw new RuntimeException("读取jdbc.properties失败");
 		}

@@ -17,7 +17,7 @@
 		<context:exclude-filter type="annotation" expression="org.springframework.web.bind.annotation.RequestMapping" />
 	</context:component-scan>
 	
-	<bean class="apple.common.utils.ApplicationContextUtils" />
+	<bean class="limit.common.utils.ApplicationContextUtils" />
 
 	<import resource="classpath*:spring-db.xml" />
 	<import resource="classpath*:spring-cache.xml" />

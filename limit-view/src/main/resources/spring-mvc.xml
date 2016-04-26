@@ -35,7 +35,7 @@
 	</context:component-scan>
 
 	<!-- 系统安全管理器 -->
-	<bean id="securityMgr" class="apple.common.context.SecurityMgr">
+	<bean id="securityMgr" class="limit.common.context.SecurityMgr">
 		<property name="admin_username" value="admin" />
 		<property name="admin_password" value="admin" />
 		<property name="menuService" ref="menuServiceImp" />
@@ -54,7 +54,7 @@
 	<mvc:interceptors>
 		<mvc:interceptor>
 			<mvc:mapping path="/**" />
-			<bean class="apple.common.interceptor.SecurityInterceptor">
+			<bean class="limit.common.interceptor.SecurityInterceptor">
 				<property name="autoLogin" value="true" />
 				<property name="openSecurityFilter" value="true" />
 				<property name="enterPage" value="/login" />
@@ -67,7 +67,7 @@
 	</mvc:interceptors>
 
 	<mvc:resources mapping="/resource/**" location="/resource/" />
-	
+
 	<bean class="org.springframework.web.servlet.view.freemarker.FreeMarkerViewResolver">
 		<property name="viewClass" value="apple.common.view.FreeMarkerViewResolve" />
 		<property name="suffix" value=".ftl" />
@@ -107,11 +107,11 @@
 				</entry>
 				<!-- 下拉标签 -->
 				<entry key="SingleSelectTag">
-					<bean class="apple.common.view.SingleSelectTag" />
+					<bean class="limit.common.view.SingleSelectTag" />
 				</entry>
 				<!-- 单选标签 -->
 				<entry key="RadioTag">
-					<bean class="apple.common.view.RadioTag" />
+					<bean class="limit.common.view.RadioTag" />
 				</entry>
 				<!-- 数据字典 -->
 				<entry key="sys_dic" value-ref="dictionary" />
