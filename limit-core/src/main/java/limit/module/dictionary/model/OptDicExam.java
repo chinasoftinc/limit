@@ -3,10 +3,10 @@ package limit.module.dictionary.model;
 import java.util.ArrayList;
 import java.util.List;
 
-import limit.common.base.entity.Entity;
+import limit.common.base.entity.Model;
 import limit.common.dto.Pagination;
 
-public class OptDicExam extends Entity<OptDicExam> {
+public class OptDicExam extends Model<OptDicExam> {
 	private static final long serialVersionUID = 1L;
 
 	protected String orderByClause;

@@ -3,10 +3,10 @@ package limit.module.area.model;
 import java.util.ArrayList;
 import java.util.List;
 
-import limit.common.base.entity.Entity;
+import limit.common.base.entity.Model;
 import limit.common.dto.Pagination;
 
-public class AreaExam extends Entity<AreaExam> {
+public class AreaExam extends Model<AreaExam> {
 	private static final long serialVersionUID = 1L;
 
 	protected String orderByClause;

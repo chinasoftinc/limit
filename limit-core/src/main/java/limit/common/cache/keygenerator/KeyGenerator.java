@@ -8,8 +8,6 @@ import org.apache.commons.collections.CollectionUtils;
 import org.aspectj.lang.reflect.MethodSignature;
 import org.springframework.aop.aspectj.MethodInvocationProceedingJoinPoint;
 
-import limit.module.user.dao.UserDao;
-
 /**
  * <pre>
  * 缓存key生成超类 1. 所有key生成类继承该类 2. 所有dml方法按分类写死在继承类中
@@ -41,10 +39,7 @@ public abstract class KeyGenerator {
 	 * @return
 	 */
 	public static KeyGenerator getKeyGenerator(MethodInvocationProceedingJoinPoint point) {
-		Object target = point.getTarget();
-		if (UserDao.class.isInstance(target)) {
-			return new UserKeyGenerator();
-		}
+		// Object target = point.getTarget();
 		return new CommonKeyGenerator();
 	}
 

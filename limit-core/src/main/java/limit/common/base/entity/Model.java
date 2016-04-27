@@ -11,7 +11,7 @@ import com.alibaba.fastjson.serializer.ValueFilter;
  * @author niebinxiao
  * @param <T>
  */
-public abstract class Entity<T> implements Serializable {
+public abstract class Model<T> implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	public String toString() {
