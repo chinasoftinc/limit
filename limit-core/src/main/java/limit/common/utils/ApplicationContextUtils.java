@@ -6,10 +6,6 @@ import org.springframework.context.ApplicationContextAware;
 import org.springframework.web.context.WebApplicationContext;
 
 /**
- * spring容器工具类
- * @author niebinxiao
- */
-/**
  * @author niebinxiao
  */
 public class ApplicationContextUtils implements ApplicationContextAware {

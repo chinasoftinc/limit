@@ -3,7 +3,7 @@ package limit.module.area.service;
 import java.util.List;
 
 import limit.common.base.service.Service;
-import limit.common.dto.EasyUITreeNode;
+import limit.common.dto.TreeNode;
 import limit.module.area.model.Area;
 import limit.module.area.model.AreaExam;
 
@@ -19,7 +19,7 @@ public interface AreaService extends Service<Area, AreaExam> {
 	 * @param level
 	 * @return
 	 */
-	List<EasyUITreeNode> selectAreaTree(Long parentareaid);
+	List<TreeNode> selectAreaTree(Long parentareaid);
 
 	/**
 	 * 删除多个地区, 级联子地区
@@ -33,6 +33,6 @@ public interface AreaService extends Service<Area, AreaExam> {
 	 * @param areaName
 	 * @return
 	 */
-	List<EasyUITreeNode> selectAreaChildTree(Long parentAreaId, String areaName);
+	List<TreeNode> selectAreaChildTree(Long parentAreaId, String areaName);
 
 }

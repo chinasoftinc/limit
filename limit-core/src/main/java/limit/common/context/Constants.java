@@ -21,7 +21,6 @@ public class Constants {
 	public static OsName OS_TYPE;
 
 	static {
-		// 判断操作系统类型
 		String osName = System.getProperty("os.name");
 		if (osName.startsWith("Window")) {
 			OS_TYPE = OsName.WINDOWS;

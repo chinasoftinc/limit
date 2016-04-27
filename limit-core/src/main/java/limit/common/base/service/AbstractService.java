@@ -10,8 +10,6 @@ import limit.common.base.dao.Dao;
 
 /**
  * @author NieBinxiao
- * @param <MODEL> POJO类型
- * @param <EXAM> 动态条件类型
  */
 public abstract class AbstractService<MODEL, EXAM> implements Service<MODEL, EXAM> {
 	protected Logger logger = LoggerFactory.getLogger(this.getClass());

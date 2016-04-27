@@ -3,10 +3,9 @@ package limit.common.dto;
 import java.util.List;
 
 /**
- * easyuiTree节点实体
  * @author Binxiao
  */
-public class EasyUITreeNode {
+public class TreeNode {
 
 	public static final String STATUS_CLOSE = "closed";
 	public static final String STATUS_OPEN = "open";
@@ -30,7 +29,7 @@ public class EasyUITreeNode {
 	private String attributes5;
 
 	/** 子节点 */
-	private List<EasyUITreeNode> children;
+	private List<TreeNode> children;
 
 	public String getAttributes2() {
 		return attributes2;
@@ -104,11 +103,11 @@ public class EasyUITreeNode {
 		this.attributes = attributes;
 	}
 
-	public List<EasyUITreeNode> getChildren() {
+	public List<TreeNode> getChildren() {
 		return children;
 	}
 
-	public void setChildren(List<EasyUITreeNode> children) {
+	public void setChildren(List<TreeNode> children) {
 		this.children = children;
 	}
 

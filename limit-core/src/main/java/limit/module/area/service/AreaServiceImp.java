@@ -9,7 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import limit.common.base.service.AbstractService;
-import limit.common.dto.EasyUITreeNode;
+import limit.common.dto.TreeNode;
 import limit.module.area.dao.AreaDao;
 import limit.module.area.model.Area;
 import limit.module.area.model.AreaExam;
@@ -31,8 +31,8 @@ public class AreaServiceImp extends AbstractService<Area, AreaExam> implements A
 
 	// 获取地区树结构 [eaysuiTreeNode]
 	@Override
-	public List<EasyUITreeNode> selectAreaTree(Long parentAreaId) {
-		List<EasyUITreeNode> treeNodes = new ArrayList<EasyUITreeNode>();
+	public List<TreeNode> selectAreaTree(Long parentAreaId) {
+		List<TreeNode> treeNodes = new ArrayList<TreeNode>();
 
 		// 根据parentAreaId查询指定子地区数据
 		AreaExam exam = new AreaExam();
@@ -42,9 +42,9 @@ public class AreaServiceImp extends AbstractService<Area, AreaExam> implements A
 		List<Area> areas = dao.selectByExample(exam);
 
 		// 转化为easyuiTreeNode结构
-		EasyUITreeNode node;
+		TreeNode node;
 		for (Area area : areas) {
-			node = new EasyUITreeNode();
+			node = new TreeNode();
 			node.setId(area.getAreaid().toString());
 			node.setText(area.getAreaname());
 			treeNodes.add(node);
@@ -75,8 +75,8 @@ public class AreaServiceImp extends AbstractService<Area, AreaExam> implements A
 
 	// 根据parentareaid获取子地区树结构 [eaysuiTreeNode]
 	@Override
-	public List<EasyUITreeNode> selectAreaChildTree(Long parentAreaId, String areaname) {
-		List<EasyUITreeNode> treeNodes = new ArrayList<EasyUITreeNode>();
+	public List<TreeNode> selectAreaChildTree(Long parentAreaId, String areaname) {
+		List<TreeNode> treeNodes = new ArrayList<TreeNode>();
 
 		// 根据parentAreaId查询指定子地区数据
 		AreaExam exam = new AreaExam();
@@ -90,9 +90,9 @@ public class AreaServiceImp extends AbstractService<Area, AreaExam> implements A
 		List<Area> areas = dao.selectByExample(exam);
 
 		// 转化为easyuiTreeNode结构, combox下拉数据格式和easyuiTreeNode一致
-		EasyUITreeNode node;
+		TreeNode node;
 		for (Area area : areas) {
-			node = new EasyUITreeNode();
+			node = new TreeNode();
 			node.setId(area.getAreaid().toString());
 			node.setText(area.getAreaname());
 			treeNodes.add(node);

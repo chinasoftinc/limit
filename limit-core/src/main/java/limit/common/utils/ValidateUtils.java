@@ -8,23 +8,10 @@ import limit.common.context.Constants;
 import limit.common.exception.BusinessException;
 import limit.common.exception.ExceptionCode;
 
-/**
- * <pre>
- * 公用检测类, 服务器端验证的相关支持类
- * 
- * 	1. 基于JSR303的javax.validation.constraints类相关的注解说明
- * 		• @Min： 被Min所注解的元素必须是个数字，其值要大于或等于给定的最小值
- * 		• @Max： 被Max所注解的元素必须是个数字，其值要小于或等于给定的最大值
- * 		• @Size： Size表示被注解的元素必须位于给定的最小值和最大值之间。支持Size验证的数据类型有String、Collection（计算集合的大小）、Map以及数组
- * 		• @NotNull： NotNull确保被注解的元素不能为null
- * 		• @Null： Null确保被注解的元素一定为null
- * 		• @Pattern： Pattern确保被注解的元素（String）一定会匹配给定的Java正则表达式
- * END
- */
 public class ValidateUtils {
 
 	/**
-	 * 说明:　验证时间范围
+	 * 说明: 验证时间范围
 	 * @param minTimeText 最小时间字符串, 格式 yyyy-MM-dd HH:mm:ss
 	 * @param maxTimeText 最大时间字符串, 格式 yyyy-MM-dd HH:mm:ss
 	 * @return [true:在范围内]/[false:不在范围内]
@@ -37,9 +24,9 @@ public class ValidateUtils {
 		}
 		return false;
 	}
-	
+
 	/**
-	 * 说明:　检测数值是否在某个指定的范围内<br>
+	 * 说明: 检测数值是否在某个指定的范围内<br>
 	 * 包含头和尾
 	 * @param min 最小范围值
 	 * @param max 最大范围值

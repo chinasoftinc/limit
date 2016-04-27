@@ -20,9 +20,7 @@ import limit.module.dictionary.model.OptDic;
 import limit.module.dictionary.service.OptDicService;
 
 /**
- * <pre>
- * 系统上下文 参数, 选项字典, 地区
- * 注入到freemarker视图变量, 以及程序调用
+ * 系统上下文 参数, 选项字典, 地区 freemarker视图变量, 以及程序调用
  * @author niebinxiao
  */
 @Component

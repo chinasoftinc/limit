@@ -10,19 +10,19 @@ import java.util.List;
 public abstract class PageModel<T> extends Model<T> {
 	private static final long serialVersionUID = 1L;
 
-	// 当前页 easyui
+	// 当前页
 	transient Integer page;
 
-	// 分页单位 easyui
+	// 分页单位
 	transient Integer rows;
 
 	// 总记录数
 	transient Integer totalRecord = 0;
 
-	// 排序字段 easyui
+	// 排序字段
 	transient String sort;
 
-	// 排序模式 easyui
+	// 排序模式
 	transient String order;
 
 	// 排序SQL条件数组 [手动组装 (id asc..)]
