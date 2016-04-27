@@ -10,8 +10,6 @@ import limit.common.base.mapper.Mapper;
 
 /**
  * @author niebinxiao
- * @param <MODEL> model类型
- * @param <EXAM> 查询器类型
  */
 public abstract class AbstractDao<MODEL, EXAM> implements Dao<MODEL, EXAM> {
 	protected Logger logger = LoggerFactory.getLogger(this.getClass());

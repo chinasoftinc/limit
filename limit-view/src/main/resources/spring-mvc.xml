@@ -34,37 +34,6 @@
 		<context:exclude-filter type="annotation" expression="org.springframework.stereotype.Service" />
 	</context:component-scan>
 
-	<!-- 系统安全管理器 -->
-	<bean id="securityMgr" class="limit.common.context.SecurityMgr">
-		<property name="admin_username" value="admin" />
-		<property name="admin_password" value="admin" />
-		<property name="menuService" ref="menuServiceImp" />
-		<property name="userService" ref="userServiceImp" />
-		<property name="antPathMatcher">
-			<bean class="org.springframework.util.AntPathMatcher" />
-		</property>
-		<property name="publicUrls">
-			<list>
-				<value>/resource</value>
-				<value>/login</value>
-			</list>
-		</property>
-	</bean>
-
-	<mvc:interceptors>
-		<mvc:interceptor>
-			<mvc:mapping path="/**" />
-			<bean class="limit.common.interceptor.SecurityInterceptor">
-				<property name="autoLogin" value="true" />
-				<property name="openSecurityFilter" value="true" />
-				<property name="enterPage" value="/login" />
-				<property name="securityMgr" ref="securityMgr" />
-				<property name="urlPathHelper">
-					<bean class="org.springframework.web.util.UrlPathHelper" />
-				</property>
-			</bean>
-		</mvc:interceptor>
-	</mvc:interceptors>
 
 	<mvc:resources mapping="/resource/**" location="/resource/" />
 
