@@ -28,13 +28,13 @@
 	</bean>
 
 	<!-- 读写分离动态数据源 -->
-	<bean id="dynamicMulitDataSource" class="apple.common.datasource.DynamicMulitDataSource">
+	<bean id="dynamicMulitDataSource" class="limit.common.datasource.DynamicMulitDataSource">
 		<property name="readerSource" ref="readerSource" />
 		<property name="writerSource" ref="writerSource" />
 	</bean>
 
 	<!-- 读写分离数据源 aop, 方法级设置数据源 -->
-	<bean id="dynamicMulitDataSourceAdvice" class="apple.common.datasource.DynamicMulitDataSourceAdvice" />
+	<bean id="dynamicMulitDataSourceAdvice" class="limit.common.datasource.DynamicMulitDataSourceAdvice" />
 	<aop:config>
 		<aop:pointcut
 			expression="(execution(* *..*.dao.*Dao.insert*(..)) or
@@ -53,7 +53,7 @@
 		<property name="dataSource" ref="dynamicMulitDataSource" />
 		<property name="mapperLocations">
 			<util:list id="mapperLocationsPath">
-				<value>classpath*:apple/module/**/sqlmap/*.xml</value>
+				<value>classpath*:limit/module/**/sqlmap/*.xml</value>
 			</util:list>
 		</property>
 		<property name="configurationProperties">
@@ -67,7 +67,7 @@
 	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
 		<property name="sqlSessionFactory" ref="sqlSessionFactoryBean" />
 		<property name="basePackage">
-			<value>apple.module.**.mapper</value>
+			<value>limit.module.**.mapper</value>
 		</property>
 	</bean>
 

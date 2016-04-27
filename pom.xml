@@ -407,14 +407,14 @@
 				<log4j.appender.File.file>D:/apple/log4j/limit.log</log4j.appender.File.file>
 				<logback.log_home>D:/apple/logbak/limit.log</logback.log_home>
 
-				<server_host>localhost:80</server_host>
+				<server_host>localhost:8080</server_host>
 			</properties>
 		</profile>
 
 		<profile>
 			<id>company</id>
 			<activation>
-				<activeByDefault>false</activeByDefault>
+				<activeByDefault>true</activeByDefault>
 			</activation>
 			<properties>
 				<datasource.driverClassName>oracle.jdbc.driver.OracleDriver</datasource.driverClassName>
@@ -437,7 +437,7 @@
 				<log4j.appender.File.file>D:/limit/log4j/limit.log</log4j.appender.File.file>
 				<logback.log_home>D:/limit/logbak/limit.log</logback.log_home>
 
-				<server_host>localhost:80</server_host>
+				<server_host>localhost:8080</server_host>
 			</properties>
 		</profile>
 	</profiles>

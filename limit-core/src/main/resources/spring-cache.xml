@@ -30,7 +30,7 @@
 		</property>
 	</bean>
 
-	<bean id="redisCacheAdvice" class="apple.common.cache.RedisCacheAdvice">
+	<bean id="redisCacheAdvice" class="limit.common.cache.RedisCacheAdvice">
 		<property name="template" ref="redisTemplate" />
 	</bean>
 	<aop:config>

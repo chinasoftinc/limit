@@ -28,7 +28,7 @@
 			</bean>
 		</mvc:message-converters>
 	</mvc:annotation-driven>
-	<context:component-scan base-package="apple.*">
+	<context:component-scan base-package="limit.*">
 		<context:include-filter type="annotation" expression="org.springframework.stereotype.Controller" />
 		<context:include-filter type="annotation" expression="org.springframework.web.bind.annotation.RequestMapping" />
 		<context:exclude-filter type="annotation" expression="org.springframework.stereotype.Service" />
@@ -69,7 +69,7 @@
 	<mvc:resources mapping="/resource/**" location="/resource/" />
 
 	<bean class="org.springframework.web.servlet.view.freemarker.FreeMarkerViewResolver">
-		<property name="viewClass" value="apple.common.view.FreeMarkerViewResolve" />
+		<property name="viewClass" value="limit.common.view.FreeMarkerViewResolve" />
 		<property name="suffix" value=".ftl" />
 		<property name="cache" value="true" />
 		<property name="contentType" value="text/html;charset=UTF-8" />

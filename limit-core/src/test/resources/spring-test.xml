@@ -12,12 +12,12 @@
 	<context:property-placeholder location="classpath:*.properties" ignore-unresolvable="true" />
 
 	<context:annotation-config />
-	<context:component-scan base-package="apple.*">
+	<context:component-scan base-package="limit.*">
 		<context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller" />
 		<context:exclude-filter type="annotation" expression="org.springframework.web.bind.annotation.RequestMapping" />
 	</context:component-scan>
 	
-	<bean class="apple.common.utils.ApplicationContextUtils" />
+	<bean class="limit.common.utils.ApplicationContextUtils" />
 
 	<import resource="classpath*:spring-test-db.xml" />
 </beans>

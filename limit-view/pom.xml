@@ -33,6 +33,6 @@
 	</parent>
 	<artifactId>limit-view</artifactId>
 	<packaging>war</packaging>
-	<name>apple-project Maven Webapp</name>
+	<name>limit-view</name>
 	<url>http://maven.apache.org</url>
 </project>

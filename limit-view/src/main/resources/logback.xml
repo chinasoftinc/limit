@@ -3,7 +3,7 @@
 <!-- debug为false(默认):不打印logbak的内部日志, scan为true(默认):实时扫描logbak配置变化, 重新加载, scanPeriod="60 seconds"(默认):实时扫描的间隔时间 -->
 <configuration debug="false" scan="true" scanPeriod="60 seconds">
 	<!-- 设置应用的名称 -->
-	<contextName>apple</contextName>
+	<contextName>limit</contextName>
 	<!-- 声明一个时间戳变量, 使用${now}来输出当前的时间戳, 通常用于组装路径或文件名 -->
 	<timestamp key="now" datePattern="yyyyMMdd'T'HHmmss" />
 	<!--定义日志文件的存储地址 勿在 LogBack 的配置中使用相对路径 -->
@@ -22,7 +22,7 @@
 		<Encoding>UTF-8</Encoding>
 		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
 			<!--日志文件输出的文件名 -->
-			<FileNamePattern>${LOG_HOME}/apple.log.%d{yyyy-MM-dd}.log</FileNamePattern>
+			<FileNamePattern>${LOG_HOME}/limit.log.%d{yyyy-MM-dd}.log</FileNamePattern>
 			<!--日志文件保留天数 -->
 			<MaxHistory>30</MaxHistory>
 		</rollingPolicy>
@@ -41,7 +41,7 @@
 	</appender>
 
 	<!-- 日志输出级别设置 -->
-	<logger name="apple" level="DEBUG">
+	<logger name="limit" level="DEBUG">
 		<appender-ref ref="STDOUT" />
 	</logger>
 
