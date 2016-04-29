@@ -6,7 +6,7 @@
 
 		<plugin type="org.mybatis.generator.plugins.CaseInsensitiveLikePlugin"></plugin>
 
-		<plugin type="limit.common.utils.PaginationPlugin"></plugin>
+		<plugin type="com.athena.common.utils.PaginationPlugin"></plugin>
 
 		<jdbcConnection driverClass="oracle.jdbc.driver.OracleDriver" connectionURL="jdbc:oracle:thin:@172.18.173.5:1521/orcl" userId="CHANNEL" password="CHANNEL" />
 
@@ -15,16 +15,16 @@
 		</javaTypeResolver>
 
 
-		<javaModelGenerator targetPackage="limit.module.test.model" targetProject="limit-core">
+		<javaModelGenerator targetPackage="com.athena.module.test.model" targetProject="limit-core">
 			<property name="enableSubPackages" value="true" />
 			<property name="trimStrings" value="true" />
 		</javaModelGenerator>
 		
-		<sqlMapGenerator targetPackage="limit.module.test.sqlmap" targetProject="limit-core">
+		<sqlMapGenerator targetPackage="com.athena.module.test.sqlmap" targetProject="limit-core">
 			<property name="enableSubPackages" value="true" />
 		</sqlMapGenerator>
 		
-		<javaClientGenerator type="XMLMAPPER" targetPackage="limit.module.test.mapper" targetProject="limit-core">
+		<javaClientGenerator type="XMLMAPPER" targetPackage="com.athena.module.test.mapper" targetProject="limit-core">
 			<property name="enableSubPackages" value="true" />
 		</javaClientGenerator>
 

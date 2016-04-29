@@ -12,12 +12,12 @@
 	<context:property-placeholder location="classpath:*.properties" ignore-unresolvable="true" />
 
 	<context:annotation-config />
-	<context:component-scan base-package="limit.*">
+	<context:component-scan base-package="com.athena.*">
 		<context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller" />
 		<context:exclude-filter type="annotation" expression="org.springframework.web.bind.annotation.RequestMapping" />
 	</context:component-scan>
 	
-	<bean class="limit.common.utils.ApplicationContextUtils" />
+	<bean class="com.athena.common.utils.ApplicationContextUtils" />
 
 	<import resource="classpath*:spring-test-db.xml" />
 </beans>

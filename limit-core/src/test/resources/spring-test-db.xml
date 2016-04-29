@@ -26,7 +26,7 @@
 		<property name="dataSource" ref="dataSource" />
 		<property name="mapperLocations">
 			<util:list id="mapperLocationsPath">
-				<value>classpath*:limit/module/**/sqlmap/*.xml</value>
+				<value>classpath*:com/athena/module/**/sqlmap/*.xml</value>
 			</util:list>
 		</property>
 		<property name="configurationProperties">
@@ -41,7 +41,7 @@
 	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
 		<property name="sqlSessionFactory" ref="sqlSessionFactoryBean" />
 		<property name="basePackage">
-			<value>limit.module.**.mapper</value>
+			<value>com.athena.module.**.mapper</value>
 		</property>
 	</bean>
 

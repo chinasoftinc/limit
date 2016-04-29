@@ -28,17 +28,8 @@
 	</listener>
 
 	<listener> <!-- 自定义spring初始化监听器 -->
-		<listener-class>limit.common.init.SysInitialization</listener-class>
+		<listener-class>com.athena.common.init.SysInitialization</listener-class>
 	</listener>
-
-	<servlet> <!-- cxf -->
-		<servlet-name>cxf-servlet</servlet-name>
-		<servlet-class>org.apache.cxf.transport.servlet.CXFServlet</servlet-class>
-	</servlet>
-	<servlet-mapping>
-		<servlet-name>cxf-servlet</servlet-name>
-		<url-pattern>/service/*</url-pattern>
-	</servlet-mapping>
 
 	<filter>
 		<filter-name>CharacterFilter</filter-name>
