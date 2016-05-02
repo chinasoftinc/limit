@@ -1,5 +1,6 @@
 package com.athena.common.base.mapper;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
@@ -13,7 +14,7 @@ public interface Mapper<MODEL, EXAM> {
 
 	int deleteByExample(EXAM example);
 
-	int deleteByPrimaryKey(Long id);
+	int deleteByPrimaryKey(BigDecimal id);
 
 	int insert(MODEL record);
 
@@ -21,7 +22,7 @@ public interface Mapper<MODEL, EXAM> {
 
 	List<MODEL> selectByExample(EXAM example);
 
-	MODEL selectByPrimaryKey(Long id);
+	MODEL selectByPrimaryKey(BigDecimal id);
 
 	int updateByExampleSelective(@Param("record") MODEL record, @Param("example") EXAM example);
 

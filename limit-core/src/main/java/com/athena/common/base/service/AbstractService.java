@@ -1,5 +1,6 @@
 package com.athena.common.base.service;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -25,7 +26,7 @@ public abstract class AbstractService<MODEL, EXAM> implements Service<MODEL, EXA
 		return dao.deleteByExample(example);
 	}
 
-	public int deleteByPrimaryKey(Long id) {
+	public int deleteByPrimaryKey(BigDecimal id) {
 		return dao.deleteByPrimaryKey(id);
 	}
 
@@ -41,7 +42,7 @@ public abstract class AbstractService<MODEL, EXAM> implements Service<MODEL, EXA
 		return dao.selectByExample(example);
 	}
 
-	public MODEL selectByPrimaryKey(Long id) {
+	public MODEL selectByPrimaryKey(BigDecimal id) {
 		return dao.selectByPrimaryKey(id);
 	}
 

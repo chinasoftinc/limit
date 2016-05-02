@@ -3,15 +3,12 @@ package com.athena.common.view;
 import java.io.IOException;
 import java.util.List;
 import java.util.Map;
-
 import org.apache.commons.lang.StringUtils;
-
-import com.athena.common.context.Dictionary;
+import com.athena.common.context.DictionaryProvider;
 import com.athena.common.exception.ExceptionCode;
 import com.athena.common.utils.ApplicationContextUtils;
 import com.athena.common.utils.AssertUtils;
-import com.athena.module.dictionary.model.OptDic;
-
+import com.athena.module.dictionaries.model.Dictionary;
 import freemarker.core.Environment;
 import freemarker.template.TemplateDirectiveBody;
 import freemarker.template.TemplateDirectiveModel;
@@ -74,7 +71,7 @@ public class RadioTag implements TemplateDirectiveModel {
 			sb.append("class=\"" + clazz + "\" ");
 
 		// 从字典中取optName对应的选项map
-		List<OptDic> dicOptions = ApplicationContextUtils.getBean(Dictionary.class).getOptDic(optName);
+		List<Dictionary> dicOptions = ApplicationContextUtils.getBean(DictionaryProvider.class).getDictionaries(optName);
 		AssertUtils.isNotEmptyColl(dicOptions, ExceptionCode.IllegalParamException, "没有找到[optName:" + optName + "]对应的选项组");
 
 		StringBuffer rs = new StringBuffer();

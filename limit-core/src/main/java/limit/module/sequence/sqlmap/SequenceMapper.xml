@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8" ?>
-<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="limit.module.sequence.mapper.SequenceMapper">
-
-	<select id="next" resultType="java.lang.Long" parameterType="java.lang.String">
-		SELECT ${sequence}.NEXTVAL FROM DUAL
-	</select>
-
-</mapper>

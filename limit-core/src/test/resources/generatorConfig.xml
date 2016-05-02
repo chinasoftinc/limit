@@ -8,27 +8,28 @@
 
 		<plugin type="com.athena.common.utils.PaginationPlugin"></plugin>
 
-		<jdbcConnection driverClass="oracle.jdbc.driver.OracleDriver" connectionURL="jdbc:oracle:thin:@172.18.173.5:1521/orcl" userId="CHANNEL" password="CHANNEL" />
+		<!-- <jdbcConnection driverClass="oracle.jdbc.driver.OracleDriver" connectionURL="jdbc:oracle:thin:@172.18.173.5:1521/orcl" userId="CHANNEL" password="CHANNEL" /> -->
+		<jdbcConnection driverClass="oracle.jdbc.driver.OracleDriver" connectionURL="jdbc:oracle:thin:@niebinxiao:1521/xe" userId="NIEBINXIAO" password="NIEBINXIAO" />
 
 		<javaTypeResolver>
 			<property name="forceBigDecimals" value="false" />
 		</javaTypeResolver>
 
 
-		<javaModelGenerator targetPackage="com.athena.module.test.model" targetProject="limit-core">
+		<javaModelGenerator targetPackage="com.athena.module.dictionaries.model" targetProject="limit-core">
 			<property name="enableSubPackages" value="true" />
 			<property name="trimStrings" value="true" />
 		</javaModelGenerator>
-		
-		<sqlMapGenerator targetPackage="com.athena.module.test.sqlmap" targetProject="limit-core">
+
+		<sqlMapGenerator targetPackage="com.athena.module.dictionaries.sql" targetProject="limit-core">
 			<property name="enableSubPackages" value="true" />
 		</sqlMapGenerator>
-		
-		<javaClientGenerator type="XMLMAPPER" targetPackage="com.athena.module.test.mapper" targetProject="limit-core">
+
+		<javaClientGenerator type="XMLMAPPER" targetPackage="com.athena.module.dictionaries.mapper" targetProject="limit-core">
 			<property name="enableSubPackages" value="true" />
 		</javaClientGenerator>
 
-		<table tableName="OLD_SYS_USER" domainObjectName="Olduser"></table>
+		<table tableName="T_DICTIONARIES" domainObjectName="Dictionary"></table>
 
 	</context>
 </generatorConfiguration>

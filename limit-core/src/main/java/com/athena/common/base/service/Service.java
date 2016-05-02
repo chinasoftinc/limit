@@ -1,5 +1,6 @@
 package com.athena.common.base.service;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 public interface Service<MODEL, EXAM> {
@@ -8,7 +9,7 @@ public interface Service<MODEL, EXAM> {
 
 	int deleteByExample(EXAM exam);
 
-	int deleteByPrimaryKey(Long id);
+	int deleteByPrimaryKey(BigDecimal id);
 
 	int insert(MODEL model);
 
@@ -16,7 +17,7 @@ public interface Service<MODEL, EXAM> {
 
 	List<MODEL> selectByExample(EXAM exam);
 
-	MODEL selectByPrimaryKey(Long id);
+	MODEL selectByPrimaryKey(BigDecimal id);
 
 	int updateByExampleSelective(MODEL model, EXAM exam);
 

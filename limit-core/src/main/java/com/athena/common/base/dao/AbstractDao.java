@@ -1,5 +1,6 @@
 package com.athena.common.base.dao;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -25,7 +26,7 @@ public abstract class AbstractDao<MODEL, EXAM> implements Dao<MODEL, EXAM> {
 		return mapper.deleteByExample(example);
 	}
 
-	public int deleteByPrimaryKey(Long id) {
+	public int deleteByPrimaryKey(BigDecimal id) {
 		return mapper.deleteByPrimaryKey(id);
 	}
 
@@ -41,7 +42,7 @@ public abstract class AbstractDao<MODEL, EXAM> implements Dao<MODEL, EXAM> {
 		return mapper.selectByExample(example);
 	}
 
-	public MODEL selectByPrimaryKey(Long id) {
+	public MODEL selectByPrimaryKey(BigDecimal id) {
 		return mapper.selectByPrimaryKey(id);
 	}
 

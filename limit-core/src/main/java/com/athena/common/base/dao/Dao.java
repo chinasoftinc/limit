@@ -1,5 +1,6 @@
 package com.athena.common.base.dao;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 public interface Dao<MODEL, EXAM> {
@@ -8,7 +9,7 @@ public interface Dao<MODEL, EXAM> {
 
 	int deleteByExample(EXAM example);
 
-	int deleteByPrimaryKey(Long id);
+	int deleteByPrimaryKey(BigDecimal id);
 
 	int insert(MODEL record);
 
@@ -16,7 +17,7 @@ public interface Dao<MODEL, EXAM> {
 
 	List<MODEL> selectByExample(EXAM example);
 
-	MODEL selectByPrimaryKey(Long id);
+	MODEL selectByPrimaryKey(BigDecimal id);
 
 	int updateByExampleSelective(MODEL record, EXAM example);
 

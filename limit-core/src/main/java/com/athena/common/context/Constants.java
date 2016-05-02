@@ -44,7 +44,7 @@ public class Constants {
 	}
 
 	/**
-	 * 描述:　账户状态注解
+	 * 描述: 账户状态注解
 	 * @author NieBinxiao
 	 */
 	public enum LoginStatus implements CommonResult {
@@ -157,6 +157,56 @@ public class Constants {
 			this.description = description;
 		}
 
+	}
+
+	/**
+	 * 通用枚举:移动方向
+	 * @author niebinxiao
+	 */
+	public enum Direction {
+		UP, DOWN;
+	}
+
+	/**
+	 * 字典参数模块常量
+	 * @author niebinxiao
+	 */
+	public static class Dictionary {
+
+		/**
+		 * 一级路径深度
+		 */
+		public static final short TOP_DEEP = 0;
+
+		/**
+		 * 字典类型
+		 * @author niebinxiao
+		 */
+		public enum Type {
+			DICTIONARY("1"), PARAMETER("0");
+
+			public String code;
+
+			private Type(String code) {
+				this.code = code;
+			}
+
+		}
+
+		/**
+		 * 是否是目录
+		 * @author niebinxiao
+		 */
+		public enum IsDir {
+			YES("1"), NO("0");
+
+			public String code;
+
+			private IsDir(String code) {
+				this.code = code;
+			}
+
+		}
 	}
 
 }

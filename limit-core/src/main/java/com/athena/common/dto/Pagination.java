@@ -3,7 +3,6 @@ package com.athena.common.dto;
 import org.apache.wicket.model.Model;
 
 /**
- * 描述: 分页POJO　
  * @author NieBinxiao
  */
 public final class Pagination extends Model<Pagination> {
