@@ -53,7 +53,7 @@
 		<property name="dataSource" ref="dynamicMulitDataSource" />
 		<property name="mapperLocations">
 			<util:list id="mapperLocationsPath">
-				<value>classpath*:com/athena/module/**/sqlmap/*.xml</value>
+				<value>classpath*:com/athena/module/**/sql/*.xml</value>
 			</util:list>
 		</property>
 		<property name="configurationProperties">

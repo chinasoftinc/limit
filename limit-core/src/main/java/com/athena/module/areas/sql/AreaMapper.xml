@@ -203,7 +203,8 @@
 		set ID = #{record.id,jdbcType=DECIMAL},
 		AREAS_NAME = #{record.areasName,jdbcType=VARCHAR},
 		AREAS_HEAD_LETTER = #{record.areasHeadLetter,jdbcType=VARCHAR},
-		AREAS_PARENT_ID = #{record.areasParentId,jdbcType=DECIMAL},
+		AREAS_PARENT_ID =
+		#{record.areasParentId,jdbcType=DECIMAL},
 		AREAS_SORT_NO = #{record.areasSortNo,jdbcType=DECIMAL},
 		AREAS_DEEP = #{record.areasDeep,jdbcType=DECIMAL}
 		<if test="_parameter != null">
@@ -238,7 +239,8 @@
 		set AREAS_NAME = #{areasName,jdbcType=VARCHAR},
 		AREAS_HEAD_LETTER = #{areasHeadLetter,jdbcType=VARCHAR},
 		AREAS_PARENT_ID = #{areasParentId,jdbcType=DECIMAL},
-		AREAS_SORT_NO = #{areasSortNo,jdbcType=DECIMAL},
+		AREAS_SORT_NO =
+		#{areasSortNo,jdbcType=DECIMAL},
 		AREAS_DEEP = #{areasDeep,jdbcType=DECIMAL}
 		where ID = #{id,jdbcType=DECIMAL}
 	</update>
@@ -254,7 +256,9 @@
 	</sql>
 
 	<!-- 删除指定节点和其子节点元素 -->
-	<sql id="removeSubs">
-		delete from T_AREAS start with ID=${id} connect by prior ID = AREAS_PARENT_ID
-	</sql>
+	<delete id="removeSubs" parameterType="java.math.BigDecimal">
+		delete from T_AREAS start with ID=#{id,jdbcType=DECIMAL} connect by prior ID = AREAS_PARENT_ID
+	</delete>
+	
+
 </mapper>

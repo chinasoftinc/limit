@@ -14,7 +14,7 @@ public class SequenceMapperTest extends BaseUsecase {
 
 	@Test
 	public void execute() throws Exception {
-		System.out.println(mapper.next("user_sequence"));
+		System.out.println(mapper.next("T_DICTIONARIES_SEQ"));
 	}
 
 }
