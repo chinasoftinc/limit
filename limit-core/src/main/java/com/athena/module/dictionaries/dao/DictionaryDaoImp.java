@@ -11,12 +11,17 @@ import com.athena.module.dictionaries.model.Dictionary;
 import com.athena.module.dictionaries.model.DictionaryExample;
 
 @Repository
-public class DictionaryDaoImp extends AbstractDao<Dictionary, DictionaryExample> {
+public class DictionaryDaoImp extends AbstractDao<Dictionary, DictionaryExample> implements DictionaryDao {
 
 	@Autowired
 	private DictionaryMapper dictionaryMapper;
-	
-	public void removeSubs(BigDecimal id){
+
+	public void removeSubs(BigDecimal id) {
 		dictionaryMapper.removeSubs(id);
+	}
+
+	@Override
+	public String sequenceName() {
+		return "T_DICTIONARIES_SEQ";
 	}
 }

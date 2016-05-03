@@ -31,7 +31,7 @@ public class Dictionary extends PageModel<Dictionary> {
 	// 是否是目录 (0:否, 1:是)
 	private String optIsDir;
 
-	// 类型 (0:参数, 1:选项字典)
+	// 类型 (0:参数, 1:选项字典, 2:选项组)
 	private String optType;
 
 	// 路径深度( starts 0)

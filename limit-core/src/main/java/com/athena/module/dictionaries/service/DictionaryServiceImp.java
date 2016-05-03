@@ -31,7 +31,6 @@ public class DictionaryServiceImp extends AbstractService<Dictionary, Dictionary
 		example.or().andOptNameEqualTo(name).andOptTypeEqualTo(Constants.DictionaryModel.Type.DICTIONARY.code).andOptIsDirEqualTo(Constants.DictionaryModel.IsDir.NO.code);
 
 		return this.selectByExample(example);
-
 	}
 
 	@Override
@@ -86,12 +85,18 @@ public class DictionaryServiceImp extends AbstractService<Dictionary, Dictionary
 
 		return dics;
 	}
+	
+	@Override
+	public int insert(Dictionary record) {
+		record.setId(dictionaryDao.nextSEQ());
+		return super.insert(record);
+	}
 
 	@Override
 	public void update(Dictionary dic) {
 
-		// 选项字典级联更新子选项名称
-		if (dic.getOptIsDir().equals(Constants.DictionaryModel.IsDir.NO.code) && dic.getOptType().equals(Constants.DictionaryModel.Type.DICTIONARY.code)) {
+		// 更新选项组名称级联更新子选项名称
+		if (dic.getOptType().equals(Constants.DictionaryModel.Type.DICTIONARY_GROUP.code)) {
 			Dictionary source = selectByPrimaryKey(dic.getId());
 
 			if (!source.getOptName().equals(dic.getOptName())) {
@@ -119,8 +124,8 @@ public class DictionaryServiceImp extends AbstractService<Dictionary, Dictionary
 			dictionaryDao.removeSubs(id);
 		}
 
-		// 选项字典删除子选项
-		else if (source.getOptType().equals(Constants.DictionaryModel.Type.DICTIONARY.code)) {
+		// 选项组删除子选项
+		else if (source.getOptType().equals(Constants.DictionaryModel.Type.DICTIONARY_GROUP.code)) {
 
 			DictionaryExample example = new DictionaryExample();
 			example.or().andOptParentIdEqualTo(id);

@@ -21,4 +21,9 @@ public class AreaDaoImp extends AbstractDao<Area, AreaExample> implements AreaDa
 		areaMapper.removeSubs(id);
 	}
 
+	@Override
+	public String sequenceName() {
+		return "T_AREAS_SQL";
+	}
+
 }

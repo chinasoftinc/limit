@@ -7,16 +7,31 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import com.athena.common.base.entity.Model;
 import com.athena.common.base.mapper.Mapper;
+import com.athena.module.sequence.mapper.SequenceMapper;
 
 /**
  * @author niebinxiao
  */
-public abstract class AbstractDao<MODEL, EXAM> implements Dao<MODEL, EXAM> {
+public abstract class AbstractDao<MODEL extends Model<MODEL>, EXAM> implements Dao<MODEL, EXAM> {
 	protected Logger logger = LoggerFactory.getLogger(this.getClass());
-	
+
 	@Autowired
 	private Mapper<MODEL, EXAM> mapper;
+
+	@Autowired
+	private SequenceMapper sequenceMapper;
+
+	/**
+	 * 获取序列名
+	 * @return
+	 */
+	public abstract String sequenceName();
+
+	public BigDecimal nextSEQ() {
+		return sequenceMapper.next(sequenceName());
+	}
 
 	public int countByExample(EXAM example) {
 		return mapper.countByExample(example);

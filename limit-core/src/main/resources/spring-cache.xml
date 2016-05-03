@@ -33,11 +33,14 @@
 	<bean id="redisCacheAdvice" class="com.athena.common.cache.RedisCacheAdvice">
 		<property name="template" ref="redisTemplate" />
 	</bean>
+	
+	<!-- 
 	<aop:config>
 		<aop:pointcut expression="(execution(* *..*.dao.*Dao.*(..)))" id="pointcut_cache" />
 		<aop:aspect ref="redisCacheAdvice" order="2">
 			<aop:around method="around" pointcut-ref="pointcut_cache" />
 		</aop:aspect>
 	</aop:config>
+	 -->
 
 </beans>

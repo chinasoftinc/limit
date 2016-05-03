@@ -183,7 +183,7 @@ public class Constants {
 		 * @author niebinxiao
 		 */
 		public enum Type {
-			DICTIONARY("1"), PARAMETER("0");
+			DICTIONARY_GROUP("2"), DICTIONARY("1"), PARAMETER("0");
 
 			public String code;
 

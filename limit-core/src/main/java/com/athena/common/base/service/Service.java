@@ -5,9 +5,9 @@ import java.util.List;
 
 public interface Service<MODEL, EXAM> {
 
-	int countByExample(EXAM exam);
+	int countByExample(EXAM example);
 
-	int deleteByExample(EXAM exam);
+	int deleteByExample(EXAM example);
 
 	int deleteByPrimaryKey(BigDecimal id);
 
@@ -15,13 +15,13 @@ public interface Service<MODEL, EXAM> {
 
 	int insertSelective(MODEL model);
 
-	List<MODEL> selectByExample(EXAM exam);
+	List<MODEL> selectByExample(EXAM example);
 
 	MODEL selectByPrimaryKey(BigDecimal id);
 
-	int updateByExampleSelective(MODEL model, EXAM exam);
+	int updateByExampleSelective(MODEL model, EXAM example);
 
-	int updateByExample(MODEL model, EXAM exam);
+	int updateByExample(MODEL model, EXAM example);
 
 	int updateByPrimaryKeySelective(MODEL model);
 

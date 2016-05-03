@@ -83,7 +83,7 @@
 					<bean class="com.athena.common.view.RadioTag" />
 				</entry>
 				<!-- 数据字典 -->
-				<entry key="sys_dic" value-ref="dictionary" />
+				<entry key="dictionaryProvider" value-ref="dictionaryProvider" />
 			</map>
 		</property>
 	</bean>

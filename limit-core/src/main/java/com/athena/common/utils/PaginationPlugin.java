@@ -18,7 +18,7 @@ import org.mybatis.generator.api.dom.xml.XmlElement;
 
 public class PaginationPlugin extends PluginAdapter {
 
-	private static final String PAGINATION_PATH = "limit.common.dto.Pagination";
+	private static final String PAGINATION_PATH = "com.athena.common.dto.Pagination";
 
 	@Override
 	public boolean modelExampleClassGenerated(TopLevelClass topLevelClass, IntrospectedTable introspectedTable) {

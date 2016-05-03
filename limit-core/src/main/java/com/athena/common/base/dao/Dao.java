@@ -4,6 +4,8 @@ import java.math.BigDecimal;
 import java.util.List;
 
 public interface Dao<MODEL, EXAM> {
+	
+	BigDecimal nextSEQ();
 
 	int countByExample(EXAM example);
 
