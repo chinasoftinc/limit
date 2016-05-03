@@ -10,7 +10,7 @@ public class Dictionary extends PageModel<Dictionary> {
 
 	private BigDecimal id;
 
-	// 字典或参数名称 This fiel
+	// 字典或参数名称
 	private String optName;
 
 	// 字典散列键

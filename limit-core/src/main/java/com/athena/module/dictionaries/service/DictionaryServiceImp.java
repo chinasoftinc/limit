@@ -28,7 +28,7 @@ public class DictionaryServiceImp extends AbstractService<Dictionary, Dictionary
 	public List<Dictionary> selectDictionaries(String name) {
 
 		DictionaryExample example = new DictionaryExample();
-		example.or().andOptNameEqualTo(name).andOptTypeEqualTo(Constants.Dictionary.Type.DICTIONARY.code).andOptIsDirEqualTo(Constants.Dictionary.IsDir.NO.code);
+		example.or().andOptNameEqualTo(name).andOptTypeEqualTo(Constants.DictionaryModel.Type.DICTIONARY.code).andOptIsDirEqualTo(Constants.DictionaryModel.IsDir.NO.code);
 
 		return this.selectByExample(example);
 
@@ -71,7 +71,7 @@ public class DictionaryServiceImp extends AbstractService<Dictionary, Dictionary
 
 		// 查询一级路径选项字典
 		DictionaryExample example = new DictionaryExample();
-		example.or().andOptDeepEqualTo(Constants.Dictionary.TOP_DEEP).andOptTypeEqualTo(Constants.Dictionary.Type.DICTIONARY.code);
+		example.or().andOptDeepEqualTo(Constants.DictionaryModel.TOP_DEEP).andOptTypeEqualTo(Constants.DictionaryModel.Type.DICTIONARY.code);
 		example.setOrderByClause("OPT_SORT_NO");
 
 		List<Dictionary> dics = this.selectByExample(example);
@@ -91,7 +91,7 @@ public class DictionaryServiceImp extends AbstractService<Dictionary, Dictionary
 	public void update(Dictionary dic) {
 
 		// 选项字典级联更新子选项名称
-		if (dic.getOptIsDir().equals(Constants.Dictionary.IsDir.NO.code) && dic.getOptType().equals(Constants.Dictionary.Type.DICTIONARY.code)) {
+		if (dic.getOptIsDir().equals(Constants.DictionaryModel.IsDir.NO.code) && dic.getOptType().equals(Constants.DictionaryModel.Type.DICTIONARY.code)) {
 			Dictionary source = selectByPrimaryKey(dic.getId());
 
 			if (!source.getOptName().equals(dic.getOptName())) {
@@ -115,12 +115,12 @@ public class DictionaryServiceImp extends AbstractService<Dictionary, Dictionary
 		Dictionary source = this.selectByPrimaryKey(id);
 
 		// 目录删除一切
-		if (source.getOptIsDir().equals(Constants.Dictionary.IsDir.YES.code)) {
+		if (source.getOptIsDir().equals(Constants.DictionaryModel.IsDir.YES.code)) {
 			dictionaryDao.removeSubs(id);
 		}
 
 		// 选项字典删除子选项
-		else if (source.getOptType().equals(Constants.Dictionary.Type.DICTIONARY.code)) {
+		else if (source.getOptType().equals(Constants.DictionaryModel.Type.DICTIONARY.code)) {
 
 			DictionaryExample example = new DictionaryExample();
 			example.or().andOptParentIdEqualTo(id);
@@ -139,7 +139,7 @@ public class DictionaryServiceImp extends AbstractService<Dictionary, Dictionary
 	public String getParameterValue(String key) {
 
 		DictionaryExample example = new DictionaryExample();
-		example.or().andOptTypeEqualTo(Constants.Dictionary.Type.PARAMETER.code).andOptKeyEqualTo(key);
+		example.or().andOptTypeEqualTo(Constants.DictionaryModel.Type.PARAMETER.code).andOptKeyEqualTo(key);
 
 		List<Dictionary> params = this.selectByExample(example);
 
@@ -155,7 +155,7 @@ public class DictionaryServiceImp extends AbstractService<Dictionary, Dictionary
 
 		// 查询一级路径参数
 		DictionaryExample example = new DictionaryExample();
-		example.or().andOptDeepEqualTo(Constants.Dictionary.TOP_DEEP).andOptTypeEqualTo(Constants.Dictionary.Type.PARAMETER.code);
+		example.or().andOptDeepEqualTo(Constants.DictionaryModel.TOP_DEEP).andOptTypeEqualTo(Constants.DictionaryModel.Type.PARAMETER.code);
 		example.setOrderByClause("OPT_SORT_NO");
 
 		List<Dictionary> dics = this.selectByExample(example);

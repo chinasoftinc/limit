@@ -10,7 +10,7 @@ import com.athena.common.context.DictionaryProvider;
 import com.athena.common.exception.ExceptionCode;
 import com.athena.common.utils.ApplicationContextUtils;
 import com.athena.common.utils.AssertUtils;
-import com.athena.module.dictionary.model.OptDic;
+import com.athena.module.dictionaries.model.Dictionary;
 
 import freemarker.core.Environment;
 import freemarker.template.TemplateDirectiveBody;
@@ -19,7 +19,7 @@ import freemarker.template.TemplateException;
 import freemarker.template.TemplateModel;
 
 /**
- * 描述: freemarker单选Tag
+ * 单选
  * @author NieBinxiao
  */
 public class SingleSelectTag implements TemplateDirectiveModel {
@@ -65,19 +65,18 @@ public class SingleSelectTag implements TemplateDirectiveModel {
 			sb.append("data-options=" + data_options);
 		sb.append("><option value=\"\"></option>");
 
-		// 从字典中取optName对应的选项map
-		List<OptDic> dicOptions = ApplicationContextUtils.getBean(DictionaryProvider.class).getDictionaries(optName);
-		AssertUtils.isNotEmptyColl(dicOptions, ExceptionCode.IllegalParamException, "没有找到[optName:" + optName + "]对应的选项组");
+		// 去optName对应的子选项
+		List<Dictionary> dics = ApplicationContextUtils.getBean(DictionaryProvider.class).getDictionaries(optName);
 
-		for (OptDic dic : dicOptions) {
+		for (Dictionary dic : dics) {
 			if (dic.getOptKey().equals(selected)) {
-				sb.append("<option value=\"" + dic.getOptKey() + "\" selected=\"selected\">" + dic.getOptVal() + "</option>");
+				sb.append("<option value=\"" + dic.getOptKey() + "\" selected=\"selected\">" + dic.getOptValue() + "</option>");
 			} else {
-				sb.append("<option value=\"" + dic.getOptKey() + "\">" + dic.getOptVal() + "</option>");
+				sb.append("<option value=\"" + dic.getOptKey() + "\">" + dic.getOptValue() + "</option>");
 			}
 		}
 		sb.append("</select>");
 
-		env.getOut().write(sb.toString());
+		env.getOut().write(new String(sb));
 	}
 }

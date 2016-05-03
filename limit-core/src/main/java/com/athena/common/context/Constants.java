@@ -171,7 +171,7 @@ public class Constants {
 	 * 字典参数模块常量
 	 * @author niebinxiao
 	 */
-	public static class Dictionary {
+	public static class DictionaryModel {
 
 		/**
 		 * 一级路径深度

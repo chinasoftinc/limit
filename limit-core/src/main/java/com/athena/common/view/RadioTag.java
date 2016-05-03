@@ -16,7 +16,7 @@ import freemarker.template.TemplateException;
 import freemarker.template.TemplateModel;
 
 /**
- * 描述:　单选Tag
+ * 单选
  * @author NieBinxiao
  */
 public class RadioTag implements TemplateDirectiveModel {
@@ -70,12 +70,12 @@ public class RadioTag implements TemplateDirectiveModel {
 		if (StringUtils.isNotEmpty(clazz))
 			sb.append("class=\"" + clazz + "\" ");
 
-		// 从字典中取optName对应的选项map
-		List<Dictionary> dicOptions = ApplicationContextUtils.getBean(DictionaryProvider.class).getDictionaries(optName);
-		AssertUtils.isNotEmptyColl(dicOptions, ExceptionCode.IllegalParamException, "没有找到[optName:" + optName + "]对应的选项组");
+		// 取optName对应的子选项
+		List<Dictionary> dics = ApplicationContextUtils.getBean(DictionaryProvider.class).getDictionaries(optName);
 
+		// 拼接单选输入组件
 		StringBuffer rs = new StringBuffer();
-		for (OptDic dic : dicOptions) {
+		for (Dictionary dic : dics) {
 			rs.append("<input type=\"radio\"").append(sb);
 			if (StringUtils.isEmpty(checked) && dic.getOptKey().equals(defaultChecked)) {
 				rs.append("checked=\"checked\" ");
@@ -83,7 +83,7 @@ public class RadioTag implements TemplateDirectiveModel {
 				rs.append("checked=\"checked\" ");
 			}
 			rs.append("value=\"" + dic.getOptKey() + "\" ");
-			rs.append(">" + dic.getOptVal() + "</input>");
+			rs.append(">" + dic.getOptValue() + "</input>");
 		}
 		
 		env.getOut().write(rs.toString());
