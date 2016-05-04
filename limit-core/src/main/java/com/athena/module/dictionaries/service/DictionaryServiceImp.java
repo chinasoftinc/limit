@@ -215,7 +215,7 @@ public class DictionaryServiceImp extends AbstractService<Dictionary, Dictionary
 	}
 
 	@Override
-	public boolean isExistDictionaryGroup(Dictionary group) {
+	public boolean isNotExistDictionaryGroup(Dictionary group) {
 		DictionaryExample example = new DictionaryExample();
 		Criteria or = example.or();
 		if (group.getId() != null) {
@@ -223,7 +223,19 @@ public class DictionaryServiceImp extends AbstractService<Dictionary, Dictionary
 		}
 		or.andOptNameEqualTo(group.getOptName());
 
-		return CollectionUtils.isNotEmpty(this.selectByExample(example));
+		return this.countByExample(example) == 0;
+	}
+
+	@Override
+	public boolean isNotExistDictionaryKey(Dictionary option) {
+		DictionaryExample example = new DictionaryExample();
+		Criteria or = example.or();
+		if (option.getId() != null) {
+			or.andIdNotEqualTo(option.getId()); // 针对修改排除自身
+		}
+		or.andOptKeyEqualTo(option.getOptKey()).andOptParentIdEqualTo(option.getOptParentId());
+
+		return this.countByExample(example) == 0;
 	}
 
 }

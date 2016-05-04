@@ -79,6 +79,17 @@ public class DictionaryController extends AbstractWebController {
 	}
 
 	// 保存选项字典
+	/**
+	 * <pre>
+	 * 保存步骤
+	 * 			1. 获取最大的排序值, 没有就初始为0
+	 * 			2. 注意类型和是否目录
+	 * 			3. 获取ID, 创建序列
+	 * 			
+	 * </pre>	
+	 * @param form
+	 * @return
+	 */
 	@RequestMapping(value = "/saveDictionary", method = RequestMethod.POST)
 	public ModelAndView addOptdic(Dictionary form) {
 		ModelAndView mv = new ModelAndView();
@@ -101,8 +112,15 @@ public class DictionaryController extends AbstractWebController {
 
 	// 检测选项组名称是否存在
 	@RequestMapping(value = "/isExitsOptName", method = RequestMethod.POST)
-	public void existUsername(Dictionary form, HttpServletResponse response) throws Exception {
-		boolean exist = dictionaryService.isExistDictionaryGroup(form);;
-		response.getWriter().write(exist ? "true" : "false");
+	public void isExitsOptName(Dictionary form, HttpServletResponse response) throws Exception {
+		boolean isNotexist = dictionaryService.isNotExistDictionaryGroup(form);
+		response.getWriter().write(String.valueOf(isNotexist));
+	}
+
+	// 检测子选项键是否存在
+	@RequestMapping(value = "/isExitsOptKey", method = RequestMethod.POST)
+	public void isExitsOptKey(Dictionary form, HttpServletResponse response) throws Exception {
+		boolean isNotexist = dictionaryService.isNotExistDictionaryKey(form);
+		response.getWriter().write(String.valueOf(isNotexist));
 	}
 }

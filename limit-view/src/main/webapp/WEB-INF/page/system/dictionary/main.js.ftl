@@ -88,6 +88,12 @@
 		 $.createSimpleWindowAutoScroll("editDictionary","添加选项组", 680, 290, "${ctx}/system/dictionary/addDictionaryView?optIsDir=0&optType=2&optParentId=" + radio.attr("id"));
 	}
 	
+	<#-- 添加子选项 -->
+	function addDictionary(){
+		 var radio = $("input[type='radio'][name='dictionarySelected']:checked");
+		 $.createSimpleWindowAutoScroll("editDictionary","添加子选项", 680, 330, "${ctx}/system/dictionary/addDictionaryView?optIsDir=0&optType=1&optParentId=" + radio.attr("id"));
+	}
+	
 	<#-- 删除选项字典-->
 	function removeDictionary(){
 		 var radio = $("input[type='radio'][name='dictionarySelected']:checked");

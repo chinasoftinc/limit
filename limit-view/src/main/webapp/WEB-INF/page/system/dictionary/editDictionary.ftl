@@ -10,13 +10,13 @@
 				<tr>
 					<#if dictionary.optIsDir == '1'>
 					<td style="width:12%;text-align:right">上级目录</td>
-					<td><input type="text" readOnly value="${parent.optDescription}" /></td>
-					<#elseif dictionary.optType == "2">
+					<td><input readOnly value="${parent.optDescription}" /></td>
+					<#elseif dictionary.optType == '2'>
 					<td style="width:12%;text-align:right">当前目录</td>
-					<td><input type="text" readOnly value="${parent.optDescription}" /></td>
-					<#elseif dictionary.optType == "3">
+					<td><input readOnly value="${parent.optDescription}" /></td>
+					<#elseif dictionary.optType == '1'>
 					<td style="width:12%;text-align:right">所属选项组</td>
-					<td><input type="text" readOnly value="${parent.optName}" /></td>
+					<td><input readOnly value="${parent.optName}" /></td>
 					</#if>
 					<td style="width:12%">&nbsp;</td>
 				</tr>

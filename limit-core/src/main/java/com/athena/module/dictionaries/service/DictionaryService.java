@@ -64,10 +64,17 @@ public interface DictionaryService extends Service<Dictionary, DictionaryExample
 	void updatePos(BigDecimal id, Direction direction);
 
 	/**
-	 * 检测是否存在相同的选项组
-	 * @param dictioanry
+	 * 检测选项组名称是否可用
+	 * @param group
 	 * @return
 	 */
-	boolean isExistDictionaryGroup(Dictionary group);
+	boolean isNotExistDictionaryGroup(Dictionary group);
+
+	/**
+	 * 检测选项键是否可用
+	 * @param option
+	 * @return
+	 */
+	boolean isNotExistDictionaryKey(Dictionary option);
 
 }
