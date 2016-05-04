@@ -34,7 +34,7 @@ $.createSimpleWindowAutoScroll = function(winId, title, width, height, href) {
 	if (root.$("#" + winId).length == 0) {
 		root.$("#topWindow").append("<div id='" + winId + "'></div>");
 	}
-	href = href.indexOf("?") != -1 ? href + "&parentWinId=" + parentWinId : href + "?parentWinId=" + parentWinId;
+	href = href.indexOf("?") != -1 ? href + "&parentWinId=" + parentWinId + "&winId=" + winId : href + "?parentWinId=" + parentWinId + "&winId=" + winId;
 
 	root.$("#" + winId).window({
 		title : title,
@@ -47,7 +47,7 @@ $.createSimpleWindowAutoScroll = function(winId, title, width, height, href) {
 		resizable: false,
 		content : "<iframe id='" + winId + "_iframe' frameborder=0 scrolling='auto' name='" + winId + "_iframe' id='" + winId + "_iframe' style='width:100%;height:100%;' src='" + href + "'></iframe>",
 		onClose : function(){
-			$(this).html(""); // 关闭后将页面置为空, TODO 待测试是否隐含问题
+			$(this).html("");
 		}
 	});
 	root.$("#" + winId).window('open');

@@ -53,6 +53,7 @@ public class DictionaryServiceImp extends AbstractService<Dictionary, Dictionary
 
 		DictionaryExample example = new DictionaryExample();
 		example.or().andOptParentIdEqualTo(parent.getId());
+		example.setOrderByClause("OPT_SORT_NO");
 
 		List<Dictionary> dics = this.selectByExample(example);
 
@@ -85,7 +86,7 @@ public class DictionaryServiceImp extends AbstractService<Dictionary, Dictionary
 
 		return dics;
 	}
-	
+
 	@Override
 	public int insert(Dictionary record) {
 		record.setId(dictionaryDao.nextSEQ());
@@ -211,6 +212,18 @@ public class DictionaryServiceImp extends AbstractService<Dictionary, Dictionary
 			this.updateByPrimaryKeySelective(current);
 		}
 
+	}
+
+	@Override
+	public boolean isExistDictionaryGroup(Dictionary group) {
+		DictionaryExample example = new DictionaryExample();
+		Criteria or = example.or();
+		if (group.getId() != null) {
+			or.andIdNotEqualTo(group.getId()); // 针对修改排除自身
+		}
+		or.andOptNameEqualTo(group.getOptName());
+
+		return CollectionUtils.isNotEmpty(this.selectByExample(example));
 	}
 
 }

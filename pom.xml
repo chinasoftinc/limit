@@ -384,7 +384,7 @@
 		<profile>
 			<id>home</id>
 			<activation>
-				<activeByDefault>true</activeByDefault>
+				<activeByDefault>false</activeByDefault>
 			</activation>
 			<properties>
 				<datasource.driverClassName>oracle.jdbc.driver.OracleDriver</datasource.driverClassName>
@@ -413,6 +413,9 @@
 
 		<profile>
 			<id>company</id>
+			<activation>
+				<activeByDefault>true</activeByDefault>
+			</activation>
 			<properties>
 				<datasource.driverClassName>oracle.jdbc.driver.OracleDriver</datasource.driverClassName>
 				<datasource.jdbcUrl>jdbc:oracle:thin:@172.18.173.5:1521/orcl</datasource.jdbcUrl>

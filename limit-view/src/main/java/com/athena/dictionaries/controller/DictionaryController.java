@@ -6,6 +6,7 @@ import java.util.List;
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.collections.CollectionUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -49,14 +50,15 @@ public class DictionaryController extends AbstractWebController {
 	public ModelAndView addDictionaryView(Dictionary form) {
 		ModelAndView mv = new ModelAndView("/system/dictionary/editDictionary");
 
-		// 带回上级
 		DictionaryExample example = new DictionaryExample();
-		example.or().andOptParentIdEqualTo(form.getId());
-		mv.addObject("parent", dictionaryService.selectByExample(example));
-		
-		// 添加类型, 目录/字典
-		mv.addObject("addType", form.getOptType());
-		
+		example.or().andIdEqualTo(form.getOptParentId());
+		List<Dictionary> dics = dictionaryService.selectByExample(example);
+
+		// 父类信息
+		Dictionary parent = CollectionUtils.isNotEmpty(dics) ? dics.get(0) : new Dictionary();
+		mv.addObject("parent", parent);
+		mv.addObject("dictionary", form);
+
 		setAddOperation(mv);
 		setParentWinId(mv, form);
 		return mv;
@@ -97,4 +99,10 @@ public class DictionaryController extends AbstractWebController {
 		return mv;
 	}
 
+	// 检测选项组名称是否存在
+	@RequestMapping(value = "/isExitsOptName", method = RequestMethod.POST)
+	public void existUsername(Dictionary form, HttpServletResponse response) throws Exception {
+		boolean exist = dictionaryService.isExistDictionaryGroup(form);;
+		response.getWriter().write(exist ? "true" : "false");
+	}
 }

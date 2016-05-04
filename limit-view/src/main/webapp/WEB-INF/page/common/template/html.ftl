@@ -25,7 +25,7 @@
 		<script type="text/javascript" src="${ctx}/resource/js/system/core.js"></script>
 		<script type="text/javascript" src="${ctx}/resource/js/system/validator.js"></script>
 		<script type="text/javascript" src="${ctx}/resource/plugin/cookie/jquery.cookie.js"></script>
-		<link id="theme" type="text/css" rel="stylesheet" href="${ctx}/resource/plugin/easyui/themes/metro/easyui.css">
+		<link id="theme" type="text/css" rel="stylesheet" href="${ctx}/resource/plugin/easyui/themes/black/easyui.css">
 		<link type="text/css" rel="stylesheet" href="${ctx}/resource/plugin/easyui/themes/icon.css">
 		<link type="text/css" rel="stylesheet" href="${ctx}/resource/css/system/core.css">
 		<link type="text/css" rel="stylesheet" href="${ctx}/resource/css/form/form.css">
