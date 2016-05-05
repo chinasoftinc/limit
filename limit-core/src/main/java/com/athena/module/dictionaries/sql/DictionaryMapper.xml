@@ -319,14 +319,4 @@
       <![CDATA[ ) row_ ) where rownum_ > #{pagination.begin} and rownum_ <= #{pagination.end} ]]>
 		</if>
 	</sql>
-	<!-- 删除指定节点和其子节点元素 -->
-	<delete id="removeSubs" parameterType="java.math.BigDecimal">
-		delete from T_DICTIONARIES start with ID=#{id,jdbcType=DECIMAL} connect by prior ID = OPT_PARENT_ID
-	</delete>
-
-	<!-- 获取指定节点的子节点最大排序 -->
-	<select id="selectMaxSortNo" parameterType="java.math.BigDecimal" resultType="java.lang.Short">
-		select max(OPT_SORT_NO) from T_DICTIONARIES where OPT_PARENT_ID = #{id,jdbcType=DECIMAL}
-	</select>
-
 </mapper>

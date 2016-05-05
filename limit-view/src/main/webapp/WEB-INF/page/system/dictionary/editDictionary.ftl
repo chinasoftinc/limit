@@ -57,7 +57,7 @@
 				<tr>
 					<td style="width:12%;text-align:right">说明</td>
 					<td colspan="3">
-						<input name="optDescription" class="easyui-validatebox" maxLength="250" data-options=required:true,missingMessage:"说明不能为空" >${dictionary.optDescription}</textarea>
+						<input name="optDescription" value="${dictionary.optDescription}" class="easyui-validatebox" maxLength="250" data-options=required:true,missingMessage:"说明不能为空" />
 					</td>
 				</tr>
 				</#if>
@@ -69,10 +69,14 @@
 						<input type="hidden" name="optType" value="${dictionary.optType}" />
 						<input type="hidden" name="optIsDir" value="${dictionary.optIsDir}" />
 						<input type="hidden" name="optDeep" value="${dictionary.optDeep}" />
+						<#if dictionary.optType == '1' && dictionary.optIsDir == '0'>
+						<input type="hidden" name="optName" value="${parent.optName}"/>
+						</#if>
 						
 						<input type="hidden" name="operation" value="${operation}"/>
 						<input type="hidden" name="parentWinId" value="${parentWinId}"/>
-						<input type="hidden" name="winId" value="${dictionary.winId}"/>
+						<input type="hidden" name="winId" value="${winId}"/>
+						
 						
 						<#if operation=='add'>
 							<a href="#" class="easyui-linkbutton" onclick="$(this).closest('form').submit();" iconCls="icon-save">添加</a>&nbsp;

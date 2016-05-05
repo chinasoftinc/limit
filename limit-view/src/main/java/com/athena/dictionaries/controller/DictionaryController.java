@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.athena.common.base.controller.AbstractWebController;
+import com.athena.common.dto.ResponseResult;
 import com.athena.module.dictionaries.model.Dictionary;
 import com.athena.module.dictionaries.model.DictionaryExample;
 import com.athena.module.dictionaries.service.DictionaryService;
@@ -99,6 +100,19 @@ public class DictionaryController extends AbstractWebController {
 
 		setWindowsId(mv, form);
 		return mv;
+	}
+
+	// 删除选项字典 [ajax]
+	@RequestMapping(value = "/removeDictionary", method = RequestMethod.POST)
+	@ResponseBody
+	public Object removeDictionary(Dictionary form, HttpServletResponse response) {
+		try {
+			dictionaryService.remove(form.getId()); // 删除选项字典及子选项
+			return new ResponseResult(true, "操作成功");
+		} catch (Exception e) {
+			logger.error(e.getCause().getMessage());
+			return new ResponseResult(false, "操作失败");
+		}
 	}
 
 	// 检测选项组名称是否存在

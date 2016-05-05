@@ -15,7 +15,7 @@
 	    columns:[[
 	    	{field:'optDescription',title:'选项说明',width:200,
 	    			formatter:function(value, rowData, rowIndex){
-						var column = '<input type="radio" id="' + rowData.id + '" name="dictionarySelected" isDir="' + rowData.optIsDir + '" dictionaryType="' + rowData.optType + '" />'; 
+						var column = '<input type="radio" id="' + rowData.id + '" name="dictionarySelected" isDir="' + rowData.optIsDir + '" optType="' + rowData.optType + '" optDeep="' + rowData.optDeep + '" optDescription="' + rowData.optDescription +'" optKey="' + rowData.optKey + '" />'; 
 						if(rowData.optIsDir == '1'){
 							column += rowData.optDescription;
 						}else if(rowData.optType == '2'){
@@ -106,11 +106,11 @@
 	<#-- 编辑选项字典 -->
 	function editDictionary(){
 		var radio = $("input[type='radio'][name='dictionarySelected']:checked");
-		if(radio.optDeep == 0){
+		if(radio.attr('optDeep') == 0){
 			$.createSimpleWindowAutoScroll("editDictionary","编辑主目录", 680, 180, "${ctx}/system/dictionary/editDictionaryView?id=" + radio.attr("id"));
-		}else if(radio.isDir == '1'){
+		}else if(radio.attr('isDir') == '1'){
 			$.createSimpleWindowAutoScroll("editDictionary","编辑目录", 680, 230, "${ctx}/system/dictionary/editDictionaryView?id=" + radio.attr("id"));
-		}else if(radio.optType == '2'){
+		}else if(radio.attr('optType') == '2'){
 			$.createSimpleWindowAutoScroll("editDictionary","编辑选项组", 680, 290, "${ctx}/system/dictionary/editDictionaryView?id=" + radio.attr("id"));
 		}else{
 			$.createSimpleWindowAutoScroll("editDictionary","编辑子选项", 680, 330, "${ctx}/system/dictionary/editDictionaryView?id=" + radio.attr("id"));
@@ -120,29 +120,33 @@
 	<#-- 删除选项字典-->
 	function removeDictionary(){
 		 var radio = $("input[type='radio'][name='dictionarySelected']:checked");
-		 if(radio.length != 0){
-			 top.$.messager.confirm("提示","子选项将同时被删除, 引用该选项字典的页面将会崩溃, 是否确认删除?", function(confirm){
-				 var param = {id : radio.attr("id")};
-				 if(confirm){
-					 <#-- 确认删除 -->
-					 $.defaultAjaxOperation("${ctx}/system/attribute/removeOptdic", param, true, true, 
-						 {
-							 success: function (result){
-								 if(result.success == 'true'){
-								 	 $.timeOutMsgTip("提示", result.message);
-								 }else{
-									 $.errorTip("警告", "删除操作失败, 请联系系统管理人员");
-								 }
-								 <#-- 刷新窗口数据 -->
-								 $.reloadData(window.name);
-							 }
-						 }
-					 );
-					
-				 }
-			 })
-		 }else{
-			 $.msgTip('提示','单击选中一行进行删除');
+		 var tipMsg = "确认删除键为 " + radio.attr("optKey") + " 的子选项吗?";
+		 if(radio.attr('isDir') == '1'){
+		 	tipMsg = "删除该目录将会删除 " + radio.attr('optDescription') + " 目录下的所有数据, 是否确认?";
+		 }else if(radio.attr('optType') == '2'){
+		 	tipMsg = "删除该选项组将会删除 " + radio.attr('optDescription') + " 下的所有子选项, 是否确认?";
 		 }
+		 
+		 top.$.messager.confirm("警告",tipMsg, function(confirm){
+			 var param = {id : radio.attr("id")};
+			 if(confirm){
+ 				$.defaultAjaxOperation("${ctx}/system/dictionary/removeDictionary", 
+					param, 
+				 	true, 
+				 	true, 
+					{
+ 						success: function (result){
+							 if(result.success){
+							 	 $.timeOutMsgTip("提示", result.message);
+							 }else{
+								 $.errorTip("警告", "删除操作失败");
+							 }
+							 $.reloadData(window.name);
+						}
+					}
+ 				);
+				
+			 }
+		 })
 	}
 </script>

@@ -120,27 +120,7 @@ public class DictionaryServiceImp extends AbstractService<Dictionary, Dictionary
 
 	@Override
 	public void remove(BigDecimal id) {
-		Dictionary source = this.selectByPrimaryKey(id);
-
-		// 目录删除一切
-		if (source.getOptIsDir().equals(Constants.DictionaryModel.IsDir.YES.code)) {
-			dictionaryDao.removeSubs(id);
-		}
-
-		// 选项组删除子选项
-		else if (source.getOptType().equals(Constants.DictionaryModel.Type.DICTIONARY_GROUP.code)) {
-
-			DictionaryExample example = new DictionaryExample();
-			example.or().andOptParentIdEqualTo(id);
-
-			List<Dictionary> subs = this.selectByExample(example);
-
-			for (Dictionary sub : subs) {
-				this.deleteByPrimaryKey(sub.getId());
-			}
-		}
-
-		this.deleteByPrimaryKey(id);
+		dictionaryDao.removeSubs(id);
 	}
 
 	@Override
