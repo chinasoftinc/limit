@@ -1,24 +1,15 @@
 <@PAGE.HTML title="数据字典" >
-<body style="margin: 5px">
-	<div id="topWindow"></div>
-	<div style="width: 100%;height:100%;">
-	
-		<#-- 选项字典列表 -->
-		<div style="height:100%;width:100%">
-			<div  class="easyui-panel" title="数据字典">
-				<div style="height:90%;width:100%">
-					<table id="dictionaryDataGrid"></table>
-					
-					<#-- 选项字典toolBar -->
-					<div id="optdicToolBar">
-						<a href="#" onclick="addRootDirectory()" class="easyui-linkbutton" data-options="iconCls:'icon-add',plain:true">添加根目录</a>|
-						<a href="#" onclick="$('#dictionaryDataGrid').treegrid('collapseAll');" class="easyui-linkbutton" data-options="iconCls:'icon-remove',plain:true">全部折叠</a>
-						<a href="#" onclick="$('#dictionaryDataGrid').treegrid('expandAll');" class="easyui-linkbutton" data-options="iconCls:'icon-remove',plain:true">全部展开</a>
-					</div>
-				</div>
-		    </div>
+<body style="margin:5px;border:1px #fff solid;background:#666">
+	<#-- 选项字典列表 -->
+	<div class="easyui-panel" title="数据字典" data-options="fit:true,border:false">
+		<table id="dictionaryDataGrid"></table>
+		<#-- 选项字典toolBar -->
+		<div id="optdicToolBar">
+			<a href="#" onclick="addRootDirectory()" class="easyui-linkbutton" data-options="iconCls:'icon-add',plain:true">添加根目录</a>|
+			<a href="#" onclick="$('#dictionaryDataGrid').treegrid('collapseAll');" class="easyui-linkbutton" data-options="iconCls:'icon-remove',plain:true">全部折叠</a>
+			<a href="#" onclick="$('#dictionaryDataGrid').treegrid('expandAll');" class="easyui-linkbutton" data-options="iconCls:'icon-remove',plain:true">全部展开</a>
 		</div>
-	</div>
+    </div>
 	
 	<#-- 右键菜单1 -->
 	<div id="rightMouseMenuForDirectory" class="easyui-menu" style="display:none">

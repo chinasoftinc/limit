@@ -90,7 +90,9 @@ public class DictionaryServiceImp extends AbstractService<Dictionary, Dictionary
 	@Override
 	public int insert(Dictionary record) {
 		record.setId(dictionaryDao.nextSEQ());
-		return super.insert(record);
+		Short no = dictionaryDao.selectMaxSortNo(record.getOptParentId());
+		record.setOptSortNo((short) (no + 1));
+		return super.insertSelective(record);
 	}
 
 	@Override

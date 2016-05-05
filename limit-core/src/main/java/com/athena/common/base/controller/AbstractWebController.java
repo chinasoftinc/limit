@@ -68,21 +68,13 @@ public abstract class AbstractWebController {
 	}
 
 	/**
-	 * 设置当前窗口id
+	 * 设置ifream窗口id
 	 * @param mv
 	 * @param form
 	 */
-	public void setCurrentWinId(ModelAndView mv, PageModel<?> form) {
-		mv.addObject("winId", form.getWinId());
-	}
-
-	/**
-	 * 设置父窗口id
-	 * @param mv
-	 * @param form
-	 */
-	public void setParentWinId(ModelAndView mv, PageModel<?> form) {
+	public void setWindowsId(ModelAndView mv, PageModel<?> form) {
 		mv.addObject("parentWinId", form.getParentWinId());
+		mv.addObject("winId", form.getWinId());
 	}
 
 	/**

@@ -5,10 +5,13 @@
 		<title>${title}</title>
 		<meta http-equiv="content-type" content="text/html; charset=UTF-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1" />
+		
+		<#--
 		<meta http-equiv="pragma" content="no-cache">
 		<meta http-equiv="cache-control" content="no-cache">
 		<meta http-equiv="cache-control" content="no-store">
 		<meta http-equiv="expires" content="0">
+		-->
 		
 		<#list meta as item>
 			<meta http-equiv="${item?trim?split("@")[0]}" content="${item?trim?split("@")[1]}" />

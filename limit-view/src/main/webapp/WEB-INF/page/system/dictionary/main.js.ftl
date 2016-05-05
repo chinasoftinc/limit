@@ -1,20 +1,29 @@
 <script>
 	<#-- 选项字典dataGrid -->
 	$('#dictionaryDataGrid').treegrid({
-		fit:true,
 		loadMsg:'请稍后',
 		toolbar: '#optdicToolBar',
+		border:false,
 		striped:true,
 	    url:'${ctx}/system/dictionary/dictionaryJson',
 	    idField:'id',
 	    treeField:'optDescription',
 	    animate:true,
     	rownumbers:true,
+		fit:true,
     	fitColumns:true,
 	    columns:[[
 	    	{field:'optDescription',title:'选项说明',width:200,
 	    			formatter:function(value, rowData, rowIndex){
-						return '<input type="radio" id="' + rowData.id + '" name="dictionarySelected" isDir="' + rowData.optIsDir + '" dictionaryType="' + rowData.optType + '" />' + rowData.optDescription;	        			
+						var column = '<input type="radio" id="' + rowData.id + '" name="dictionarySelected" isDir="' + rowData.optIsDir + '" dictionaryType="' + rowData.optType + '" />'; 
+						if(rowData.optIsDir == '1'){
+							column += rowData.optDescription;
+						}else if(rowData.optType == '2'){
+							column += '<span style="color:blue">' + rowData.optDescription + '</span>';	        			
+						}else{
+							column += '<span style="color:orange">' + rowData.optDescription + '</span>';
+						}
+						return column;
 				 	}
 	    	},
 	        {field:'optName',title:'名称',width:200,},
@@ -73,13 +82,13 @@
 	
 	<#-- 添加主目录 -->
 	function addRootDirectory(){
-		 $.createSimpleWindowAutoScroll("editDictionary","添加主目录", 680, 180, "${ctx}/system/dictionary/addDictionaryView?optIsDir=1&optParentId=0");
+		 $.createSimpleWindowAutoScroll("editDictionary","添加主目录", 680, 180, "${ctx}/system/dictionary/addDictionaryView?optType=1&optIsDir=1&optParentId=0");
 	}
 	
 	<#-- 添加子目录 -->
 	function addSubDictionary(){
 		var radio = $("input[type='radio'][name='dictionarySelected']:checked");
-		 $.createSimpleWindowAutoScroll("editDictionary","添加目录", 680, 230, "${ctx}/system/dictionary/addDictionaryView?optIsDir=1&optParentId=" + radio.attr("id"));
+		 $.createSimpleWindowAutoScroll("editDictionary","添加目录", 680, 230, "${ctx}/system/dictionary/addDictionaryView?optType=1&optIsDir=1&optParentId=" + radio.attr("id"));
 	}
 	
 	<#-- 添加选项组 -->
@@ -92,6 +101,20 @@
 	function addDictionary(){
 		 var radio = $("input[type='radio'][name='dictionarySelected']:checked");
 		 $.createSimpleWindowAutoScroll("editDictionary","添加子选项", 680, 330, "${ctx}/system/dictionary/addDictionaryView?optIsDir=0&optType=1&optParentId=" + radio.attr("id"));
+	}
+	
+	<#-- 编辑选项字典 -->
+	function editDictionary(){
+		var radio = $("input[type='radio'][name='dictionarySelected']:checked");
+		if(radio.optDeep == 0){
+			$.createSimpleWindowAutoScroll("editDictionary","编辑主目录", 680, 180, "${ctx}/system/dictionary/editDictionaryView?id=" + radio.attr("id"));
+		}else if(radio.isDir == '1'){
+			$.createSimpleWindowAutoScroll("editDictionary","编辑目录", 680, 230, "${ctx}/system/dictionary/editDictionaryView?id=" + radio.attr("id"));
+		}else if(radio.optType == '2'){
+			$.createSimpleWindowAutoScroll("editDictionary","编辑选项组", 680, 290, "${ctx}/system/dictionary/editDictionaryView?id=" + radio.attr("id"));
+		}else{
+			$.createSimpleWindowAutoScroll("editDictionary","编辑子选项", 680, 330, "${ctx}/system/dictionary/editDictionaryView?id=" + radio.attr("id"));
+		}
 	}
 	
 	<#-- 删除选项字典-->

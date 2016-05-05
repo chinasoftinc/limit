@@ -24,4 +24,10 @@ public class DictionaryDaoImp extends AbstractDao<Dictionary, DictionaryExample>
 	public String sequenceName() {
 		return "T_DICTIONARIES_SEQ";
 	}
+
+	@Override
+	public Short selectMaxSortNo(BigDecimal id) {
+		Short no = dictionaryMapper.selectMaxSortNo(id);
+		return no == null ? 0 : no;
+	}
 }

@@ -68,6 +68,7 @@
 						<input type="hidden" name="optParentId" value="${parent.id}" />
 						<input type="hidden" name="optType" value="${dictionary.optType}" />
 						<input type="hidden" name="optIsDir" value="${dictionary.optIsDir}" />
+						<input type="hidden" name="optDeep" value="${dictionary.optDeep}" />
 						
 						<input type="hidden" name="operation" value="${operation}"/>
 						<input type="hidden" name="parentWinId" value="${parentWinId}"/>
@@ -79,7 +80,7 @@
 					    	<input type="hidden" name="id" value="${dictionary.id}"/>
 							<a href="#" class="easyui-linkbutton" onclick="$(this).closest('form').submit();" iconCls="icon-save">更新</a>&nbsp;
 						</#if>
-						<a href="#" class="easyui-linkbutton" iconCls="icon-cancel" onclick="$.closeWindow('${dictionary.winId}')">关闭</a>
+						<a href="#" class="easyui-linkbutton" iconCls="icon-cancel" onclick="$.closeWindow('${winId}')">关闭</a>
 					</td>
 				</tr>
 			</table>

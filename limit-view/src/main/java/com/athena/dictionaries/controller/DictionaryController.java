@@ -54,13 +54,14 @@ public class DictionaryController extends AbstractWebController {
 		example.or().andIdEqualTo(form.getOptParentId());
 		List<Dictionary> dics = dictionaryService.selectByExample(example);
 
-		// 父类信息
+		// 上级信息及插入信息
 		Dictionary parent = CollectionUtils.isNotEmpty(dics) ? dics.get(0) : new Dictionary();
+		form.setOptDeep(parent.getOptDeep() == null ? 0 : (short) (parent.getOptDeep() + 1));
 		mv.addObject("parent", parent);
 		mv.addObject("dictionary", form);
 
 		setAddOperation(mv);
-		setParentWinId(mv, form);
+		setWindowsId(mv, form);
 		return mv;
 	}
 
@@ -69,27 +70,18 @@ public class DictionaryController extends AbstractWebController {
 	public ModelAndView editDictionaryView(Dictionary form) {
 		ModelAndView mv = new ModelAndView("/system/dictionary/editDictionary");
 
-		// 编辑的选项字典
-		form = dictionaryService.selectByPrimaryKey(form.getId());
-		mv.addObject("dictionary", form);
+		// 编辑的选项字典和上级信息
+		Dictionary dictionary = dictionaryService.selectByPrimaryKey(form.getId());
+		Dictionary parent = dictionaryService.selectByPrimaryKey(dictionary.getOptParentId());
+		mv.addObject("dictionary", dictionary);
+		mv.addObject("parent", parent);
 
 		setEditOperation(mv);
-		setParentWinId(mv, form);
+		setWindowsId(mv, form);
 		return mv;
 	}
 
 	// 保存选项字典
-	/**
-	 * <pre>
-	 * 保存步骤
-	 * 			1. 获取最大的排序值, 没有就初始为0
-	 * 			2. 注意类型和是否目录
-	 * 			3. 获取ID, 创建序列
-	 * 			
-	 * </pre>	
-	 * @param form
-	 * @return
-	 */
 	@RequestMapping(value = "/saveDictionary", method = RequestMethod.POST)
 	public ModelAndView addOptdic(Dictionary form) {
 		ModelAndView mv = new ModelAndView();
@@ -105,8 +97,7 @@ public class DictionaryController extends AbstractWebController {
 			dictionaryService.update(form);
 		}
 
-		setParentWinId(mv, form);
-		setCurrentWinId(mv, form);
+		setWindowsId(mv, form);
 		return mv;
 	}
 
