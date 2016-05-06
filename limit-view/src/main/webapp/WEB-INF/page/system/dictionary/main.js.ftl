@@ -26,11 +26,7 @@
 						return column;
 				 	}
 	    	},
-	        {field:'optName',title:'名称',width:200,},
-	        {field:'optKey',title:'键',width:200,},
-	        {field:'optValue',title:'值',width:200},
-	        {field:'optSortNo',title:'排序',width:50},
-	        {field:'optType',title:'类型',width:50,
+	    	{field:'optType',title:'类型',width:50,
 	        		formatter:function(value,rowData,rowIndex){
 						var type = "";
 						if(rowData.optIsDir == "1"){
@@ -42,7 +38,10 @@
 						}
 						return type;
 				 	}
-	        }
+	        },
+	        {field:'optName',title:'选项标识名称',width:200,},
+	        {field:'optKey',title:'键',width:100,},
+	        {field:'optValue',title:'值',width:200}
 	    ]],
 	    <#-- 单选 -->
 	    onClickRow:function(row){ 
