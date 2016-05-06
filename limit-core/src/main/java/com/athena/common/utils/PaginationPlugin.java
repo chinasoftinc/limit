@@ -43,7 +43,7 @@ public class PaginationPlugin extends PluginAdapter {
 		paginationSuffixElement.addAttribute(new Attribute("id", "OracleDialectSuffix"));
 		XmlElement pageEnd = new XmlElement("if");
 		pageEnd.addAttribute(new Attribute("test", "pagination != null"));
-		pageEnd.addElement(new TextElement("<![CDATA[ ) row_ ) where rownum_ > #{pagination.begin} and rownum_ <= #{pagination.end} ]]>"));
+		pageEnd.addElement(new TextElement("<![CDATA[ ) row_ ) where rownum_ > #{pagination.beginIndex} and rownum_ <= #{pagination.endIndex} ]]>"));
 		paginationSuffixElement.addElement(pageEnd);
 		parentElement.addElement(paginationSuffixElement);
 

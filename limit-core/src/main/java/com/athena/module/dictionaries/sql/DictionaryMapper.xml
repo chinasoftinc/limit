@@ -316,7 +316,7 @@
 	</sql>
 	<sql id="OracleDialectSuffix">
 		<if test="pagination != null">
-      <![CDATA[ ) row_ ) where rownum_ > #{pagination.begin} and rownum_ <= #{pagination.end} ]]>
+      <![CDATA[ ) row_ ) where rownum_ > #{pagination.beginIndex} and rownum_ <= #{pagination.endIndex} ]]>
 		</if>
 	</sql>
 </mapper>

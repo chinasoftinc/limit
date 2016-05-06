@@ -17,8 +17,8 @@
 		<div onclick="addDictionaryGroup()" data-options="iconCls:'icon-add'">添加选项组</div>
 		<div onclick="editDictionary()" data-options="iconCls:'icon-edit'">编辑</div>
 		<div onclick="removeDictionary()" data-options="iconCls:'icon-no'">删除</div>
-		<div onclick="upDictionary()">上移</div>
-		<div onclick="downDictionary()">下移</div>
+		<div onclick="move('UP')">上移</div>
+		<div onclick="move('DOWN')">下移</div>
 	</div>
 	
 	<#-- 右键菜单2 -->
@@ -26,15 +26,15 @@
 		<div onclick="addDictionary()" data-options="iconCls:'icon-add'">添加子选项</div>
 		<div onclick="editDictionary()" data-options="iconCls:'icon-edit'">编辑</div>
 		<div onclick="removeDictionary()" data-options="iconCls:'icon-no'">删除</div>
-		<div onclick="upDictionary()">上移</div>
-		<div onclick="downDictionary()">下移</div>
+		<div onclick="move('UP')">上移</div>
+		<div onclick="move('DOWN')">下移</div>
 	</div>
 	<#-- 右键菜单3 -->
 	<div id="rightMouseMenuForDictionary" class="easyui-menu" style="display:none">
 		<div onclick="editDictionary()" data-options="iconCls:'icon-edit'">编辑</div>
 		<div onclick="removeDictionary()" data-options="iconCls:'icon-no'">删除</div>
-		<div onclick="upDictionary()">上移</div>
-		<div onclick="downDictionary()">下移</div>
+		<div onclick="move('UP')">上移</div>
+		<div onclick="move('DOWN')">下移</div>
 	</div>
 	
 	<#include "/system/dictionary/main.js.ftl"/>

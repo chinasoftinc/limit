@@ -27,8 +27,8 @@
 				 	}
 	    	},
 	        {field:'optName',title:'名称',width:200,},
-	        {field:'optKey',title:'键',width:50,},
-	        {field:'optValue',title:'值',width:200},    
+	        {field:'optKey',title:'键',width:200,},
+	        {field:'optValue',title:'值',width:200},
 	        {field:'optSortNo',title:'排序',width:50},
 	        {field:'optType',title:'类型',width:50,
 	        		formatter:function(value,rowData,rowIndex){
@@ -148,5 +148,23 @@
 				
 			 }
 		 })
+	}
+	
+	<#-- 移动位置 -->
+	function move(direction){
+		 var radio = $("input[type='radio']:checked");
+		 moveId = radio.attr("id");
+		 var param = {id : radio.attr("id"), direction : direction};
+		 $.defaultAjaxOperation("${ctx}/system/dictionary/move", param, true, true, 
+			 {
+				 success: function (result){
+			 		 if(!result.success){
+						 $.errorTip("警告", "操作失败");
+					 }
+					 <#-- 刷新窗口数据 -->
+					$.reloadData(window.name);
+				 }
+			 }
+		 );
 	}
 </script>

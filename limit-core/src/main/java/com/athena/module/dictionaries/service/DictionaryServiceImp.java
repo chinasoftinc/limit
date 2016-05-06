@@ -90,7 +90,7 @@ public class DictionaryServiceImp extends AbstractService<Dictionary, Dictionary
 	@Override
 	public int insert(Dictionary record) {
 		record.setId(dictionaryDao.nextSEQ());
-		Short no = dictionaryDao.selectMaxSortNo(record.getOptParentId());
+		Short no = dictionaryDao.selectMaxSortNo(record.getOptParentId() == null ? BigDecimal.ZERO : record.getOptParentId());
 		record.setOptSortNo((short) (no + 1));
 		return super.insertSelective(record);
 	}
@@ -186,7 +186,7 @@ public class DictionaryServiceImp extends AbstractService<Dictionary, Dictionary
 		if (CollectionUtils.isNotEmpty(dics)) {
 			Dictionary target = dics.get(0);
 
-			// 交互排序
+			// 交换排序
 			short targetSortNo = target.getOptSortNo();
 			target.setOptSortNo(current.getOptSortNo());
 			current.setOptSortNo(targetSortNo);

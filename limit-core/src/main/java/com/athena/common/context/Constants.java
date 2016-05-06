@@ -166,7 +166,7 @@ public class Constants {
 	public enum Direction {
 		UP, DOWN;
 	}
-
+	
 	/**
 	 * 字典参数模块常量
 	 * @author niebinxiao

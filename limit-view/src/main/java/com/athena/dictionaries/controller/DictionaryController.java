@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.athena.common.base.controller.AbstractWebController;
+import com.athena.common.context.Constants;
 import com.athena.common.dto.ResponseResult;
 import com.athena.module.dictionaries.model.Dictionary;
 import com.athena.module.dictionaries.model.DictionaryExample;
@@ -108,6 +109,20 @@ public class DictionaryController extends AbstractWebController {
 	public Object removeDictionary(Dictionary form, HttpServletResponse response) {
 		try {
 			dictionaryService.remove(form.getId()); // 删除选项字典及子选项
+			return new ResponseResult(true, "操作成功");
+		} catch (Exception e) {
+			logger.error(e.getCause().getMessage());
+			return new ResponseResult(false, "操作失败");
+		}
+	}
+
+	// 菜单移动位置
+	@RequestMapping(value = "/move", method = RequestMethod.POST)
+	@ResponseBody
+	public Object move(Dictionary form, String direction, HttpServletResponse response) {
+		// 菜单移动, 如: 向上移动, 找该菜单同级别(同父级ID) 并且 menu_order比他小一个的, 如果没有不操作
+		try {
+			dictionaryService.updatePos(form.getId(), Constants.Direction.valueOf(direction));
 			return new ResponseResult(true, "操作成功");
 		} catch (Exception e) {
 			logger.error(e.getCause().getMessage());
