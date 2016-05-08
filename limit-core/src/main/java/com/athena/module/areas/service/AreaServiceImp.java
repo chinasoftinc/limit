@@ -8,11 +8,13 @@ import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
 import com.athena.common.base.service.AbstractService;
 import com.athena.common.context.Constants;
 import com.athena.common.context.Constants.Direction;
 import com.athena.common.dto.Pagination;
 import com.athena.common.dto.TreeNode;
+import com.athena.common.utils.PinyinUtils;
 import com.athena.module.areas.dao.AreaDao;
 import com.athena.module.areas.model.Area;
 import com.athena.module.areas.model.AreaExample;
@@ -49,15 +51,8 @@ public class AreaServiceImp extends AbstractService<Area, AreaExample> implement
 	}
 
 	@Override
-	public void removeAreas(List<BigDecimal> ids) {
-
-		if (CollectionUtils.isNotEmpty(ids)) {
-			for (BigDecimal id : ids) {
-				// 删除并级联所有子地区
-				areaDao.removeSubs(id);
-			}
-		}
-
+	public void remove(BigDecimal id) {
+		areaDao.removeSubs(id);
 	}
 
 	@Override
@@ -95,7 +90,7 @@ public class AreaServiceImp extends AbstractService<Area, AreaExample> implement
 		// 当前记录
 		Area current = this.selectByPrimaryKey(id);
 
-		// 条件为, 父级菜单相同, 深度相同, 排序相邻的
+		// 条件为, 上级ID相同, 深度相同, 排序相邻的
 		AreaExample example = new AreaExample();
 		Criteria crt = example.or().andAreasParentIdEqualTo(current.getAreasParentId()).andAreasDeepEqualTo(current.getAreasDeep());
 		example.setPagination(new Pagination(1, 1));
@@ -116,13 +111,46 @@ public class AreaServiceImp extends AbstractService<Area, AreaExample> implement
 		if (CollectionUtils.isNotEmpty(areas)) {
 			Area target = areas.get(0);
 
-			// 交互排序
+			// 交换排序
 			short targetSortNo = target.getAreasSortNo();
 			target.setAreasSortNo(current.getAreasSortNo());
 			current.setAreasSortNo(targetSortNo);
 			this.updateByPrimaryKeySelective(target);
 			this.updateByPrimaryKeySelective(current);
 		}
+	}
+
+	@Override
+	public int insert(Area record) {
+		record.setId(areaDao.nextSEQ());
+
+		// 生成首字母
+		String word = PinyinUtils.getFirstPinyin(record.getAreasName().substring(0, 1));
+		record.setAreasHeadLetter(word);
+
+		// 获取排序
+		Short no = areaDao.selectMaxSortNo(record.getAreasParentId() == null ? BigDecimal.ZERO : record.getAreasParentId());
+		record.setAreasSortNo((short) (no + 1)); // 排序自增
+
+		// 顶级地区
+		if (new BigDecimal(0).compareTo(record.getAreasParentId()) == 0) {
+			record.setAreasDeep(Constants.AreaModel.TOP_DEEP);
+		}
+		// 非顶级区域
+		else {
+			Area parentArea = this.selectByPrimaryKey(record.getAreasParentId());
+			record.setAreasDeep((short) (parentArea.getAreasDeep() + 1));
+		}
+		return super.insertSelective(record);
+	}
+
+	@Override
+	public int update(Area record) {
+		// 生成首字母
+		String word = PinyinUtils.getFirstPinyin(record.getAreasName().substring(0, 1));
+		record.setAreasHeadLetter(word);
+
+		return super.updateByPrimaryKeySelective(record);
 	}
 
 }

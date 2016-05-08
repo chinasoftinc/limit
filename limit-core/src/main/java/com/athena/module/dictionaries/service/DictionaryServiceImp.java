@@ -78,9 +78,7 @@ public class DictionaryServiceImp extends AbstractService<Dictionary, Dictionary
 
 		if (CollectionUtils.isNotEmpty(dics)) {
 			for (Dictionary dic : dics) {
-
-				// 递归查询
-				dic.setChildren(selectAllSubDictionary(dic));
+				dic.setChildren(selectAllSubDictionary(dic)); // 递归查询
 			}
 		}
 
@@ -91,7 +89,7 @@ public class DictionaryServiceImp extends AbstractService<Dictionary, Dictionary
 	public int insert(Dictionary record) {
 		record.setId(dictionaryDao.nextSEQ());
 		Short no = dictionaryDao.selectMaxSortNo(record.getOptParentId() == null ? BigDecimal.ZERO : record.getOptParentId());
-		record.setOptSortNo((short) (no + 1));
+		record.setOptSortNo((short) (no + 1)); // 排序自增
 		return super.insertSelective(record);
 	}
 
@@ -203,7 +201,7 @@ public class DictionaryServiceImp extends AbstractService<Dictionary, Dictionary
 		if (group.getId() != null) {
 			or.andIdNotEqualTo(group.getId()); // 针对修改排除自身
 		}
-		or.andOptNameEqualTo(group.getOptName());
+		or.andOptNameEqualTo(group.getOptName()).andOptTypeEqualTo(Constants.DictionaryModel.Type.DICTIONARY_GROUP.code);
 
 		return this.countByExample(example) == 0;
 	}
@@ -216,6 +214,18 @@ public class DictionaryServiceImp extends AbstractService<Dictionary, Dictionary
 			or.andIdNotEqualTo(option.getId()); // 针对修改排除自身
 		}
 		or.andOptKeyEqualTo(option.getOptKey()).andOptParentIdEqualTo(option.getOptParentId());
+
+		return this.countByExample(example) == 0;
+	}
+
+	@Override
+	public boolean isNotExistParameterName(Dictionary parameter) {
+		DictionaryExample example = new DictionaryExample();
+		Criteria or = example.or();
+		if (parameter.getId() != null) {
+			or.andIdNotEqualTo(parameter.getId()); // 针对修改排除自身
+		}
+		or.andOptNameEqualTo(parameter.getOptName()).andOptTypeEqualTo(Constants.DictionaryModel.Type.PARAMETER.code);
 
 		return this.countByExample(example) == 0;
 	}

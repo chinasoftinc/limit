@@ -3,10 +3,10 @@ package com.athena.dictionaries.controller;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.inject.Inject;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.collections.CollectionUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -21,25 +21,23 @@ import com.athena.module.dictionaries.model.DictionaryExample;
 import com.athena.module.dictionaries.service.DictionaryService;
 
 /**
- * 字典参数
+ * 数据字典
  * @author niebinxiao
  */
 @Controller
 @RequestMapping("/system/dictionary")
 public class DictionaryController extends AbstractWebController {
 
-	@Inject
+	@Autowired
 	private DictionaryService dictionaryService;
 
-	// 字典参数主页
+	// 数据字典主页
 	@RequestMapping(value = "/main", method = RequestMethod.GET)
-	public ModelAndView optdicManage(Dictionary filter) {
-		ModelAndView mv = new ModelAndView("/system/dictionary/main");
-		mv.addObject("filter", filter);
-		return mv;
+	public ModelAndView optdicManage() {
+		return new ModelAndView("/system/dictionary/main");
 	}
 
-	// 选项字典数据 [异步ajax-json]
+	// 字典数据
 	@RequestMapping(value = "/dictionaryJson", method = RequestMethod.POST)
 	@ResponseBody
 	public Object dictionaryJson(HttpServletResponse response) {
@@ -50,13 +48,13 @@ public class DictionaryController extends AbstractWebController {
 	// 字典添加页面
 	@RequestMapping(value = "/addDictionaryView", method = RequestMethod.GET)
 	public ModelAndView addDictionaryView(Dictionary form) {
-		ModelAndView mv = new ModelAndView("/system/dictionary/editDictionary");
+		ModelAndView mv = new ModelAndView("/system/dictionary/edit");
 
 		DictionaryExample example = new DictionaryExample();
 		example.or().andIdEqualTo(form.getOptParentId());
 		List<Dictionary> dics = dictionaryService.selectByExample(example);
 
-		// 上级信息及插入信息
+		// 获取上级及插入信息
 		Dictionary parent = CollectionUtils.isNotEmpty(dics) ? dics.get(0) : new Dictionary();
 		form.setOptDeep(parent.getOptDeep() == null ? 0 : (short) (parent.getOptDeep() + 1));
 		mv.addObject("parent", parent);
@@ -67,12 +65,12 @@ public class DictionaryController extends AbstractWebController {
 		return mv;
 	}
 
-	// 选项字典编辑页面
+	// 字典编辑页面
 	@RequestMapping(value = "/editDictionaryView", method = RequestMethod.GET)
 	public ModelAndView editDictionaryView(Dictionary form) {
-		ModelAndView mv = new ModelAndView("/system/dictionary/editDictionary");
+		ModelAndView mv = new ModelAndView("/system/dictionary/edit");
 
-		// 编辑的选项字典和上级信息
+		// 编辑的字典和上级信息
 		Dictionary dictionary = dictionaryService.selectByPrimaryKey(form.getId());
 		Dictionary parent = dictionaryService.selectByPrimaryKey(dictionary.getOptParentId());
 		mv.addObject("dictionary", dictionary);
@@ -83,32 +81,37 @@ public class DictionaryController extends AbstractWebController {
 		return mv;
 	}
 
-	// 保存选项字典
+	// 保存字典
 	@RequestMapping(value = "/saveDictionary", method = RequestMethod.POST)
 	public ModelAndView addOptdic(Dictionary form) {
 		ModelAndView mv = new ModelAndView();
 
-		// 添加
-		if (isAddOperation(form)) {
-			setSuccessView(mv);
-			dictionaryService.insert(form);
-		}
-		// 保存
-		else {
-			setCompleteView(mv);
-			dictionaryService.update(form);
+		try {
+			// 添加
+			if (isAddOperation(form)) {
+				setSuccessView(mv);
+				dictionaryService.insert(form);
+			}
+			// 保存
+			else {
+				setCompleteView(mv);
+				dictionaryService.update(form);
+			}
+		} catch (Exception e) {
+			setErrorView(mv, "操作失败");
 		}
 
 		setWindowsId(mv, form);
 		return mv;
 	}
 
-	// 删除选项字典 [ajax]
+	// 删除字典
 	@RequestMapping(value = "/removeDictionary", method = RequestMethod.POST)
 	@ResponseBody
 	public Object removeDictionary(Dictionary form, HttpServletResponse response) {
 		try {
-			dictionaryService.remove(form.getId()); // 删除选项字典及子选项
+			// 删除选项字典及子选项
+			dictionaryService.remove(form.getId());
 			return new ResponseResult(true, "操作成功");
 		} catch (Exception e) {
 			logger.error(e.getCause().getMessage());
@@ -116,11 +119,10 @@ public class DictionaryController extends AbstractWebController {
 		}
 	}
 
-	// 菜单移动位置
+	// 移动位置
 	@RequestMapping(value = "/move", method = RequestMethod.POST)
 	@ResponseBody
 	public Object move(Dictionary form, String direction, HttpServletResponse response) {
-		// 菜单移动, 如: 向上移动, 找该菜单同级别(同父级ID) 并且 menu_order比他小一个的, 如果没有不操作
 		try {
 			dictionaryService.updatePos(form.getId(), Constants.Direction.valueOf(direction));
 			return new ResponseResult(true, "操作成功");

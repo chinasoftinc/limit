@@ -14,11 +14,9 @@
 		</td>
 		</#if>
 	</tr>
-	<tr><td>&nbsp;</td></tr>
 	<tr style="text-align:center">
 		<td height="30px" colspan="2" style="overflow:auto;font-size:12px;color: #B22400;">&nbsp;${errorMsg}</td>
 	</tr>
-	<tr><td>&nbsp;</td></tr>
 	<tr style="text-align:center">
 		<td height="22px" colspan="2">
 			<a href="###" class="easyui-linkbutton" onclick="$.completeOperation('${parentWinId}','${winId}');" iconCls="icon-cancel">关闭</a></th>

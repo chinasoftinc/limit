@@ -15,7 +15,7 @@ public class AreaDaoImp extends AbstractDao<Area, AreaExample> implements AreaDa
 
 	@Autowired
 	private AreaMapper areaMapper;
-	
+
 	@Override
 	public void removeSubs(BigDecimal id) {
 		areaMapper.removeSubs(id);
@@ -23,7 +23,13 @@ public class AreaDaoImp extends AbstractDao<Area, AreaExample> implements AreaDa
 
 	@Override
 	public String sequenceName() {
-		return "T_AREAS_SQL";
+		return "T_AREAS_SEQ";
+	}
+
+	@Override
+	public Short selectMaxSortNo(BigDecimal id) {
+		Short no = areaMapper.selectMaxSortNo(id);
+		return no == null ? 0 : no;
 	}
 
 }

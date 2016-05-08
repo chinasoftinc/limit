@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.athena.module.areas.mapper.AreaMapper">
+	<!-- 删除指定节点和其子节点元素 -->
+	<delete id="removeSubs" parameterType="java.math.BigDecimal">
+		delete from T_AREAS where ID in (select ID from T_AREAS start with ID = #{id,jdbcType=DECIMAL} connect by prior ID = AREAS_PARENT_ID)
+	</delete>
+
+	<!-- 获取指定节点的子节点最大排序 -->
+	<select id="selectMaxSortNo" parameterType="java.math.BigDecimal" resultType="java.lang.Short">
+		select max(AREAS_SORT_NO) from T_AREAS where AREAS_PARENT_ID = #{id,jdbcType=DECIMAL}
+	</select>
+</mapper>

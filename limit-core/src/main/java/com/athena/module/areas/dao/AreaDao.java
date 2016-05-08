@@ -14,4 +14,11 @@ public interface AreaDao extends Dao<Area, AreaExample> {
 	 */
 	void removeSubs(BigDecimal id);
 
+	/**
+	 * 获取指定节点的子节点最大排序
+	 * @param bigDecimal
+	 * @return
+	 */
+	Short selectMaxSortNo(BigDecimal bigDecimal);
+
 }

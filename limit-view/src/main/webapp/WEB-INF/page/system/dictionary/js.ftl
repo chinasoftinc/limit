@@ -1,8 +1,7 @@
 <script>
-	<#-- 选项字典dataGrid -->
-	$('#dictionaryDataGrid').treegrid({
+	$('#dataGrid').treegrid({
 		loadMsg:'请稍后',
-		toolbar: '#optdicToolBar',
+		toolbar: '#toolBar',
 		border:false,
 		striped:true,
 	    url:'${ctx}/system/dictionary/dictionaryJson',
@@ -47,9 +46,9 @@
 	    onClickRow:function(row){ 
 	    	$("#" + row.id).attr("checked",true);
 	    },
-	    <#-- 双节展开关闭 -->
+	    <#-- 双击展开关闭 -->
 	    onDblClickCell:function(field, row){
-	    	$("#dictionaryDataGrid").treegrid('toggle',row.id);
+	    	$("#dataGrid").treegrid('toggle',row.id);
 	    },
 	    
 	    <#-- 右键菜单 -->
@@ -59,8 +58,6 @@
 			selectNode = node;
 			$selectTreeUl.tree('select', node.target);
 			$("#" + node.id).attr("checked", true);
-
-			console.info(node);
 
 			var rightMouseMenu = "";
 			if(node.optIsDir == "1"){
@@ -76,7 +73,7 @@
 				top : e.pageY,
 				hideOnUnhover : false
 			});
-		},
+		}
 	});
 	
 	<#-- 添加主目录 -->
@@ -85,7 +82,7 @@
 	}
 	
 	<#-- 添加子目录 -->
-	function addSubDictionary(){
+	function addSubDirectory(){
 		var radio = $("input[type='radio'][name='dictionarySelected']:checked");
 		 $.createSimpleWindowAutoScroll("editDictionary","添加目录", 680, 230, "${ctx}/system/dictionary/addDictionaryView?optType=1&optIsDir=1&optParentId=" + radio.attr("id"));
 	}

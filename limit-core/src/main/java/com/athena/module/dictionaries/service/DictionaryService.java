@@ -77,4 +77,11 @@ public interface DictionaryService extends Service<Dictionary, DictionaryExample
 	 */
 	boolean isNotExistDictionaryKey(Dictionary option);
 
+	/**
+	 * 检测参数名称是否可用
+	 * @param form
+	 * @return
+	 */
+	boolean isNotExistParameterName(Dictionary form);
+
 }

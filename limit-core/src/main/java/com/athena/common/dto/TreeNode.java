@@ -7,29 +7,37 @@ import java.util.List;
  */
 public class TreeNode {
 
-	public static final String STATUS_CLOSE = "closed";
-	public static final String STATUS_OPEN = "open";
+	public static final String CLOSE = "closed";
+	public static final String OPEN = "open";
 
 	private String id;
 
-	/** 节点名称 */
+	// 节点名称
 	private String text;
 
-	/** 节点状态 , 展开还是搜索['open'||'closed'] */
+	// 节点状态: [open:展开,closed:折叠]
 	private String state;
 
-	/** 是否选中 */
+	// 是否是选中状态
 	private boolean checked;
 
 	// 额外参数
-	private String attributes;
+	private String attributes1;
 	private String attributes2;
 	private String attributes3;
 	private String attributes4;
 	private String attributes5;
 
-	/** 子节点 */
+	// 子节点
 	private List<TreeNode> children;
+
+	public String getAttributes1() {
+		return attributes1;
+	}
+
+	public void setAttributes1(String attributes1) {
+		this.attributes1 = attributes1;
+	}
 
 	public String getAttributes2() {
 		return attributes2;
@@ -93,14 +101,6 @@ public class TreeNode {
 
 	public void setChecked(boolean checked) {
 		this.checked = checked;
-	}
-
-	public String getAttributes() {
-		return attributes;
-	}
-
-	public void setAttributes(String attributes) {
-		this.attributes = attributes;
 	}
 
 	public List<TreeNode> getChildren() {

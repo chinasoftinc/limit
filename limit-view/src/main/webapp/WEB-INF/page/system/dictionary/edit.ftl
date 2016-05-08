@@ -2,7 +2,7 @@
 <body style="margin:5px;background:#eee">
 <div style="width: 100%;height:100%;">
 	<div style="width: 100%">
-		<form id="form" name="form" action="${ctx}/system/dictionary/saveDictionary" method="POST" onsubmit="return $(this).form('validate')">
+		<form id="form" action="${ctx}/system/dictionary/saveDictionary" method="POST" onsubmit="return $(this).form('validate')">
 			<table width="100%" border="0" class="form-data">
 			
 				<#-- 根据编辑类型生成上级标识 -->

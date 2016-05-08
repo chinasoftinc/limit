@@ -19,10 +19,22 @@ public interface AreaService extends Service<Area, AreaExample> {
 	List<TreeNode> selectAreasTree(BigDecimal id);
 
 	/**
-	 * 删除多个地区, 级联删除子地区
+	 * 删除地区及所有子地区
 	 * @param ids
 	 */
-	void removeAreas(List<BigDecimal> ids);
+	void remove(BigDecimal id);
+
+	/**
+	 * 添加地区
+	 * @return
+	 */
+	int insert(Area area);
+
+	/**
+	 * 更新地区
+	 * @param form
+	 */
+	int update(Area form);
 
 	/**
 	 * 根据id和名称模糊查询获取下级数模型
@@ -38,4 +50,5 @@ public interface AreaService extends Service<Area, AreaExample> {
 	 * @param direction
 	 */
 	void updatePos(BigDecimal id, Direction direction);
+
 }

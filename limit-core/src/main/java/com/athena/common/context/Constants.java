@@ -166,7 +166,15 @@ public class Constants {
 	public enum Direction {
 		UP, DOWN;
 	}
-	
+
+	public static class AreaModel {
+
+		/**
+		 * 一级路径深度
+		 */
+		public static final short TOP_DEEP = 0;
+	}
+
 	/**
 	 * 字典参数模块常量
 	 * @author niebinxiao

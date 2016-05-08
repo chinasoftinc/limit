@@ -255,10 +255,4 @@
 		</if>
 	</sql>
 
-	<!-- 删除指定节点和其子节点元素 -->
-	<delete id="removeSubs" parameterType="java.math.BigDecimal">
-		delete from T_AREAS start with ID=#{id,jdbcType=DECIMAL} connect by prior ID = AREAS_PARENT_ID
-	</delete>
-	
-
 </mapper>
