@@ -167,6 +167,38 @@ public class Constants {
 		UP, DOWN;
 	}
 
+	/**
+	 * 部门模块常量
+	 * @author niebinxiao
+	 */
+	public static class DepartmentModel {
+
+		/**
+		 * 一级路径深度
+		 */
+		public static final short TOP_DEEP = 0;
+		
+		/**
+		 * 类型
+		 * @author niebinxiao
+		 *
+		 */
+		public enum Type {
+			DEPARTMENT("1"), ORG("0");
+
+			public String code;
+
+			private Type(String code) {
+				this.code = code;
+			}
+
+		}
+	}
+
+	/**
+	 * 地区模块常量
+	 * @author niebinxiao
+	 */
 	public static class AreaModel {
 
 		/**

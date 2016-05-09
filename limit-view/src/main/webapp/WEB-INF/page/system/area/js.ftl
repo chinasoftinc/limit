@@ -28,13 +28,6 @@
 			    getTreeNode(newTreeId, node.id);
 		    },
 		    
-		    onLoadSuccess: function(node, data){
-		    console.info(data);
-		    	if(data.length == 0){
-		    		
-		    	}
-		    },
-		    
 		    onContextMenu: function(e, node){
 				e.preventDefault();
 				$selectTreeUl = $(e.target).closest("ul");
@@ -63,7 +56,10 @@
 	}
 	
 	<#-- 添加 -->
-	function insert(){
+	function insert(treeUl){
+		if(treeUl != null){
+			$selectTreeUl = $(treeUl).parent().next();
+		}
 	 	var selected = $selectTreeUl.tree('getSelected');
 		$selectTreeUl.tree('insert', {data: {id : 'new'}});
 		var newArea = $selectTreeUl.tree('find', 'new');
@@ -160,6 +156,7 @@
 							
 								if(result.success){
 									$.timeOutMsgTip("提示", result.message);
+									$selectTreeUl.closest("div").nextAll().hide(300);
 								}else{
 									$.errorTip("警告", "操作失败");
 								}
