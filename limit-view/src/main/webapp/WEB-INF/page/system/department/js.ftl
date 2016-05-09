@@ -12,7 +12,7 @@
 		fit:true,
     	fitColumns:true,
 	    columns:[[
-	    	{field:'deptShortName',title:'简称',width:200,
+	    	{field:'deptShortName',title:'简称',width:50,
 	    			formatter:function(value, rowData, rowIndex){
 						var column = '<input type="radio" id="' + rowData.id + '" name="deptSelected" deptType="' + rowData.deptType + '" deptParentId="' + rowData.deptParentId + '" deptDeep="' + rowData.deptDeep + '" />'; 
 						if(rowData.deptType == '0'){
