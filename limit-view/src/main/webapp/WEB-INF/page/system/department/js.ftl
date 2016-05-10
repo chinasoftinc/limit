@@ -14,7 +14,7 @@
 	    columns:[[
 	    	{field:'deptShortName',title:'简称',width:100,
 	    			formatter:function(value, rowData, rowIndex){
-						var column = '<input type="radio" id="' + rowData.id + '" name="deptSelected" deptType="' + rowData.deptType + '" deptParentId="' + rowData.deptParentId + '" deptDeep="' + rowData.deptDeep + '" />'; 
+						var column = '<input type="radio" id="' + rowData.id + '" name="deptSelected" deptType="' + rowData.deptType + '" deptName="' + rowData.deptName +'" deptParentId="' + rowData.deptParentId + '" deptDeep="' + rowData.deptDeep + '" />'; 
 						if(rowData.deptType == '0'){
 							column += '<span style="color:blue;position:relative;top: -2">' + rowData.deptShortName + '</span>';
 						}else{
@@ -136,20 +136,21 @@
 		$('#editPanel').panel('open');
 	}
 	
-	<#-- 删除选项字典-->
-	function removeDictionary(){
-		 var radio = $("input[type='radio'][name='dictionarySelected']:checked");
-		 var tipMsg = "确认删除键为 " + radio.attr("optKey") + " 的子选项吗?";
-		 if(radio.attr('isDir') == '1'){
-		 	tipMsg = "删除该目录将会删除 " + radio.attr('optDescription') + " 目录下的所有数据, 是否确认?";
-		 }else if(radio.attr('optType') == '2'){
-		 	tipMsg = "删除该选项组将会删除 " + radio.attr('optDescription') + " 下的所有子选项, 是否确认?";
+	<#-- 删除-->
+	function removeDept(){
+		 var radio = $("input[type='radio'][name='deptSelected']:checked");
+		 
+		 var tipMsg = "";
+		 if(radio.attr('deptType') == '1'){
+		 	tipMsg = "若含有子机构或子部门将无法删除, 确认删除机构: " + radio.attr('deptName') + " 吗?";
+		 }else {
+		 	tipMsg = "若含有子部门或部门中尚有人员将无法删除, 确认删除部门: " + radio.attr('deptName') + " 吗?";
 		 }
 		 
 		 top.$.messager.confirm("警告",tipMsg, function(confirm){
 			 var param = {id : radio.attr("id")};
 			 if(confirm){
- 				$.defaultAjaxOperation("${ctx}/system/dictionary/removeDictionary", 
+ 				$.defaultAjaxOperation("${ctx}/system/dept/removeDept", 
 					param, 
 				 	true, 
 				 	true, 
@@ -158,7 +159,7 @@
 							 if(result.success){
 							 	 $.timeOutMsgTip("提示", result.message);
 							 }else{
-								 $.errorTip("警告", "删除操作失败");
+								 $.errorTip("警告", result.message);
 							 }
 							 $.reloadData(window.name);
 						}
@@ -174,7 +175,7 @@
 		 var radio = $("input[type='radio']:checked");
 		 moveId = radio.attr("id");
 		 var param = {id : radio.attr("id"), direction : direction};
-		 $.defaultAjaxOperation("${ctx}/system/dictionary/move", param, true, true, 
+		 $.defaultAjaxOperation("${ctx}/system/dept/move", param, true, true, 
 			 {
 				 success: function (result){
 			 		 if(!result.success){

@@ -14,7 +14,9 @@ public enum ExceptionCode {
 
 	ReqTargetHostException("1", "请求目标主机异常"),
 
-	DownloadFileException("2", "下载文件异常");
+	DownloadFileException("2", "下载文件异常"),
+
+	BusinessException("8","业务流程限制");
 
 	private String code;
 

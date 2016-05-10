@@ -81,20 +81,16 @@ public class BusinessException extends RuntimeException {
 		this.code = code;
 	}
 
-	// 测试
 	public static void main(String[] args) {
 		Integer test = 2;
 
 		if (test == 1)
-			// 1. 指定异常状态码
 			throw new BusinessException(ExceptionCode.IllegalParamException);
 
 		else if (test == 2)
-			// 2. 指定状态码和异常消息
 			throw new BusinessException(ExceptionCode.IllegalParamException, "2肯定大于1");
 
 		else if (test == 3)
-			// 3. 指定异常消息
 			throw new BusinessException("2肯定大于1");
 	}
 

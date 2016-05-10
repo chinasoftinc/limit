@@ -10,10 +10,15 @@ import org.springframework.stereotype.Service;
 
 import com.athena.common.base.service.AbstractService;
 import com.athena.common.context.Constants;
+import com.athena.common.context.Constants.Direction;
+import com.athena.common.dto.Pagination;
+import com.athena.common.exception.BusinessException;
+import com.athena.common.exception.ExceptionCode;
 import com.athena.common.utils.PinyinUtils;
 import com.athena.module.departments.dao.DepartmentDao;
 import com.athena.module.departments.model.Department;
 import com.athena.module.departments.model.DepartmentExample;
+import com.athena.module.departments.model.DepartmentExample.Criteria;
 
 @Service
 public class DepartmentServiceImp extends AbstractService<Department, DepartmentExample> implements DepartmentService {
@@ -106,6 +111,66 @@ public class DepartmentServiceImp extends AbstractService<Department, Department
 		// FIXME 记录操作用户
 
 		this.updateByPrimaryKeySelective(record);
+	}
+
+	@Override
+	public void updatePos(BigDecimal id, Direction direction) {
+		// 当前记录
+		Department current = this.selectByPrimaryKey(id);
+
+		// 条件为, 父级菜单相同, 深度相同, 排序相邻的
+		DepartmentExample example = new DepartmentExample();
+		Criteria or = example.or().andDeptParentIdEqualTo(current.getDeptParentId()).andDeptDeepEqualTo(current.getDeptDeep());
+		example.setPagination(new Pagination(1, 1));
+
+		// 判断方向
+		if (direction == Constants.Direction.UP) {
+			// 查询小于当前sort, 并且是最大的
+			or.andDeptSortNoLessThan(current.getDeptSortNo());
+			example.setOrderByClause("DEPT_SORT_NO DESC");
+		} else {
+			// 查询大于当前sort, 并且是最小的
+			or.andDeptSortNoGreaterThan(current.getDeptSortNo());
+			example.setOrderByClause("DEPT_SORT_NO ASC");
+		}
+
+		List<Department> depts = this.selectByExample(example);
+
+		if (CollectionUtils.isNotEmpty(depts)) {
+			Department target = depts.get(0);
+
+			// 交换排序
+			short targetSortNo = target.getDeptSortNo();
+			target.setDeptSortNo(current.getDeptSortNo());
+			current.setDeptSortNo(targetSortNo);
+			this.updateByPrimaryKeySelective(target);
+			this.updateByPrimaryKeySelective(current);
+		}
+	}
+
+	@SuppressWarnings("unused")
+	@Override
+	public void remove(BigDecimal id) throws BusinessException {
+
+		DepartmentExample example = new DepartmentExample();
+		example.or().andDeptParentIdEqualTo(id).andIsDelEqualTo(Constants.DepartmentModel.IS_DEL.NOT.code);
+		if (this.countByExample(example) == 0) {
+			Department dept = this.selectByPrimaryKey(id);
+			if (dept != null) {
+
+				if (true/** FIXME 检测是否含有用户 */
+				) {
+					dept.setIsDel(Constants.DepartmentModel.IS_DEL.DELED.code);
+					this.updateByPrimaryKeySelective(dept);
+				} else {
+					throw new BusinessException(ExceptionCode.BusinessException, "部门含有人员, 无法删除该部门!");
+				}
+
+			}
+		} else {
+			throw new BusinessException(ExceptionCode.BusinessException, "含有子机构或部门, 无法删除!");
+		}
+
 	}
 
 }

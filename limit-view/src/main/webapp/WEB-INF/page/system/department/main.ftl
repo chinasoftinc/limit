@@ -5,8 +5,8 @@
 	<table id="dataGrid"></table>
 	<div id="toolBar">
 		<a href="#" onclick="addRootOrg()" class="easyui-linkbutton" data-options="iconCls:'icon-add',plain:true">添加主机构</a>|
-		<a href="#" onclick="$('#dataGrid').treegrid('collapseAll');" class="easyui-linkbutton" data-options="iconCls:'icon-remove',plain:true">全部折叠</a>
-		<a href="#" onclick="$('#dataGrid').treegrid('expandAll');" class="easyui-linkbutton" data-options="iconCls:'icon-remove',plain:true">全部展开</a>
+		<a href="#" onclick="$('#dataGrid').treegrid('collapseAll');" class="easyui-linkbutton" data-options="plain:true">全部折叠</a>
+		<a href="#" onclick="$('#dataGrid').treegrid('expandAll');" class="easyui-linkbutton" data-options="plain:true">全部展开</a>
 	</div>
 </div>
 

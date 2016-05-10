@@ -124,7 +124,7 @@
 			
 			switch (treeId) {
 				case "1":
-					$("#div2").show(500).attr('name','').nextAll().hide(300); <#-- 让下一个div显示, 后续div隐藏 -->
+					$("#div2").show(500).nextAll().hide(300); <#-- 让下一个div显示, 后续div隐藏 -->
 					treeId = "#level_" + "2";
 					break;
 				case "2":

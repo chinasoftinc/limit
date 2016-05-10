@@ -1,5 +1,9 @@
 <form id="form" action="" method="POST" onsubmit="return commitData(this)">
-    <div style="padding:4px 1px 4px 1px;">
+<#if operation=='read'>
+<div id="form_tab" class="easyui-tabs" style="height:100%;" data-options="border:false,fit:true">
+</#if>
+
+    <div title="基本信息" style="padding:4px 1px 4px 1px;">
     	<table width="100%" border="0" class="form-data" style="overflow:hidden">
     		
     		<#--上级 -->
@@ -79,5 +83,10 @@
 				</td>
 			</tr>
 		</table>
-    </div>   
+    </div>
+    
+<#if operation=='read'>
+    <div title="用户列表" style="padding:4px 1px 4px 1px;"><div>
+</div>
+</#if>
 </form>

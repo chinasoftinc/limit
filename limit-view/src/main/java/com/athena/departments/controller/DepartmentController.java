@@ -14,11 +14,13 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.athena.common.base.controller.AbstractWebController;
+import com.athena.common.context.Constants;
 import com.athena.common.dto.ResponseResult;
+import com.athena.common.exception.BusinessException;
+import com.athena.common.exception.ExceptionCode;
 import com.athena.module.departments.model.Department;
 import com.athena.module.departments.model.DepartmentExample;
 import com.athena.module.departments.service.DepartmentService;
-import com.athena.module.dictionaries.model.Dictionary;
 
 @Controller
 @RequestMapping("/system/dept")
@@ -114,6 +116,37 @@ public class DepartmentController extends AbstractWebController {
 			logger.error(e.getCause().getMessage());
 			return new ResponseResult(false, "操作失败");
 		}
+	}
 
+	// 删除
+	@RequestMapping(value = "/removeDept", method = RequestMethod.POST)
+	@ResponseBody
+	public Object removeDept(Department form, HttpServletResponse response) {
+		try {
+			departmentService.remove(form.getId());
+			return new ResponseResult(true, "操作成功");
+		} catch (Exception e) {
+			if (e instanceof BusinessException) {
+				BusinessException be = (BusinessException) e;
+				if (be.getCode() == ExceptionCode.BusinessException) {
+					return new ResponseResult(false, be);
+				}
+			}
+			logger.error(e.getCause().getMessage());
+			return new ResponseResult(false, "操作失败");
+		}
+	}
+
+	// 移动位置
+	@RequestMapping(value = "/move", method = RequestMethod.POST)
+	@ResponseBody
+	public Object move(Department form, String direction, HttpServletResponse response) {
+		try {
+			departmentService.updatePos(form.getId(), Constants.Direction.valueOf(direction));
+			return new ResponseResult(true, "操作成功");
+		} catch (Exception e) {
+			logger.error(e.getCause().getMessage());
+			return new ResponseResult(false, "操作失败");
+		}
 	}
 }
