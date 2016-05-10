@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.athena.module.departments.mapper.DepartmentMapper" >
+	
+	<!-- 获取指定节点的子节点最大排序 -->
+	<select id="selectMaxSortNo" parameterType="java.math.BigDecimal" resultType="java.lang.Short">
+		select max(DEPT_SORT_NO) from T_DEPARTMENTS where DEPT_PARENT_ID = #{id,jdbcType=DECIMAL}
+	</select>
+	
+</mapper>

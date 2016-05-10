@@ -22,7 +22,7 @@ public class Department extends PageModel<Department> {
 	private String deptShortName;
 
 	// 名称
-	private String deptName;
+	private String deptName; 	
 
 	// 地区代码
 	private BigDecimal deptAreaCode;

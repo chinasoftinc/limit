@@ -48,6 +48,14 @@ public abstract class AbstractWebController {
 	public void setEditOperation(ModelAndView mv) {
 		mv.addObject("operation", "edit");
 	}
+	
+	/**
+	 * 设置只读标记
+	 * @param mv
+	 */
+	public void setReadOperation(ModelAndView mv) {
+		mv.addObject("operation", "read");
+	}
 
 	/**
 	 * 判断是否是添加操作

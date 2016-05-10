@@ -14,4 +14,10 @@ public interface DepartmentService extends Service<Department, DepartmentExample
 	 */
 	List<Department> selectDepartmentsTree();
 
+	/**
+	 * 更新部门
+	 * @param record
+	 */
+	void update(Department record);
+
 }

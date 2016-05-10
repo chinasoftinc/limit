@@ -51,9 +51,6 @@
 	    <#-- 右键菜单 -->
 	    onContextMenu: function(e, node){
 			e.preventDefault();
-			$selectTreeUl = $(e.target).closest("ul");
-			selectNode = node;
-			$selectTreeUl.tree('select', node.target);
 			$("#" + node.id).attr("checked", true);
 
 			var rightMouseMenu = "";

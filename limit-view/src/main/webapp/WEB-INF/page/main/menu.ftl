@@ -1,7 +1,7 @@
 <div id="left" class="easyui-accordion" data-options="border:false,selected:0,multiple:true">
 	
 	<div title="权限管理" class="win_body" data-options="iconCls:'icon-menu'" style="padding:10px;">
-    	<p><a name="menu_button" href="#" class="easyui-linkbutton" onclick="$.addTab('4','部门管理','${ctx}/system/deptment/main', 'home')" style="width:100%;">部门管理</a></p>
+    	<p><a name="menu_button" href="#" class="easyui-linkbutton" onclick="$.addTab('4','组织机构','${ctx}/system/dept/main', 'home')" style="width:100%;">组织结构</a></p>
     </div>
     
 	<div title="系统管理" class="win_body" data-options="iconCls:'icon-menu'" style="padding:10px;">

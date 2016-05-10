@@ -4,7 +4,7 @@
 		toolbar: '#toolBar',
 		border:false,
 		striped:true,
-	    url:'${ctx}/system/deptment/deptJson',
+	    url:'${ctx}/system/dept/deptJson',
 	    idField:'id',
 	    treeField:'deptShortName',
 	    animate:true,
@@ -12,22 +12,39 @@
 		fit:true,
     	fitColumns:true,
 	    columns:[[
-	    	{field:'deptShortName',title:'简称',width:50,
+	    	{field:'deptShortName',title:'简称',width:100,
 	    			formatter:function(value, rowData, rowIndex){
 						var column = '<input type="radio" id="' + rowData.id + '" name="deptSelected" deptType="' + rowData.deptType + '" deptParentId="' + rowData.deptParentId + '" deptDeep="' + rowData.deptDeep + '" />'; 
 						if(rowData.deptType == '0'){
-							'<span style="color:blue">' + rowData.deptShortName + '</span>';
+							column += '<span style="color:blue;position:relative;top: -2">' + rowData.deptShortName + '</span>';
 						}else{
-							column += rowData.deptShortName;
+							column += '<span style="color:orange;position:relative;top: -2">' + rowData.deptShortName + '</span>';
 						}
 						return column;
 				 	}
 	    	},
-	    	{field:'deptSubCount',title:'下级数量',width:50}
+	    	{field:'deptType',title:'类型',width:50,
+	    			formatter:function(value, rowData, rowIndex){
+						return value == '0' ? '机构':'部门';
+				 	}
+	    	},
+	    	{field:'deptSubCount',title:'下级数量',width:30}
 	    ]],
+	    
 	    <#-- 单选 -->
 	    onClickRow:function(row){ 
 	    	$("#" + row.id).attr("checked",true);
+	    	
+	    	$('#editPanel').panel({
+				title: '查看',
+				fit:true,
+				closable:true,
+				border:false,
+				href:'${ctx}/system/dept/view?id=' + row.id
+			});
+			
+			$('#editPanel').panel('open');
+		
 	    },
 	    <#-- 双击展开关闭 -->
 	    onDblClickCell:function(field, row){
@@ -37,18 +54,13 @@
 	    <#-- 右键菜单 -->
 	    onContextMenu: function(e, node){
 			e.preventDefault();
-			$selectTreeUl = $(e.target).closest("ul");
-			selectNode = node;
-			$selectTreeUl.tree('select', node.target);
 			$("#" + node.id).attr("checked", true);
 
 			var rightMouseMenu = "";
-			if(node.optIsDir == "1"){
-				rightMouseMenu = "rightMouseMenuForDirectory";
-			}else if (node.optType == "2"){
-				rightMouseMenu = "rightMouseMenuForDictionaryGroup";
-			}else if (node.optType == "1"){
-				rightMouseMenu = "rightMouseMenuForDictionary";
+			if(node.deptType == "0"){
+				rightMouseMenu = "rightMouseMenuForOrg";
+			}else{
+				rightMouseMenu = "rightMouseMenuForDept";
 			}
 				
 			$('#' + rightMouseMenu).menu('show', {
@@ -59,41 +71,69 @@
 		}
 	});
 	
-	<#-- 添加主目录 -->
-	function addRootDirectory(){
-		 $.createSimpleWindowAutoScroll("editDictionary","添加主目录", 680, 180, "${ctx}/system/dictionary/addDictionaryView?optType=1&optIsDir=1&optParentId=0");
+	<#-- 添加主机构 -->
+	function addRootOrg(){
+		$('#editPanel').panel({
+			title: '添加主机构',
+			fit:true,
+			closable:true,
+			border:false,
+			href:'${ctx}/system/dept/addDeptView?deptType=0&&deptParentId=0'
+		});
+		
+		$('#editPanel').panel('open');
 	}
 	
-	<#-- 添加子目录 -->
-	function addSubDirectory(){
-		var radio = $("input[type='radio'][name='dictionarySelected']:checked");
-		 $.createSimpleWindowAutoScroll("editDictionary","添加目录", 680, 230, "${ctx}/system/dictionary/addDictionaryView?optType=1&optIsDir=1&optParentId=" + radio.attr("id"));
+	<#-- 添加子机构 -->
+	function addSubOrg(){
+		var radio = $("input[type='radio'][name='deptSelected']:checked");
+	
+		$('#editPanel').panel({
+			title: '添加子机构',
+			fit:true,
+			closable:true,
+			border:false,
+			href:'${ctx}/system/dept/addDeptView?deptType=0&&deptParentId=' + radio.attr('id')
+		});
+		
+		$('#editPanel').panel('open');
 	}
 	
-	<#-- 添加选项组 -->
-	function addDictionaryGroup(){
-		 var radio = $("input[type='radio'][name='dictionarySelected']:checked");
-		 $.createSimpleWindowAutoScroll("editDictionary","添加选项组", 680, 290, "${ctx}/system/dictionary/addDictionaryView?optIsDir=0&optType=2&optParentId=" + radio.attr("id"));
+	<#-- 添加子部门 -->
+	function addSubDept(){
+		var radio = $("input[type='radio'][name='deptSelected']:checked");
+	
+		$('#editPanel').panel({
+			title: '添加子部门',
+			fit:true,
+			closable:true,
+			border:false,
+			href:'${ctx}/system/dept/addDeptView?deptType=1&&deptParentId=' + radio.attr('id')
+		});
+		
+		$('#editPanel').panel('open');
 	}
 	
-	<#-- 添加子选项 -->
-	function addDictionary(){
-		 var radio = $("input[type='radio'][name='dictionarySelected']:checked");
-		 $.createSimpleWindowAutoScroll("editDictionary","添加子选项", 680, 330, "${ctx}/system/dictionary/addDictionaryView?optIsDir=0&optType=1&optParentId=" + radio.attr("id"));
-	}
-	
-	<#-- 编辑选项字典 -->
-	function editDictionary(){
-		var radio = $("input[type='radio'][name='dictionarySelected']:checked");
-		if(radio.attr('optDeep') == 0){
-			$.createSimpleWindowAutoScroll("editDictionary","编辑主目录", 680, 180, "${ctx}/system/dictionary/editDictionaryView?id=" + radio.attr("id"));
-		}else if(radio.attr('isDir') == '1'){
-			$.createSimpleWindowAutoScroll("editDictionary","编辑目录", 680, 230, "${ctx}/system/dictionary/editDictionaryView?id=" + radio.attr("id"));
-		}else if(radio.attr('optType') == '2'){
-			$.createSimpleWindowAutoScroll("editDictionary","编辑选项组", 680, 290, "${ctx}/system/dictionary/editDictionaryView?id=" + radio.attr("id"));
+	<#-- 编辑 -->
+	function editDept(){
+		var radio = $("input[type='radio'][name='deptSelected']:checked");
+		var title = "编辑";
+		if(radio.attr('deptDeep') == 0){
+			title += "主机构";
+		}else if(radio.attr('deptType') == '0'){
+			title += "机构";
 		}else{
-			$.createSimpleWindowAutoScroll("editDictionary","编辑子选项", 680, 330, "${ctx}/system/dictionary/editDictionaryView?id=" + radio.attr("id"));
+			title += "部门";
 		}
+		
+		$('#editPanel').panel({
+			title: title,
+			fit:true,
+			closable:true,
+			border:false,
+			href:'${ctx}/system/dept/editDeptView?id=' + radio.attr('id')
+		});
+		$('#editPanel').panel('open');
 	}
 	
 	<#-- 删除选项字典-->
@@ -145,5 +185,30 @@
 				 }
 			 }
 		 );
+	}
+	
+	<#-- 提交 -->
+	function commitData(form){
+		if($(form).form('validate')){
+			var param = [];
+			$("#form :input, #form textarea, #form select").each(function(){
+				param.push({name:this.name,value:$(this).val()});
+		    });
+		    
+		    $.defaultAjaxOperation("${ctx}/system/dept/saveDept", param, true, true, 
+				 {
+					 success: function (result){
+				 		 if(result.success){
+				 		 	$.timeOutMsgTip("提示", result.message);						 	 
+							 <#-- 刷新窗口数据 -->
+							 window.location.reload(true);
+						 }else{
+							 $.errorTip("警告", "操作失败");
+						 }
+					 }
+				 }
+			);
+		}
+		return false;
 	}
 </script>

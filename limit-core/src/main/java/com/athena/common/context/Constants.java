@@ -177,11 +177,25 @@ public class Constants {
 		 * 一级路径深度
 		 */
 		public static final short TOP_DEEP = 0;
-		
+
+		/**
+		 * 是否删除
+		 * @author niebinxiao
+		 */
+		public enum IS_DEL {
+			DELED("1"), NOT("0");
+
+			public String code;
+
+			private IS_DEL(String code) {
+				this.code = code;
+			}
+
+		}
+
 		/**
 		 * 类型
 		 * @author niebinxiao
-		 *
 		 */
 		public enum Type {
 			DEPARTMENT("1"), ORG("0");

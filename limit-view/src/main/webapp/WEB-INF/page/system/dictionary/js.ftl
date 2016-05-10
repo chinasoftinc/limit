@@ -54,9 +54,6 @@
 	    <#-- 右键菜单 -->
 	    onContextMenu: function(e, node){
 			e.preventDefault();
-			$selectTreeUl = $(e.target).closest("ul");
-			selectNode = node;
-			$selectTreeUl.tree('select', node.target);
 			$("#" + node.id).attr("checked", true);
 
 			var rightMouseMenu = "";
@@ -78,7 +75,7 @@
 	
 	<#-- 添加主目录 -->
 	function addRootDirectory(){
-		 $.createSimpleWindowAutoScroll("editDictionary","添加主目录", 680, 180, "${ctx}/system/dictionary/addDictionaryView?optType=1&optIsDir=1&optParentId=0");
+		 $.createSimpleWindowAutoScroll("editDictionary","添加主目录", 680, 185, "${ctx}/system/dictionary/addDictionaryView?optType=1&optIsDir=1&optParentId=0");
 	}
 	
 	<#-- 添加子目录 -->

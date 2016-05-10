@@ -31,13 +31,13 @@ public class DictionaryController extends AbstractWebController {
 	@Autowired
 	private DictionaryService dictionaryService;
 
-	// 数据字典主页
+	// 主页
 	@RequestMapping(value = "/main", method = RequestMethod.GET)
-	public ModelAndView optdicManage() {
+	public ModelAndView main() {
 		return new ModelAndView("/system/dictionary/main");
 	}
 
-	// 字典数据
+	// 数据
 	@RequestMapping(value = "/dictionaryJson", method = RequestMethod.POST)
 	@ResponseBody
 	public Object dictionaryJson(HttpServletResponse response) {
@@ -45,7 +45,7 @@ public class DictionaryController extends AbstractWebController {
 		return dics == null ? new ArrayList<>() : dics;
 	}
 
-	// 字典添加页面
+	// 添加页面
 	@RequestMapping(value = "/addDictionaryView", method = RequestMethod.GET)
 	public ModelAndView addDictionaryView(Dictionary form) {
 		ModelAndView mv = new ModelAndView("/system/dictionary/edit");
@@ -65,7 +65,7 @@ public class DictionaryController extends AbstractWebController {
 		return mv;
 	}
 
-	// 字典编辑页面
+	// 编辑页面
 	@RequestMapping(value = "/editDictionaryView", method = RequestMethod.GET)
 	public ModelAndView editDictionaryView(Dictionary form) {
 		ModelAndView mv = new ModelAndView("/system/dictionary/edit");
@@ -81,7 +81,7 @@ public class DictionaryController extends AbstractWebController {
 		return mv;
 	}
 
-	// 保存字典
+	// 保存
 	@RequestMapping(value = "/saveDictionary", method = RequestMethod.POST)
 	public ModelAndView addOptdic(Dictionary form) {
 		ModelAndView mv = new ModelAndView();
@@ -105,7 +105,7 @@ public class DictionaryController extends AbstractWebController {
 		return mv;
 	}
 
-	// 删除字典
+	// 删除
 	@RequestMapping(value = "/removeDictionary", method = RequestMethod.POST)
 	@ResponseBody
 	public Object removeDictionary(Dictionary form, HttpServletResponse response) {
