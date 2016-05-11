@@ -3,9 +3,9 @@ package com.athena.module.users.mapper;
 import java.util.List;
 
 import com.athena.common.base.mapper.Mapper;
+import com.athena.common.dto.PageResult;
 import com.athena.module.users.model.User;
 import com.athena.module.users.model.UserExample;
-import com.athena.module.users.model.UserExampleDefined;
 
 public interface UserMapper extends Mapper<User, UserExample> {
 
@@ -14,12 +14,12 @@ public interface UserMapper extends Mapper<User, UserExample> {
 	 * @param example
 	 * @return
 	 */
-	List<User> selectPageUser(UserExampleDefined example);
+	List<User> selectPageUser(PageResult<User> example);
 
 	/**
 	 * 自定义用户总数查询
 	 * @param example
 	 * @return
 	 */
-	Integer selectUserCount(UserExampleDefined example);
+	Integer selectUserCount(PageResult<User> example);
 }

@@ -6,10 +6,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.athena.common.base.dao.AbstractDao;
+import com.athena.common.dto.PageResult;
 import com.athena.module.users.mapper.UserMapper;
 import com.athena.module.users.model.User;
 import com.athena.module.users.model.UserExample;
-import com.athena.module.users.model.UserExampleDefined;
 
 @Repository
 public class UserDaoImp extends AbstractDao<User, UserExample> implements UserDao {
@@ -23,12 +23,12 @@ public class UserDaoImp extends AbstractDao<User, UserExample> implements UserDa
 	}
 
 	@Override
-	public List<User> selectPageUser(UserExampleDefined example) {
+	public List<User> selectPageUser(PageResult<User> example) {
 		return usermapper.selectPageUser(example);
 	}
 
 	@Override
-	public Integer selectUserCount(UserExampleDefined example) {
+	public Integer selectUserCount(PageResult<User> example) {
 		return usermapper.selectUserCount(example);
 	}
 

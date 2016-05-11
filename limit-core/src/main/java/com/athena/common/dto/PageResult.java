@@ -2,6 +2,9 @@ package com.athena.common.dto;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+
+import org.apache.commons.collections.MapUtils;
 
 import com.athena.common.base.entity.PageModel;
 
@@ -21,7 +24,7 @@ public class PageResult<bean> {
 	private List<bean> rows;
 
 	// 分页查询对象
-	private transient Pagination page;
+	private transient Pagination pagination;
 
 	// 分页排序参数
 	private transient List<String> orderBy;
@@ -33,9 +36,9 @@ public class PageResult<bean> {
 	 * 通过分页查询条件pojo构建分页查询参数
 	 * @param filter
 	 */
-	public PageResult(PageModel<bean> filter) {
+	public PageResult(PageModel<bean> filter, Map<String, String> orderFieldConver) {
 		this.filter = filter;
-		this.initPagination(filter);
+		this.initPagination(filter, orderFieldConver);
 	}
 
 	/**
@@ -43,23 +46,31 @@ public class PageResult<bean> {
 	 * @param filter 分页查询条件参数pojo
 	 * @return
 	 */
-	private void initPagination(PageModel<?> filter) {
+	private void initPagination(PageModel<?> filter, Map<String, String> orderFieldConver) {
+
 		// 检测分页查询条件参数是否有误
 		if (filter == null || filter.getPage() == null || filter.getRows() == null) {
+
 			// 参数有误, 默认跳转第一页
-			this.page = new Pagination(1, DEFAULT_PAGE_SIZE);
+			this.pagination = new Pagination(1, DEFAULT_PAGE_SIZE);
 			return;
 		}
 
 		// 初始化分页查询对象
-		this.page = new Pagination(filter.getPage(), filter.getRows());
+		this.pagination = new Pagination(filter.getPage(), filter.getRows());
 		// 处理查询条件参数 [排序]
 		if (filter.getSort() != null && filter.getOrder() != null) {
+
 			// 排序参数数组
 			String[] sortArr = filter.getSort().split(",");
+
+			// 处理字段的抓换
+			converField(sortArr, orderFieldConver);
+
 			// 排序参数对应的排序方向数组
 			String[] orderArr = filter.getOrder().split(",");
 			List<String> list = new ArrayList<String>();
+
 			// 构建排序sql
 			for (int i = 0; i < orderArr.length; i++) {
 				list.add(sortArr[i] + " " + orderArr[i]);
@@ -72,6 +83,19 @@ public class PageResult<bean> {
 		}
 	}
 
+	// 转换排序字段为SQL字段
+	private void converField(String[] sortArr, Map<String, String> orderFieldConver) {
+		if (MapUtils.isNotEmpty(orderFieldConver)) {
+			for (Map.Entry<String, String> entry : orderFieldConver.entrySet()) {
+				for (int i = 0; i < sortArr.length; i++) {
+					if (sortArr[i].equals(entry.getKey())) {
+						sortArr[i] = entry.getValue();
+					}
+				}
+			}
+		}
+	}
+
 	public PageModel<bean> getFilter() {
 		return filter;
 	}
@@ -80,12 +104,12 @@ public class PageResult<bean> {
 		this.filter = filter;
 	}
 
-	public Pagination getPage() {
-		return page;
+	public Pagination getPagination() {
+		return pagination;
 	}
 
-	public void setPage(Pagination page) {
-		this.page = page;
+	public void setPagination(Pagination pagination) {
+		this.pagination = pagination;
 	}
 
 	public List<String> getOrderBy() {

@@ -12,7 +12,7 @@
 	</select>
 
 	<!-- 用户分页查询 -->
-	<select id="selectPageUser" parameterType="com.athena.module.users.model.UserExampleDefined" resultMap="BaseResultMap">
+	<select id="selectPageUser" parameterType="com.athena.common.dto.PageResult" resultMap="BaseResultMap">
 		<if test="pagination != null">
 			<include refid="OracleDialectPrefix" />
 		</if>
@@ -49,8 +49,8 @@
 				</if>
 			</trim>
 		</where>
-		<if test="filter.orderBy != null">
-			<foreach collection="filter.orderBy" item="orderBy" open="ORDER BY" separator=",">u.${orderBy}</foreach>
+		<if test="orderBy != null">
+			<foreach collection="orderBy" item="orderByItem" open="ORDER BY" separator=",">u.${orderByItem}</foreach>
 		</if>
 		<if test="pagination != null">
 			<include refid="OracleDialectSuffix" />
@@ -58,7 +58,7 @@
 	</select>
 
 	<!-- 查询用户级联角色总记录  -->
-	<select id="selectUserCount" parameterType="com.athena.module.users.model.UserExampleDefined" resultType="java.lang.Integer">
+	<select id="selectUserCount" parameterType="com.athena.common.dto.PageResult" resultType="java.lang.Integer">
 		select count(*)
 		from T_USERS u
 		<if test="filter.searchRoleId != null">

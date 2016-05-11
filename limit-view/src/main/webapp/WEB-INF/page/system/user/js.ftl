@@ -12,22 +12,37 @@
 	    pagePosition:'top',
 	    pageList:[10,15,20,30,50,100,150],
 	    pageSize:20,
-	    singleSelect:false,
+	    singleSelect:true,
 	    url:'${ctx}/system/user/userJson',
 	    columns:[[
-	    	{field:'id',checkbox:true},
-	    	{field:'userCode',title:'用户编码',width:100},
+	    	{field:'userCode',title:'用户编码',width:100,
+	    		formatter:function(value, row, rowIndex){
+					return '<input type="radio" style="position:relative;top: 3" id="' + row.id + '" />' + '<span>' + row.userCode + '</span>';
+			 	}
+	    	},
 	        {field:'nickName',title:'用户昵称',width:100},
-	        {field:'userSex',title:'性别',width:100},
-	        {field:'userPhone',title:'电话',width:100},
-	        {field:'userEmail',title:'邮箱',width:100},
-	        {field:'userStatus',title:'启用状态',width:50},
-	        {field:'lastAccessTime',title:'最后访问时间',width:100,formatter: function(value,row,index){
-	        		return new Date(value).format("yyyy-MM-dd hh:mm");
+	        {field:'userSex',title:'性别',width:100,sortable:true,formatter: function(value,row,index){
+	        		return value == '0' ? '男' : '女';
 	        	}
 	        },
-	        {field:'onlineTime',title:'在线时长',width:100}
+	        {field:'userPhone',title:'电话',width:100},
+	        {field:'userEmail',title:'邮箱',width:100},
+	        {field:'userStatus',title:'启用状态',width:50,sortable:true,formatter: function(value,row,index){
+	        		return value == '0' ? '停用' : '启用';
+	        	}
+	        },
+	        {field:'lastAccessTime',title:'最后访问时间',width:100,sortable:true,formatter: function(value,row,index){
+	        		return new Date(value).format("yyyy年MM月dd日hh时mm分");
+	        	}
+	        },
+	        {field:'onlineTime',title:'在线时长(分钟)',width:100,sortable:true}
 	    ]],
+	    
+     	<#-- 单选 -->
+	    onClickRow:function(index, row){ 
+	    	$("#" + row.id).attr("checked",true);
+	    },
+	    
 	    onDblClickRow:function(rowIndex, rowData){
 	    	$.createSimpleWindowAutoScroll("editUser","编辑用户", 680, 385, "${ctx}/system/user/editView?id=" + rowData.id);
 	    } 

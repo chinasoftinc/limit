@@ -3,9 +3,9 @@ package com.athena.module.users.dao;
 import java.util.List;
 
 import com.athena.common.base.dao.Dao;
+import com.athena.common.dto.PageResult;
 import com.athena.module.users.model.User;
 import com.athena.module.users.model.UserExample;
-import com.athena.module.users.model.UserExampleDefined;
 
 public interface UserDao extends Dao<User, UserExample> {
 
@@ -14,12 +14,12 @@ public interface UserDao extends Dao<User, UserExample> {
 	 * @param example
 	 * @return
 	 */
-	List<User> selectPageUser(UserExampleDefined example);
+	List<User> selectPageUser(PageResult<User> example);
 
 	/**
 	 * 自定义用户总数查询
 	 * @param example
 	 * @return
 	 */
-	Integer selectUserCount(UserExampleDefined example);
+	Integer selectUserCount(PageResult<User> example);
 }

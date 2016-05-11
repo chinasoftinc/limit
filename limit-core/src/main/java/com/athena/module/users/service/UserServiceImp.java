@@ -3,16 +3,17 @@ package com.athena.module.users.service;
 import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
+
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.athena.common.base.service.AbstractService;
 import com.athena.common.context.Constants;
+import com.athena.common.dto.PageResult;
 import com.athena.module.users.dao.UserDao;
 import com.athena.module.users.model.User;
 import com.athena.module.users.model.UserExample;
-import com.athena.module.users.model.UserExampleDefined;
 
 @Service
 public class UserServiceImp extends AbstractService<User, UserExample> implements UserService {
@@ -29,13 +30,13 @@ public class UserServiceImp extends AbstractService<User, UserExample> implement
 	}
 
 	@Override
-	public List<User> selectUserPage(UserExampleDefined example) {
+	public List<User> selectUserPage(PageResult<User> example) {
 		return userdao.selectPageUser(example);
 
 	}
 
 	@Override
-	public int selectUserCount(UserExampleDefined example) {
+	public int selectUserCount(PageResult<User> example) {
 		return userdao.selectUserCount(example);
 	}
 

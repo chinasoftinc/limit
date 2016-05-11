@@ -4,9 +4,9 @@ import java.math.BigDecimal;
 import java.util.List;
 
 import com.athena.common.base.service.Service;
+import com.athena.common.dto.PageResult;
 import com.athena.module.users.model.User;
 import com.athena.module.users.model.UserExample;
-import com.athena.module.users.model.UserExampleDefined;
 
 public interface UserService extends Service<User, UserExample> {
 
@@ -35,14 +35,14 @@ public interface UserService extends Service<User, UserExample> {
 	 * @param exam
 	 * @return
 	 */
-	List<User> selectUserPage(UserExampleDefined example);
+	List<User> selectUserPage(PageResult<User> example);
 
 	/**
 	 * 自定义用户总数查询
 	 * @param support
 	 * @return
 	 */
-	int selectUserCount(UserExampleDefined example);
+	int selectUserCount(PageResult<User> example);
 
 	/**
 	 * 查询用户级联角色信息
