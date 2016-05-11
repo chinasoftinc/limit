@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.athena.module.users.mapper.UserMapper">
+
+	<!-- 根据角色id查询所有用户 -->
+	<select id="selectUserOfRoleId" parameterType="java.lang.Long" resultMap="BaseResultMap">
+		select *
+		from T_USERS u
+		inner join T_USER_ROLE ur on u.ID = ur.USER_ID
+		where ur.ROLE_ID = #{roleid} and u.USER_STATUS in
+		('0','1') and u.IS_DEL = '0'
+	</select>
+
+	<!-- 用户分页查询 -->
+	<select id="selectPageUser" parameterType="com.athena.module.users.model.UserExampleDefined" resultMap="BaseResultMap">
+		<if test="pagination != null">
+			<include refid="OracleDialectPrefix" />
+		</if>
+		select * from T_USERS u
+		<if test="filter.searchRoleId != null">
+			inner join T_USER_ROLE ur on u.ID = ur.USER_ID
+		</if>
+		<where>
+			<trim prefixOverrides="AND" suffixOverrides="AND">
+				AND u.USER_STATUS in ('0','1')
+				<if test="filter.nickName != null &amp;&amp; filter.nickName != ''">
+					AND instr(u.NICK_NAME, #{filter.nickName}) > 0
+				</if>
+				<if test="filter.userName != null &amp;&amp; filter.userName != ''">
+					AND instr(u.USER_NAME, #{filter.userName}) > 0
+				</if>
+				<if test="filter.userStatus != null &amp;&amp; filter.userStatus != ''">
+					AND u.USER_STATUS = #{filter.userStatus}
+				</if>
+				<if test="filter.searchRoleId != null &amp;&amp; filter.searchRoleId != ''">
+					AND ur.ROLE_ID = #{filter.searchRoleId}
+				</if>
+				<if test="filter.userCode != null &amp;&amp; filter.userCode != ''">
+					AND instr(u.USER_CODE, #{filter.userCode}) > 0
+				</if>
+				<if test="filter.userSex != null &amp;&amp; filter.userSex != ''">
+					AND u.USER_SEX = #{filter.userSex}
+				</if>
+				<if test="filter.orgId != null &amp;&amp; filter.orgId != ''">
+					AND u.ORG_ID = #{filter.orgId}
+				</if>
+				<if test="filter.departmentId != null &amp;&amp; filter.departmentId != ''">
+					AND u.DEPARTMENT_ID = #{filter.departmentId}
+				</if>
+			</trim>
+		</where>
+		<if test="filter.orderBy != null">
+			<foreach collection="filter.orderBy" item="orderBy" open="ORDER BY" separator=",">u.${orderBy}</foreach>
+		</if>
+		<if test="pagination != null">
+			<include refid="OracleDialectSuffix" />
+		</if>
+	</select>
+
+	<!-- 查询用户级联角色总记录  -->
+	<select id="selectUserCount" parameterType="com.athena.module.users.model.UserExampleDefined" resultType="java.lang.Integer">
+		select count(*)
+		from T_USERS u
+		<if test="filter.searchRoleId != null">
+			inner join T_USER_ROLE ur on u.ID = ur.USER_ID
+		</if>
+		<where>
+			<trim prefixOverrides="AND" suffixOverrides="AND">
+				AND u.USER_STATUS in ('0','1')
+				<if test="filter.nickName != null &amp;&amp; filter.nickName != ''">
+					AND instr(u.NICK_NAME, #{filter.nickName}) > 0
+				</if>
+				<if test="filter.userName != null &amp;&amp; filter.userName != ''">
+					AND instr(u.USER_NAME, #{filter.userName}) > 0
+				</if>
+				<if test="filter.userStatus != null &amp;&amp; filter.userStatus != ''">
+					AND u.USER_STATUS = #{filter.userStatus}
+				</if>
+				<if test="filter.searchRoleId != null &amp;&amp; filter.searchRoleId != ''">
+					AND ur.ROLE_ID = #{filter.searchRoleId}
+				</if>
+				<if test="filter.userCode != null &amp;&amp; filter.userCode != ''">
+					AND instr(u.USER_CODE, #{filter.userCode}) > 0
+				</if>
+				<if test="filter.userSex != null &amp;&amp; filter.userSex != ''">
+					AND u.USER_SEX = #{filter.userSex}
+				</if>
+				<if test="filter.orgId != null &amp;&amp; filter.orgId != ''">
+					AND u.ORG_ID = #{filter.orgId}
+				</if>
+				<if test="filter.departmentId != null &amp;&amp; filter.departmentId != ''">
+					AND u.DEPARTMENT_ID = #{filter.departmentId}
+				</if>
+			</trim>
+		</where>
+	</select>
+
+</mapper>

@@ -10,19 +10,21 @@ import org.springframework.beans.factory.annotation.Autowired;
 import com.athena.common.base.dao.Dao;
 
 /**
- * @author NieBinxiao
+ * @author niebinxiao
+ * @param <bean>
+ * @param <example>
  */
-public abstract class AbstractService<MODEL, EXAM> implements Service<MODEL, EXAM> {
+public abstract class AbstractService<bean, example> implements Service<bean, example> {
 	protected Logger logger = LoggerFactory.getLogger(this.getClass());
 
 	@Autowired
-	private Dao<MODEL, EXAM> dao;
+	private Dao<bean, example> dao;
 
-	public int countByExample(EXAM example) {
+	public int countByExample(example example) {
 		return dao.countByExample(example);
 	}
 
-	public int deleteByExample(EXAM example) {
+	public int deleteByExample(example example) {
 		return dao.deleteByExample(example);
 	}
 
@@ -30,35 +32,35 @@ public abstract class AbstractService<MODEL, EXAM> implements Service<MODEL, EXA
 		return dao.deleteByPrimaryKey(id);
 	}
 
-	public int insert(MODEL record) {
+	public int insert(bean record) {
 		return dao.insert(record);
 	}
 
-	public int insertSelective(MODEL record) {
+	public int insertSelective(bean record) {
 		return dao.insertSelective(record);
 	}
 
-	public List<MODEL> selectByExample(EXAM example) {
+	public List<bean> selectByExample(example example) {
 		return dao.selectByExample(example);
 	}
 
-	public MODEL selectByPrimaryKey(BigDecimal id) {
+	public bean selectByPrimaryKey(BigDecimal id) {
 		return dao.selectByPrimaryKey(id);
 	}
 
-	public int updateByExampleSelective(MODEL record, EXAM example) {
+	public int updateByExampleSelective(bean record, example example) {
 		return dao.updateByExampleSelective(record, example);
 	}
 
-	public int updateByExample(MODEL record, EXAM example) {
+	public int updateByExample(bean record, example example) {
 		return dao.updateByExample(record, example);
 	}
 
-	public int updateByPrimaryKeySelective(MODEL record) {
+	public int updateByPrimaryKeySelective(bean record) {
 		return dao.updateByPrimaryKeySelective(record);
 	}
 
-	public int updateByPrimaryKey(MODEL record) {
+	public int updateByPrimaryKey(bean record) {
 		return dao.updateByPrimaryKey(record);
 	}
 

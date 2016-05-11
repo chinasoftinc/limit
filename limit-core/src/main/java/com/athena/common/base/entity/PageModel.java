@@ -3,11 +3,11 @@ package com.athena.common.base.entity;
 import java.util.List;
 
 /**
- * model超类
+ * 页面模型
  * @author niebinxiao
- * @param <T>
+ * @param <bean>
  */
-public abstract class PageModel<T> extends Model<T> {
+public abstract class PageModel<bean> extends Bean<bean> {
 	private static final long serialVersionUID = 1L;
 
 	// 当前页

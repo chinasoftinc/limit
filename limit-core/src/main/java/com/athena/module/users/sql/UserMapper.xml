@@ -1,0 +1,525 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.athena.module.users.mapper.UserMapper" >
+  <resultMap id="BaseResultMap" type="com.athena.module.users.model.User" >
+    <id column="ID" property="id" jdbcType="DECIMAL" />
+    <result column="USER_NAME" property="userName" jdbcType="VARCHAR" />
+    <result column="PASS_WORD" property="passWord" jdbcType="VARCHAR" />
+    <result column="NICK_NAME" property="nickName" jdbcType="VARCHAR" />
+    <result column="USER_CODE" property="userCode" jdbcType="VARCHAR" />
+    <result column="USER_STATUS" property="userStatus" jdbcType="CHAR" />
+    <result column="PASSWD_SALT" property="passwdSalt" jdbcType="VARCHAR" />
+    <result column="USER_SEX" property="userSex" jdbcType="CHAR" />
+    <result column="USER_EMAIL" property="userEmail" jdbcType="VARCHAR" />
+    <result column="USER_PHONE" property="userPhone" jdbcType="VARCHAR" />
+    <result column="CSS_ID" property="cssId" jdbcType="VARCHAR" />
+    <result column="ROLE_ID" property="roleId" jdbcType="DECIMAL" />
+    <result column="DEPARTMENT_ID" property="departmentId" jdbcType="DECIMAL" />
+    <result column="ORG_ID" property="orgId" jdbcType="DECIMAL" />
+    <result column="LAST_ACCESS_IP" property="lastAccessIp" jdbcType="VARCHAR" />
+    <result column="LAST_LOGIN_TIME" property="lastLoginTime" jdbcType="DATE" />
+    <result column="LAST_ACCESS_TIME" property="lastAccessTime" jdbcType="DATE" />
+    <result column="ONLINE_TIME" property="onlineTime" jdbcType="DECIMAL" />
+    <result column="ACCESS_MODULE" property="accessModule" jdbcType="VARCHAR" />
+    <result column="IS_DEL" property="isDel" jdbcType="CHAR" />
+    <result column="CREATE_TIME" property="createTime" jdbcType="DATE" />
+    <result column="UPDATE_TIME" property="updateTime" jdbcType="DATE" />
+    <result column="CREATE_USERID" property="createUserid" jdbcType="DECIMAL" />
+    <result column="UPDATE_USERID" property="updateUserid" jdbcType="DECIMAL" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    ID, USER_NAME, PASS_WORD, NICK_NAME, USER_CODE, USER_STATUS, PASSWD_SALT, USER_SEX, 
+    USER_EMAIL, USER_PHONE, CSS_ID, ROLE_ID, DEPARTMENT_ID, ORG_ID, LAST_ACCESS_IP, LAST_LOGIN_TIME, 
+    LAST_ACCESS_TIME, ONLINE_TIME, ACCESS_MODULE, IS_DEL, CREATE_TIME, UPDATE_TIME, CREATE_USERID, 
+    UPDATE_USERID
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.athena.module.users.model.UserExample" >
+    <include refid="OracleDialectPrefix" />
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from T_USERS
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+    <include refid="OracleDialectSuffix" />
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.math.BigDecimal" >
+    select 
+    <include refid="Base_Column_List" />
+    from T_USERS
+    where ID = #{id,jdbcType=DECIMAL}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.math.BigDecimal" >
+    delete from T_USERS
+    where ID = #{id,jdbcType=DECIMAL}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.athena.module.users.model.UserExample" >
+    delete from T_USERS
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.athena.module.users.model.User" >
+    insert into T_USERS (ID, USER_NAME, PASS_WORD, 
+      NICK_NAME, USER_CODE, USER_STATUS, 
+      PASSWD_SALT, USER_SEX, USER_EMAIL, 
+      USER_PHONE, CSS_ID, ROLE_ID, 
+      DEPARTMENT_ID, ORG_ID, LAST_ACCESS_IP, 
+      LAST_LOGIN_TIME, LAST_ACCESS_TIME, ONLINE_TIME, 
+      ACCESS_MODULE, IS_DEL, CREATE_TIME, 
+      UPDATE_TIME, CREATE_USERID, UPDATE_USERID
+      )
+    values (#{id,jdbcType=DECIMAL}, #{userName,jdbcType=VARCHAR}, #{passWord,jdbcType=VARCHAR}, 
+      #{nickName,jdbcType=VARCHAR}, #{userCode,jdbcType=VARCHAR}, #{userStatus,jdbcType=CHAR}, 
+      #{passwdSalt,jdbcType=VARCHAR}, #{userSex,jdbcType=CHAR}, #{userEmail,jdbcType=VARCHAR}, 
+      #{userPhone,jdbcType=VARCHAR}, #{cssId,jdbcType=VARCHAR}, #{roleId,jdbcType=DECIMAL}, 
+      #{departmentId,jdbcType=DECIMAL}, #{orgId,jdbcType=DECIMAL}, #{lastAccessIp,jdbcType=VARCHAR}, 
+      #{lastLoginTime,jdbcType=DATE}, #{lastAccessTime,jdbcType=DATE}, #{onlineTime,jdbcType=DECIMAL}, 
+      #{accessModule,jdbcType=VARCHAR}, #{isDel,jdbcType=CHAR}, #{createTime,jdbcType=DATE}, 
+      #{updateTime,jdbcType=DATE}, #{createUserid,jdbcType=DECIMAL}, #{updateUserid,jdbcType=DECIMAL}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.athena.module.users.model.User" >
+    insert into T_USERS
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="userName != null" >
+        USER_NAME,
+      </if>
+      <if test="passWord != null" >
+        PASS_WORD,
+      </if>
+      <if test="nickName != null" >
+        NICK_NAME,
+      </if>
+      <if test="userCode != null" >
+        USER_CODE,
+      </if>
+      <if test="userStatus != null" >
+        USER_STATUS,
+      </if>
+      <if test="passwdSalt != null" >
+        PASSWD_SALT,
+      </if>
+      <if test="userSex != null" >
+        USER_SEX,
+      </if>
+      <if test="userEmail != null" >
+        USER_EMAIL,
+      </if>
+      <if test="userPhone != null" >
+        USER_PHONE,
+      </if>
+      <if test="cssId != null" >
+        CSS_ID,
+      </if>
+      <if test="roleId != null" >
+        ROLE_ID,
+      </if>
+      <if test="departmentId != null" >
+        DEPARTMENT_ID,
+      </if>
+      <if test="orgId != null" >
+        ORG_ID,
+      </if>
+      <if test="lastAccessIp != null" >
+        LAST_ACCESS_IP,
+      </if>
+      <if test="lastLoginTime != null" >
+        LAST_LOGIN_TIME,
+      </if>
+      <if test="lastAccessTime != null" >
+        LAST_ACCESS_TIME,
+      </if>
+      <if test="onlineTime != null" >
+        ONLINE_TIME,
+      </if>
+      <if test="accessModule != null" >
+        ACCESS_MODULE,
+      </if>
+      <if test="isDel != null" >
+        IS_DEL,
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME,
+      </if>
+      <if test="updateTime != null" >
+        UPDATE_TIME,
+      </if>
+      <if test="createUserid != null" >
+        CREATE_USERID,
+      </if>
+      <if test="updateUserid != null" >
+        UPDATE_USERID,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=DECIMAL},
+      </if>
+      <if test="userName != null" >
+        #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="passWord != null" >
+        #{passWord,jdbcType=VARCHAR},
+      </if>
+      <if test="nickName != null" >
+        #{nickName,jdbcType=VARCHAR},
+      </if>
+      <if test="userCode != null" >
+        #{userCode,jdbcType=VARCHAR},
+      </if>
+      <if test="userStatus != null" >
+        #{userStatus,jdbcType=CHAR},
+      </if>
+      <if test="passwdSalt != null" >
+        #{passwdSalt,jdbcType=VARCHAR},
+      </if>
+      <if test="userSex != null" >
+        #{userSex,jdbcType=CHAR},
+      </if>
+      <if test="userEmail != null" >
+        #{userEmail,jdbcType=VARCHAR},
+      </if>
+      <if test="userPhone != null" >
+        #{userPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="cssId != null" >
+        #{cssId,jdbcType=VARCHAR},
+      </if>
+      <if test="roleId != null" >
+        #{roleId,jdbcType=DECIMAL},
+      </if>
+      <if test="departmentId != null" >
+        #{departmentId,jdbcType=DECIMAL},
+      </if>
+      <if test="orgId != null" >
+        #{orgId,jdbcType=DECIMAL},
+      </if>
+      <if test="lastAccessIp != null" >
+        #{lastAccessIp,jdbcType=VARCHAR},
+      </if>
+      <if test="lastLoginTime != null" >
+        #{lastLoginTime,jdbcType=DATE},
+      </if>
+      <if test="lastAccessTime != null" >
+        #{lastAccessTime,jdbcType=DATE},
+      </if>
+      <if test="onlineTime != null" >
+        #{onlineTime,jdbcType=DECIMAL},
+      </if>
+      <if test="accessModule != null" >
+        #{accessModule,jdbcType=VARCHAR},
+      </if>
+      <if test="isDel != null" >
+        #{isDel,jdbcType=CHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=DATE},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=DATE},
+      </if>
+      <if test="createUserid != null" >
+        #{createUserid,jdbcType=DECIMAL},
+      </if>
+      <if test="updateUserid != null" >
+        #{updateUserid,jdbcType=DECIMAL},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.athena.module.users.model.UserExample" resultType="java.lang.Integer" >
+    select count(*) from T_USERS
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update T_USERS
+    <set >
+      <if test="record.id != null" >
+        ID = #{record.id,jdbcType=DECIMAL},
+      </if>
+      <if test="record.userName != null" >
+        USER_NAME = #{record.userName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.passWord != null" >
+        PASS_WORD = #{record.passWord,jdbcType=VARCHAR},
+      </if>
+      <if test="record.nickName != null" >
+        NICK_NAME = #{record.nickName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.userCode != null" >
+        USER_CODE = #{record.userCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.userStatus != null" >
+        USER_STATUS = #{record.userStatus,jdbcType=CHAR},
+      </if>
+      <if test="record.passwdSalt != null" >
+        PASSWD_SALT = #{record.passwdSalt,jdbcType=VARCHAR},
+      </if>
+      <if test="record.userSex != null" >
+        USER_SEX = #{record.userSex,jdbcType=CHAR},
+      </if>
+      <if test="record.userEmail != null" >
+        USER_EMAIL = #{record.userEmail,jdbcType=VARCHAR},
+      </if>
+      <if test="record.userPhone != null" >
+        USER_PHONE = #{record.userPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.cssId != null" >
+        CSS_ID = #{record.cssId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.roleId != null" >
+        ROLE_ID = #{record.roleId,jdbcType=DECIMAL},
+      </if>
+      <if test="record.departmentId != null" >
+        DEPARTMENT_ID = #{record.departmentId,jdbcType=DECIMAL},
+      </if>
+      <if test="record.orgId != null" >
+        ORG_ID = #{record.orgId,jdbcType=DECIMAL},
+      </if>
+      <if test="record.lastAccessIp != null" >
+        LAST_ACCESS_IP = #{record.lastAccessIp,jdbcType=VARCHAR},
+      </if>
+      <if test="record.lastLoginTime != null" >
+        LAST_LOGIN_TIME = #{record.lastLoginTime,jdbcType=DATE},
+      </if>
+      <if test="record.lastAccessTime != null" >
+        LAST_ACCESS_TIME = #{record.lastAccessTime,jdbcType=DATE},
+      </if>
+      <if test="record.onlineTime != null" >
+        ONLINE_TIME = #{record.onlineTime,jdbcType=DECIMAL},
+      </if>
+      <if test="record.accessModule != null" >
+        ACCESS_MODULE = #{record.accessModule,jdbcType=VARCHAR},
+      </if>
+      <if test="record.isDel != null" >
+        IS_DEL = #{record.isDel,jdbcType=CHAR},
+      </if>
+      <if test="record.createTime != null" >
+        CREATE_TIME = #{record.createTime,jdbcType=DATE},
+      </if>
+      <if test="record.updateTime != null" >
+        UPDATE_TIME = #{record.updateTime,jdbcType=DATE},
+      </if>
+      <if test="record.createUserid != null" >
+        CREATE_USERID = #{record.createUserid,jdbcType=DECIMAL},
+      </if>
+      <if test="record.updateUserid != null" >
+        UPDATE_USERID = #{record.updateUserid,jdbcType=DECIMAL},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update T_USERS
+    set ID = #{record.id,jdbcType=DECIMAL},
+      USER_NAME = #{record.userName,jdbcType=VARCHAR},
+      PASS_WORD = #{record.passWord,jdbcType=VARCHAR},
+      NICK_NAME = #{record.nickName,jdbcType=VARCHAR},
+      USER_CODE = #{record.userCode,jdbcType=VARCHAR},
+      USER_STATUS = #{record.userStatus,jdbcType=CHAR},
+      PASSWD_SALT = #{record.passwdSalt,jdbcType=VARCHAR},
+      USER_SEX = #{record.userSex,jdbcType=CHAR},
+      USER_EMAIL = #{record.userEmail,jdbcType=VARCHAR},
+      USER_PHONE = #{record.userPhone,jdbcType=VARCHAR},
+      CSS_ID = #{record.cssId,jdbcType=VARCHAR},
+      ROLE_ID = #{record.roleId,jdbcType=DECIMAL},
+      DEPARTMENT_ID = #{record.departmentId,jdbcType=DECIMAL},
+      ORG_ID = #{record.orgId,jdbcType=DECIMAL},
+      LAST_ACCESS_IP = #{record.lastAccessIp,jdbcType=VARCHAR},
+      LAST_LOGIN_TIME = #{record.lastLoginTime,jdbcType=DATE},
+      LAST_ACCESS_TIME = #{record.lastAccessTime,jdbcType=DATE},
+      ONLINE_TIME = #{record.onlineTime,jdbcType=DECIMAL},
+      ACCESS_MODULE = #{record.accessModule,jdbcType=VARCHAR},
+      IS_DEL = #{record.isDel,jdbcType=CHAR},
+      CREATE_TIME = #{record.createTime,jdbcType=DATE},
+      UPDATE_TIME = #{record.updateTime,jdbcType=DATE},
+      CREATE_USERID = #{record.createUserid,jdbcType=DECIMAL},
+      UPDATE_USERID = #{record.updateUserid,jdbcType=DECIMAL}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.athena.module.users.model.User" >
+    update T_USERS
+    <set >
+      <if test="userName != null" >
+        USER_NAME = #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="passWord != null" >
+        PASS_WORD = #{passWord,jdbcType=VARCHAR},
+      </if>
+      <if test="nickName != null" >
+        NICK_NAME = #{nickName,jdbcType=VARCHAR},
+      </if>
+      <if test="userCode != null" >
+        USER_CODE = #{userCode,jdbcType=VARCHAR},
+      </if>
+      <if test="userStatus != null" >
+        USER_STATUS = #{userStatus,jdbcType=CHAR},
+      </if>
+      <if test="passwdSalt != null" >
+        PASSWD_SALT = #{passwdSalt,jdbcType=VARCHAR},
+      </if>
+      <if test="userSex != null" >
+        USER_SEX = #{userSex,jdbcType=CHAR},
+      </if>
+      <if test="userEmail != null" >
+        USER_EMAIL = #{userEmail,jdbcType=VARCHAR},
+      </if>
+      <if test="userPhone != null" >
+        USER_PHONE = #{userPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="cssId != null" >
+        CSS_ID = #{cssId,jdbcType=VARCHAR},
+      </if>
+      <if test="roleId != null" >
+        ROLE_ID = #{roleId,jdbcType=DECIMAL},
+      </if>
+      <if test="departmentId != null" >
+        DEPARTMENT_ID = #{departmentId,jdbcType=DECIMAL},
+      </if>
+      <if test="orgId != null" >
+        ORG_ID = #{orgId,jdbcType=DECIMAL},
+      </if>
+      <if test="lastAccessIp != null" >
+        LAST_ACCESS_IP = #{lastAccessIp,jdbcType=VARCHAR},
+      </if>
+      <if test="lastLoginTime != null" >
+        LAST_LOGIN_TIME = #{lastLoginTime,jdbcType=DATE},
+      </if>
+      <if test="lastAccessTime != null" >
+        LAST_ACCESS_TIME = #{lastAccessTime,jdbcType=DATE},
+      </if>
+      <if test="onlineTime != null" >
+        ONLINE_TIME = #{onlineTime,jdbcType=DECIMAL},
+      </if>
+      <if test="accessModule != null" >
+        ACCESS_MODULE = #{accessModule,jdbcType=VARCHAR},
+      </if>
+      <if test="isDel != null" >
+        IS_DEL = #{isDel,jdbcType=CHAR},
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME = #{createTime,jdbcType=DATE},
+      </if>
+      <if test="updateTime != null" >
+        UPDATE_TIME = #{updateTime,jdbcType=DATE},
+      </if>
+      <if test="createUserid != null" >
+        CREATE_USERID = #{createUserid,jdbcType=DECIMAL},
+      </if>
+      <if test="updateUserid != null" >
+        UPDATE_USERID = #{updateUserid,jdbcType=DECIMAL},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.athena.module.users.model.User" >
+    update T_USERS
+    set USER_NAME = #{userName,jdbcType=VARCHAR},
+      PASS_WORD = #{passWord,jdbcType=VARCHAR},
+      NICK_NAME = #{nickName,jdbcType=VARCHAR},
+      USER_CODE = #{userCode,jdbcType=VARCHAR},
+      USER_STATUS = #{userStatus,jdbcType=CHAR},
+      PASSWD_SALT = #{passwdSalt,jdbcType=VARCHAR},
+      USER_SEX = #{userSex,jdbcType=CHAR},
+      USER_EMAIL = #{userEmail,jdbcType=VARCHAR},
+      USER_PHONE = #{userPhone,jdbcType=VARCHAR},
+      CSS_ID = #{cssId,jdbcType=VARCHAR},
+      ROLE_ID = #{roleId,jdbcType=DECIMAL},
+      DEPARTMENT_ID = #{departmentId,jdbcType=DECIMAL},
+      ORG_ID = #{orgId,jdbcType=DECIMAL},
+      LAST_ACCESS_IP = #{lastAccessIp,jdbcType=VARCHAR},
+      LAST_LOGIN_TIME = #{lastLoginTime,jdbcType=DATE},
+      LAST_ACCESS_TIME = #{lastAccessTime,jdbcType=DATE},
+      ONLINE_TIME = #{onlineTime,jdbcType=DECIMAL},
+      ACCESS_MODULE = #{accessModule,jdbcType=VARCHAR},
+      IS_DEL = #{isDel,jdbcType=CHAR},
+      CREATE_TIME = #{createTime,jdbcType=DATE},
+      UPDATE_TIME = #{updateTime,jdbcType=DATE},
+      CREATE_USERID = #{createUserid,jdbcType=DECIMAL},
+      UPDATE_USERID = #{updateUserid,jdbcType=DECIMAL}
+    where ID = #{id,jdbcType=DECIMAL}
+  </update>
+  <sql id="OracleDialectPrefix" >
+    <if test="pagination != null" >
+      select * from ( select row_.*, rownum rownum_ from ( 
+    </if>
+  </sql>
+  <sql id="OracleDialectSuffix" >
+    <if test="pagination != null" >
+      <![CDATA[ ) row_ ) where rownum_ > #{pagination.beginIndex} and rownum_ <= #{pagination.endIndex} ]]>
+    </if>
+  </sql>
+</mapper>

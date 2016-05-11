@@ -14,6 +14,7 @@ import com.athena.common.context.Constants.Direction;
 import com.athena.common.dto.Pagination;
 import com.athena.common.exception.BusinessException;
 import com.athena.common.exception.ExceptionCode;
+import com.athena.common.utils.AssertUtils;
 import com.athena.common.utils.PinyinUtils;
 import com.athena.module.departments.dao.DepartmentDao;
 import com.athena.module.departments.model.Department;
@@ -30,7 +31,7 @@ public class DepartmentServiceImp extends AbstractService<Department, Department
 	public List<Department> selectDepartmentsTree() {
 		// 查询一级路径选项字典
 		DepartmentExample example = new DepartmentExample();
-		example.or().andDeptDeepEqualTo(Constants.DepartmentModel.TOP_DEEP).andDeptTypeEqualTo(Constants.DepartmentModel.Type.ORG.code).andIsDelEqualTo(Constants.DepartmentModel.IS_DEL.NOT.code);
+		example.or().andDeptDeepEqualTo(Constants.DepartmentModel.TOP_DEEP).andDeptTypeEqualTo(Constants.DepartmentModel.Type.ORG.code).andIsDelEqualTo(Constants.IS_DEL.NOT.code);
 		example.setOrderByClause("DEPT_SORT_NO");
 
 		List<Department> depts = this.selectByExample(example);
@@ -46,7 +47,7 @@ public class DepartmentServiceImp extends AbstractService<Department, Department
 
 	private List<Department> selectAllSubDepartment(Department parent) {
 		DepartmentExample example = new DepartmentExample();
-		example.or().andDeptParentIdEqualTo(parent.getId()).andIsDelEqualTo(Constants.DepartmentModel.IS_DEL.NOT.code);
+		example.or().andDeptParentIdEqualTo(parent.getId()).andIsDelEqualTo(Constants.IS_DEL.NOT.code);
 		example.setOrderByClause("DEPT_SORT_NO");
 
 		List<Department> depts = this.selectByExample(example);
@@ -73,7 +74,7 @@ public class DepartmentServiceImp extends AbstractService<Department, Department
 		// 部门代码生成
 		String code = PinyinUtils.getFirstPinyin(record.getDeptName());
 		DepartmentExample example = new DepartmentExample();
-		example.or().andIsDelEqualTo(Constants.DepartmentModel.IS_DEL.NOT.code).andDeptCodeEqualTo(code);
+		example.or().andIsDelEqualTo(Constants.IS_DEL.NOT.code).andDeptCodeEqualTo(code);
 		int count = this.countByExample(example);
 		if (this.countByExample(example) != 0) {
 			code += count;
@@ -148,29 +149,24 @@ public class DepartmentServiceImp extends AbstractService<Department, Department
 		}
 	}
 
-	@SuppressWarnings("unused")
 	@Override
 	public void remove(BigDecimal id) throws BusinessException {
 
 		DepartmentExample example = new DepartmentExample();
-		example.or().andDeptParentIdEqualTo(id).andIsDelEqualTo(Constants.DepartmentModel.IS_DEL.NOT.code);
-		if (this.countByExample(example) == 0) {
-			Department dept = this.selectByPrimaryKey(id);
-			if (dept != null) {
+		example.or().andDeptParentIdEqualTo(id).andIsDelEqualTo(Constants.IS_DEL.NOT.code);
 
-				if (true/** FIXME 检测是否含有用户 */
-				) {
-					dept.setIsDel(Constants.DepartmentModel.IS_DEL.DELED.code);
-					this.updateByPrimaryKeySelective(dept);
-				} else {
-					throw new BusinessException(ExceptionCode.BusinessException, "部门含有人员, 无法删除该部门!");
-				}
+		AssertUtils.isTrue(this.countByExample(example) == 0, ExceptionCode.BusinessException, "含有子机构或部门, 无法删除!");
 
-			}
-		} else {
-			throw new BusinessException(ExceptionCode.BusinessException, "含有子机构或部门, 无法删除!");
+		Department dept = this.selectByPrimaryKey(id);
+		if (dept != null) {
+
+			// FIXME 检测是否含有用户
+			AssertUtils.isTrue(false, ExceptionCode.BusinessException, "部门含有人员, 无法删除该部门!");
+
+			dept.setIsDel(Constants.IS_DEL.DELED.code);
+			this.updateByPrimaryKeySelective(dept);
+
 		}
-
 	}
 
 }

@@ -3,29 +3,29 @@ package com.athena.common.base.dao;
 import java.math.BigDecimal;
 import java.util.List;
 
-public interface Dao<MODEL, EXAM> {
+public interface Dao<bean, example> {
 	
 	BigDecimal nextSEQ();
 
-	int countByExample(EXAM example);
+	int countByExample(example example);
 
-	int deleteByExample(EXAM example);
+	int deleteByExample(example example);
 
 	int deleteByPrimaryKey(BigDecimal id);
 
-	int insert(MODEL record);
+	int insert(bean record);
 
-	int insertSelective(MODEL record);
+	int insertSelective(bean record);
 
-	List<MODEL> selectByExample(EXAM example);
+	List<bean> selectByExample(example example);
 
-	MODEL selectByPrimaryKey(BigDecimal id);
+	bean selectByPrimaryKey(BigDecimal id);
 
-	int updateByExampleSelective(MODEL record, EXAM example);
+	int updateByExampleSelective(bean record, example example);
 
-	int updateByExample(MODEL record, EXAM example);
+	int updateByExample(bean record, example example);
 
-	int updateByPrimaryKeySelective(MODEL record);
+	int updateByPrimaryKeySelective(bean record);
 
-	int updateByPrimaryKey(MODEL record);
+	int updateByPrimaryKey(bean record);
 }

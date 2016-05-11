@@ -7,18 +7,20 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import com.athena.common.base.entity.Model;
+import com.athena.common.base.entity.Bean;
 import com.athena.common.base.mapper.Mapper;
 import com.athena.module.sequence.mapper.SequenceMapper;
 
 /**
  * @author niebinxiao
+ * @param <bean>
+ * @param <example>
  */
-public abstract class AbstractDao<MODEL extends Model<MODEL>, EXAM> implements Dao<MODEL, EXAM> {
+public abstract class AbstractDao<bean extends Bean<bean>, example> implements Dao<bean, example> {
 	protected Logger logger = LoggerFactory.getLogger(this.getClass());
 
 	@Autowired
-	private Mapper<MODEL, EXAM> mapper;
+	private Mapper<bean, example> mapper;
 
 	@Autowired
 	private SequenceMapper sequenceMapper;
@@ -33,11 +35,11 @@ public abstract class AbstractDao<MODEL extends Model<MODEL>, EXAM> implements D
 		return sequenceMapper.next(sequenceName());
 	}
 
-	public int countByExample(EXAM example) {
+	public int countByExample(example example) {
 		return mapper.countByExample(example);
 	}
 
-	public int deleteByExample(EXAM example) {
+	public int deleteByExample(example example) {
 		return mapper.deleteByExample(example);
 	}
 
@@ -45,35 +47,35 @@ public abstract class AbstractDao<MODEL extends Model<MODEL>, EXAM> implements D
 		return mapper.deleteByPrimaryKey(id);
 	}
 
-	public int insert(MODEL record) {
+	public int insert(bean record) {
 		return mapper.insert(record);
 	}
 
-	public int insertSelective(MODEL record) {
+	public int insertSelective(bean record) {
 		return mapper.insertSelective(record);
 	}
 
-	public List<MODEL> selectByExample(EXAM example) {
+	public List<bean> selectByExample(example example) {
 		return mapper.selectByExample(example);
 	}
 
-	public MODEL selectByPrimaryKey(BigDecimal id) {
+	public bean selectByPrimaryKey(BigDecimal id) {
 		return mapper.selectByPrimaryKey(id);
 	}
 
-	public int updateByExampleSelective(MODEL record, EXAM example) {
+	public int updateByExampleSelective(bean record, example example) {
 		return mapper.updateByExampleSelective(record, example);
 	}
 
-	public int updateByExample(MODEL record, EXAM example) {
+	public int updateByExample(bean record, example example) {
 		return mapper.updateByExample(record, example);
 	}
 
-	public int updateByPrimaryKeySelective(MODEL record) {
+	public int updateByPrimaryKeySelective(bean record) {
 		return mapper.updateByPrimaryKeySelective(record);
 	}
 
-	public int updateByPrimaryKey(MODEL record) {
+	public int updateByPrimaryKey(bean record) {
 		return mapper.updateByPrimaryKey(record);
 	}
 

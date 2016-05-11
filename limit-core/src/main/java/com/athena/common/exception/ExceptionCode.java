@@ -6,17 +6,35 @@ package com.athena.common.exception;
  */
 public enum ExceptionCode {
 
-	SystemException("-1", "系统异常"),
+	/**
+	 * 系统异常
+	 */
+	SystemException("-1", "系统底层异常"),
 
-	IllegalParamException("-2", "参数异常"),
+	/**
+	 * 参数异常
+	 */
+	IllegalParamException("-2", "参数不争取等异常"),
 
-	UserStatusException("0", "账户异常"),
+	/**
+	 * 账户异常
+	 */
+	UserStatusException("0", "账户登录异常"),
 
-	ReqTargetHostException("1", "请求目标主机异常"),
+	/**
+	 * 通信异常
+	 */
+	ReqTargetHostException("1", "请求目标主机通信异常"),
 
-	DownloadFileException("2", "下载文件异常"),
+	/**
+	 * 文件操作异常
+	 */
+	DownloadFileException("2", "下载操作及下载上传等磁盘异常"),
 
-	BusinessException("8","业务流程限制");
+	/**
+	 * 业务规则异常
+	 */
+	BusinessException("8", "业务流程限制或错误操作等异常");
 
 	private String code;
 

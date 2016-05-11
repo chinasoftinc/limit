@@ -6,11 +6,11 @@ import java.util.List;
 import com.athena.common.base.entity.PageModel;
 
 /**
- * 分页DTO
+ * 分页dto
  * @author niebinxiao
- * @param <T>
+ * @param <bean>
  */
-public class PageResult<T> {
+public class PageResult<bean> {
 
 	private static final Integer DEFAULT_PAGE_SIZE = 10;
 
@@ -18,7 +18,7 @@ public class PageResult<T> {
 	private Integer total = 0;
 
 	// 数据
-	private List<T> rows;
+	private List<bean> rows;
 
 	// 分页查询对象
 	private transient Pagination page;
@@ -27,19 +27,19 @@ public class PageResult<T> {
 	private transient List<String> orderBy;
 
 	// 分页查询条件pojo
-	private transient PageModel<T> filter;
+	private transient PageModel<bean> filter;
 
 	/**
 	 * 通过分页查询条件pojo构建分页查询参数
 	 * @param filter
 	 */
-	public PageResult(PageModel<T> filter) {
+	public PageResult(PageModel<bean> filter) {
 		this.filter = filter;
 		this.initPagination(filter);
 	}
 
 	/**
-	 * 说明:　初始化分页参数方法
+	 * 说明: 初始化分页参数方法
 	 * @param filter 分页查询条件参数pojo
 	 * @return
 	 */
@@ -72,11 +72,11 @@ public class PageResult<T> {
 		}
 	}
 
-	public PageModel<T> getFilter() {
+	public PageModel<bean> getFilter() {
 		return filter;
 	}
 
-	public void setFilter(PageModel<T> filter) {
+	public void setFilter(PageModel<bean> filter) {
 		this.filter = filter;
 	}
 
@@ -104,11 +104,11 @@ public class PageResult<T> {
 		this.total = total;
 	}
 
-	public List<T> getRows() {
+	public List<bean> getRows() {
 		return rows;
 	}
 
-	public void setRows(List<T> rows) {
+	public void setRows(List<bean> rows) {
 		this.rows = rows;
 	}
 

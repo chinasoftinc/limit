@@ -3,28 +3,33 @@ package com.athena.common.base.service;
 import java.math.BigDecimal;
 import java.util.List;
 
-public interface Service<MODEL, EXAM> {
+/**
+ * @author niebinxiao
+ * @param <bean>
+ * @param <example>
+ */
+public interface Service<bean, example> {
 
-	int countByExample(EXAM example);
+	int countByExample(example example);
 
-	int deleteByExample(EXAM example);
+	int deleteByExample(example example);
 
 	int deleteByPrimaryKey(BigDecimal id);
 
-	int insert(MODEL model);
+	int insert(bean model);
 
-	int insertSelective(MODEL model);
+	int insertSelective(bean model);
 
-	List<MODEL> selectByExample(EXAM example);
+	List<bean> selectByExample(example example);
 
-	MODEL selectByPrimaryKey(BigDecimal id);
+	bean selectByPrimaryKey(BigDecimal id);
 
-	int updateByExampleSelective(MODEL model, EXAM example);
+	int updateByExampleSelective(bean model, example example);
 
-	int updateByExample(MODEL model, EXAM example);
+	int updateByExample(bean model, example example);
 
-	int updateByPrimaryKeySelective(MODEL model);
+	int updateByPrimaryKeySelective(bean model);
 
-	int updateByPrimaryKey(MODEL model);
+	int updateByPrimaryKey(bean model);
 
 }

@@ -6,30 +6,32 @@ import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
 /**
- * @author NieBinxiao
+ * @author niebinxiao
+ * @param <bean>
+ * @param <example>
  */
-public interface Mapper<MODEL, EXAM> {
+public interface Mapper<bean, example> {
 
-	int countByExample(EXAM example);
+	int countByExample(example example);
 
-	int deleteByExample(EXAM example);
+	int deleteByExample(example example);
 
 	int deleteByPrimaryKey(BigDecimal id);
 
-	int insert(MODEL record);
+	int insert(bean record);
 
-	int insertSelective(MODEL record);
+	int insertSelective(bean record);
 
-	List<MODEL> selectByExample(EXAM example);
+	List<bean> selectByExample(example example);
 
-	MODEL selectByPrimaryKey(BigDecimal id);
+	bean selectByPrimaryKey(BigDecimal id);
 
-	int updateByExampleSelective(@Param("record") MODEL record, @Param("example") EXAM example);
+	int updateByExampleSelective(@Param("record") bean record, @Param("example") example example);
 
-	int updateByExample(@Param("record") MODEL record, @Param("example") EXAM example);
+	int updateByExample(@Param("record") bean record, @Param("example") example example);
 
-	int updateByPrimaryKeySelective(MODEL record);
+	int updateByPrimaryKeySelective(bean record);
 
-	int updateByPrimaryKey(MODEL record);
+	int updateByPrimaryKey(bean record);
 
 }

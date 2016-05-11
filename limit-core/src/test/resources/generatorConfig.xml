@@ -20,21 +20,21 @@
 			<property name="forceBigDecimals" value="false" />
 		</javaTypeResolver>
 
-		<javaModelGenerator targetPackage="com.athena.module.departments.model" targetProject="limit-core">
+		<javaModelGenerator targetPackage="com.athena.module.users.model" targetProject="limit-core">
 			<property name="enableSubPackages" value="true" />
 			<property name="trimStrings" value="true" />
 		</javaModelGenerator>
 
-		<sqlMapGenerator targetPackage="com.athena.module.departments.sql" targetProject="limit-core">
+		<sqlMapGenerator targetPackage="com.athena.module.users.sql" targetProject="limit-core">
 			<property name="enableSubPackages" value="true" />
 			<property name="useGeneratedKeys" value="true" />
 		</sqlMapGenerator>
 
-		<javaClientGenerator type="XMLMAPPER" targetPackage="com.athena.module.departments.mapper" targetProject="limit-core">
+		<javaClientGenerator type="XMLMAPPER" targetPackage="com.athena.module.users.mapper" targetProject="limit-core">
 			<property name="enableSubPackages" value="true" />
 		</javaClientGenerator>
 
-		<table tableName="T_DEPARTMENTS" domainObjectName="Department"></table>
+		<table tableName="T_USERS" domainObjectName="User"></table>
 
 	</context>
 </generatorConfiguration>
