@@ -384,13 +384,14 @@
 		<profile>
 			<id>home</id>
 			<activation>
-				<activeByDefault>false</activeByDefault>
+				<activeByDefault>true</activeByDefault>
 			</activation>
 			<properties>
 				<datasource.driverClassName>oracle.jdbc.driver.OracleDriver</datasource.driverClassName>
 				<datasource.jdbcUrl>jdbc:oracle:thin:@niebinxiao:1521/xe</datasource.jdbcUrl>
 				<datasource.jdbcUserName>NIEBINXIAO</datasource.jdbcUserName>
 				<datasource.jdbcPassWord>NIEBINXIAO</datasource.jdbcPassWord>
+				<db.schema>NIEBINXIAO</db.schema>
 				<dbcp.initialSize>10</dbcp.initialSize>
 				<dbcp.minIdle>5</dbcp.minIdle>
 				<dbcp.maxIdle>20</dbcp.maxIdle>
@@ -414,13 +415,14 @@
 		<profile>
 			<id>company</id>
 			<activation>
-				<activeByDefault>true</activeByDefault>
+				<activeByDefault>false</activeByDefault>
 			</activation>
 			<properties>
 				<datasource.driverClassName>oracle.jdbc.driver.OracleDriver</datasource.driverClassName>
 				<datasource.jdbcUrl>jdbc:oracle:thin:@172.18.173.5:1521/orcl</datasource.jdbcUrl>
 				<datasource.jdbcUserName>CHANNEL</datasource.jdbcUserName>
 				<datasource.jdbcPassWord>CHANNEL</datasource.jdbcPassWord>
+				<db.schema>CHANNEL</db.schema>
 				<dbcp.initialSize>10</dbcp.initialSize>
 				<dbcp.minIdle>5</dbcp.minIdle>
 				<dbcp.maxIdle>20</dbcp.maxIdle>

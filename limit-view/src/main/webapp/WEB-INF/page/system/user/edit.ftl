@@ -17,12 +17,16 @@
 						<input name="userName" class="easyui-validatebox" value="${user.userName}" <#if operation == 'add'>data-options=required:true,validType:["Pattern['^[A-Za-z0-9]{5,16}$','登录账户不合法,请输入5-16位英文或数字']","Remoto['${ctx}/system/user/isNotExistUserName','userName','该登录账户已被注册,请重新输入']"],missingMessage:"输入5-16位英文或数字作为登录账户" </#if> <#if operation == 'edit'>disabled</#if> />
 					</td>
 				</tr>
+				
+				<#if operation == 'add'>
 				<tr>
-					<td style="width:12%;text-align:right">登录密码</td>
+					<td style="width:12%;text-align:right">初始密码</td>
 					<td>
 						<input name="passWord" class="easyui-validatebox" value="${user.passWord}" data-options=required:true,validType:["Pattern['^[A-Za-z0-9\u4E00-\u9600]{5,16}$','密码不合法,请输入5-16位英文或数字']"],missingMessage:"输入5-16位英文或数字作为密码" />
 					</td>
 				</tr>
+				</#if>
+				
 				<tr>
 					<td style="width:12%;text-align:right">邮箱</td>
 					<td>
@@ -94,10 +98,13 @@
 	</div>
 </div>
 <script>
+	
+	<#-- 角色配置窗口 -->
 	function directionRole(){
 		$.createSimpleWindowAutoScroll("directionRole","赋予角色", 625, 380, "${ctx}/system/user/directionRole");
 	}
 	
+	<#-- 机构选择加载部门下拉 -->
 	$("#orgId").on("change", function(){
 		var orgId = $(this).val();
 		if(orgId != "" && orgId != null && orgId != undefined){

@@ -56,4 +56,11 @@ public interface UserService extends Service<User, UserExample> {
 	 * @param id
 	 */
 	void remove(BigDecimal id);
+
+	/**
+	 * 检测用户名是否没有被使用
+	 * @param username
+	 * @return
+	 */
+	boolean isNotExistUserName(String username);
 }

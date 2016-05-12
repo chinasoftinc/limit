@@ -1,5 +1,6 @@
 package com.athena.user.controller;
 
+import java.io.IOException;
 import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.List;
@@ -45,8 +46,13 @@ public class UserController extends AbstractWebController {
 
 		ModelAndView mv = new ModelAndView("/system/user/main");
 
+		// 查询所有下拉选择机构
+		DepartmentExample example = new DepartmentExample();
+		example.or().andDeptTypeEqualTo(Constants.DepartmentModel.Type.ORG.code).andIsDelEqualTo(Constants.IS_DEL.NOT.code).andDeptSubCountNotEqualTo((short) 0);
+		
 		// FIXME 查询所有角色供搜索下拉生成
 
+		mv.addObject("orgList", deptService.selectByExample(example));
 		mv.addObject("filter", filter);
 		return mv;
 	}
@@ -55,8 +61,6 @@ public class UserController extends AbstractWebController {
 	@RequestMapping(value = "/userJson", method = RequestMethod.POST)
 	@ResponseBody
 	public Object userJson(User filter, HttpServletResponse response) {
-
-		// 搜索分页数据
 		return seacher(filter);
 	}
 
@@ -71,6 +75,27 @@ public class UserController extends AbstractWebController {
 		mv.addObject("orgList", deptService.selectByExample(example));
 
 		setAddOperation(mv);
+		setWindowsId(mv, form);
+		return mv;
+	}
+
+	// 编辑用户界面
+	@RequestMapping(value = "/editUserView", method = RequestMethod.GET)
+	public ModelAndView editUserView(User form) {
+		ModelAndView mv = new ModelAndView("/system/user/edit");
+		User user = userService.load(form.getId());
+
+		// 查询所有下拉选择机构
+		DepartmentExample example = new DepartmentExample();
+		example.or().andDeptTypeEqualTo(Constants.DepartmentModel.Type.ORG.code).andIsDelEqualTo(Constants.IS_DEL.NOT.code).andDeptSubCountNotEqualTo((short) 0);
+
+		// 根据用户机构id查询所有子部门下拉
+		List<Department> deptList = deptService.listDeptForOrg(user.getOrgId());
+
+		mv.addObject("orgList", deptService.selectByExample(example));
+		mv.addObject("deptList", deptList);
+		mv.addObject("user", user);
+		setEditOperation(mv);
 		setWindowsId(mv, form);
 		return mv;
 	}
@@ -96,6 +121,11 @@ public class UserController extends AbstractWebController {
 	public Object deptListForOrg(BigDecimal orgId) {
 		List<Department> deptList = deptService.listDeptForOrg(orgId);
 		return new ResponseResult(true, deptList);
+	}
+
+	@RequestMapping(value = "/isNotExistUserName", method = RequestMethod.POST)
+	public void isNotExistUserName(String userName, HttpServletResponse response) throws IOException {
+		response.getWriter().write(String.valueOf(userService.isNotExistUserName(userName)));
 	}
 
 	// 搜索

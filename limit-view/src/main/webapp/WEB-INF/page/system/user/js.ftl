@@ -17,7 +17,7 @@
 	    columns:[[
 	    	{field:'userCode',title:'用户编码',width:100,
 	    		formatter:function(value, row, rowIndex){
-					return '<input type="radio" style="position:relative;top: 3" id="' + row.id + '" />' + '<span>' + row.userCode + '</span>';
+					return '<input type="radio" name="userSelected" style="position:relative;top: 3" id="' + row.id + '" />' + '<span>' + row.userCode + '</span>';
 			 	}
 	    	},
 	        {field:'nickName',title:'用户昵称',width:100},
@@ -44,22 +44,22 @@
 	    },
 	    
 	    onDblClickRow:function(rowIndex, rowData){
-	    	$.createSimpleWindowAutoScroll("editUser","编辑用户", 680, 385, "${ctx}/system/user/editView?id=" + rowData.id);
-	    } 
+	    	$.createSimpleWindowAutoScroll("editUser","编辑用户", 680, 500, "${ctx}/system/user/editUserView?id=" + rowData.id);
+	    }
 	});
 	
 	<#-- 添加用户 -->
 	function insertUser(){
-		$.createSimpleWindowAutoScroll("editUser","添加用户", 680, 385, "${ctx}/system/user/addUserView");
+		$.createSimpleWindowAutoScroll("editUser","添加用户", 680, 500, "${ctx}/system/user/addUserView");
 	}
 	
 	<#-- 编辑用户 -->
 	function edituser(){
 		var rows = $("input[type='checkbox'][name='id']:checked");
 		if(rows.length == 1){
-			$.createSimpleWindowAutoScroll("editUser","编辑用户", 680, 385, "${ctx}/system/user/editView?id=" + $(rows[0]).val());
+			$.createSimpleWindowAutoScroll("editUser","编辑用户", 680, 500, "${ctx}/system/user/editUserView?id=" + $(rows[0]).val());
 		}else{
-			$.msgTip('提示','单击选中一行进行编辑');
+			$.msgTip('提示','单击选中一行或双击进行编辑');
 		}
 	}
 	
@@ -107,11 +107,40 @@
 	
 	<#-- 搜索用户 -->
 	function searchUser(){
-		$("#userDataGrid").datagrid("load",{
-			nickname : $("#nickname").val(),
-			username : $("#username").val(),
-			status : $("#status").val(),
-			searchRoleId : $("#searchRoleId").val()
+		$("#dataGrid").datagrid("load",{
+			nickName : $("#nickName").val(),
+			userName : $("#userName").val(),
+			userStatus : $("#userStatus").val(),
+			userSex : $("#userSex").val(),
+			orgId : $("#orgId").val(),
+			departmentId : $("#departmentId").val()
 		});
 	}
+	
+	<#-- 机构选择加载部门下拉 -->
+	$("#orgId").on("change", function(){
+		var orgId = $(this).val();
+		if(orgId != "" && orgId != null && orgId != undefined){
+ 			$.defaultAjaxOperation("${ctx}/system/user/deptListForOrg?orgId=" + orgId,{},true,true, 
+				{
+					success: function (result){
+						 if(result.success){
+						 	if(result.data.length > 0){
+						 		$.each(result.data, function(index, item){
+						 			var option = '<option id="' + item.id + '" value="' + item.id + '">' + item.deptShortName + '</option>'
+						 			$(option).appendTo($("#departmentId"));
+						 		});
+						 	}
+						 }else{
+							 $.errorTip("警告", "操作异常");
+						 }
+					}
+				}
+			);		
+ 				
+		}else{
+			$("#departmentId option").remove();
+			$("<option></option>").appendTo($("#departmentId"));
+		}
+	})
 </script>

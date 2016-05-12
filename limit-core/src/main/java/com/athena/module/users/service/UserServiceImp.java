@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import com.athena.common.base.service.AbstractService;
 import com.athena.common.context.Constants;
 import com.athena.common.dto.PageResult;
+import com.athena.common.utils.UUIDUtils;
 import com.athena.module.users.dao.UserDao;
 import com.athena.module.users.model.User;
 import com.athena.module.users.model.UserExample;
@@ -42,7 +43,6 @@ public class UserServiceImp extends AbstractService<User, UserExample> implement
 
 	@Override
 	public void insertUser(User user, User creator) {
-
 		// 保存角色关联
 		if (StringUtils.isNotEmpty(user.getRoles())) {
 			String[] roleIds = user.getRoles().split(",");
@@ -61,7 +61,11 @@ public class UserServiceImp extends AbstractService<User, UserExample> implement
 		user.setCreateTime(new Date());
 		user.setUpdateTime(new Date());
 
+		user.setId(userdao.nextSEQ());
+		user.setUserCode(String.valueOf(Math.abs(user.getUserName().hashCode())));
+		user.setPasswdSalt(UUIDUtils.UUIDEXcludeDash().substring(0, 3));
 		this.insertSelective(user);
+
 	}
 
 	@Override
@@ -106,4 +110,12 @@ public class UserServiceImp extends AbstractService<User, UserExample> implement
 	private void releativeUserRole(BigDecimal userId, BigDecimal roleId) {
 		// FIXME
 	}
+
+	@Override
+	public boolean isNotExistUserName(String userName) {
+		UserExample example = new UserExample();
+		example.or().andUserNameEqualTo(userName);
+		return this.countByExample(example) == 0;
+	}
+
 }

@@ -63,7 +63,8 @@ public class InitDbData {
 		}
 		DriverManager.registerDriver(new OracleDriver());
 		con = DriverManager.getConnection((String) prop.get("datasource.jdbcUrl"), (String) prop.get("datasource.jdbcUserName"), (String) prop.get("datasource.jdbcPassWord"));
-		dbUnitConnection = new DatabaseConnection(con, "CHANNEL");
+		System.out.println(prop.get("db.schema"));
+		dbUnitConnection = new DatabaseConnection(con, (String) prop.get("db.schema"));
 	}
 
 	// 释放操作 释放数据库连接对象

@@ -21,6 +21,7 @@
 			${item}
 		</#list>
 		
+		<script type="text/javascript" src="${ctx}/resource/plugin/json/json2.js"></script>
 		<script type="text/javascript" src="${ctx}/resource/plugin/jquery/jquery.js"></script>
 		<script type="text/javascript" src="${ctx}/resource/plugin/easyui/jquery.easyui.min.js"></script>
 		<script type="text/javascript" src="${ctx}/resource/plugin/easyui/locale/easyui-lang-zh_CN.js"></script>
@@ -62,6 +63,13 @@
 	</#if>
 </#macro>
 
+<#macro SPACE length>
+	<#list 1..length as i>
+		&nbsp;
+	</#list>
+</#macro>
+
+<#-- 下拉选择框 -->
 <#macro SELECT datas optKey optVal selected="" id="" name="" disabled="false" class="" style="" data_option="">
 	<select <#if id != "">id="${id}"</#if> <#if name != "">name="${name}"</#if> <#if class != "">class="${class}"</#if> <#if disabled != "false">disabled="disabled"</#if>  <#if style != "">style="${style}"</#if> <#if data_option != "">data-options=${data_option}</#if> >
 		<option></option>

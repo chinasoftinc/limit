@@ -10,14 +10,23 @@
 			<a href="#" onclick="removeUser()" class="easyui-linkbutton" data-options="iconCls:'icon-remove',plain:true">删除</a>
 			<center>
 				<div style="margin:5px">
-					<form id="searchInput">
-						昵称: <input type="text" id="nickname" style="width:120px">
-						登录账户: <input type="text" id="username" style="width:120px">
+					<form id="searchInput" onsubmit="return (function(){searchUser(); return false;})()">
+						昵称: <input type="text" id="nickName" style="width:120px">
+						<@PAGE.SPACE length=6 />
+						登录账户: <input type="text" id="userName" style="width:120px">
+						<@PAGE.SPACE length=6 />
+						账户状态: <@SingleSelectTag id="userStatus" name="userStatus" optName="user_status" style="" />
+						<@PAGE.SPACE length=6 />
+						用户性别: <@SingleSelectTag id="userSex" name="userSex" optName="user_sex" style="" />
+						<@PAGE.SPACE length=6 />
+						所属机构: <@PAGE.SELECT datas=orgList optKey="id" optVal="deptShortName" id="orgId" />
+						<@PAGE.SPACE length=6 />
+						所属部门: <select id="departmentId" ><option></option></select>
 					</form>
 				</div>
 				<div style="margin:5px">
 					<a href="#" class="easyui-linkbutton" onclick="cleanSearch()" data-options="iconCls:'icon-remove',plain:true">清空</a>
-					<a href="#" class="easyui-linkbutton" onclick="searchUser()" data-options="iconCls:'icon-search',plain:true">搜索</a>
+					<a href="#" id="searchButton" class="easyui-linkbutton" onclick="searchUser()" data-options="iconCls:'icon-search',plain:true">搜索</a>
 				</div>
 			</center>
 			
