@@ -19,8 +19,10 @@ import org.dbunit.operation.DatabaseOperation;
 import org.springframework.core.io.ClassPathResource;
 import org.xml.sax.InputSource;
 
+import oracle.jdbc.OracleDriver;
+
 /**
- * 描述: Dbunit连接数据库工具类
+ * 初始数据
  * @author NieBinxiao
  */
 public class InitDbData {
@@ -59,8 +61,9 @@ public class InitDbData {
 		if (prop.size() == 0) {
 			throw new RuntimeException("读取jdbc.properties失败");
 		}
+		DriverManager.registerDriver(new OracleDriver());
 		con = DriverManager.getConnection((String) prop.get("datasource.jdbcUrl"), (String) prop.get("datasource.jdbcUserName"), (String) prop.get("datasource.jdbcPassWord"));
-		dbUnitConnection = new DatabaseConnection(con);
+		dbUnitConnection = new DatabaseConnection(con, "CHANNEL");
 	}
 
 	// 释放操作 释放数据库连接对象

@@ -1,11 +1,13 @@
 package com.athena.user.controller;
 
+import java.math.BigDecimal;
 import java.util.HashMap;
+import java.util.List;
 
-import javax.inject.Inject;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.collections.MapUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -13,7 +15,12 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.athena.common.base.controller.AbstractWebController;
+import com.athena.common.context.Constants;
 import com.athena.common.dto.PageResult;
+import com.athena.common.dto.ResponseResult;
+import com.athena.module.departments.model.Department;
+import com.athena.module.departments.model.DepartmentExample;
+import com.athena.module.departments.service.DepartmentService;
 import com.athena.module.users.model.User;
 import com.athena.module.users.service.UserService;
 
@@ -24,8 +31,12 @@ import com.athena.module.users.service.UserService;
 @Controller
 @RequestMapping("/system/user")
 public class UserController extends AbstractWebController {
-	@Inject
+
+	@Autowired
 	private UserService userService;
+
+	@Autowired
+	private DepartmentService deptService;
 
 	// 用户管理页面
 	@RequestMapping(value = "/main", method = RequestMethod.GET)
@@ -46,6 +57,29 @@ public class UserController extends AbstractWebController {
 
 		// 搜索分页数据
 		return seacher(filter);
+	}
+
+	// 添加用户界面
+	@RequestMapping(value = "/addUserView", method = RequestMethod.GET)
+	public ModelAndView addView(User form) {
+		ModelAndView mv = new ModelAndView("/system/user/edit");
+
+		// 查询所有下拉选择机构
+		DepartmentExample example = new DepartmentExample();
+		example.or().andDeptTypeEqualTo(Constants.DepartmentModel.Type.ORG.code).andIsDelEqualTo(Constants.IS_DEL.NOT.code).andDeptSubCountNotEqualTo((short) 0);
+		mv.addObject("orgList", deptService.selectByExample(example));
+
+		setAddOperation(mv);
+		setWindowsId(mv, form);
+		return mv;
+	}
+
+	// 获取机构的所有子部门
+	@RequestMapping(value = "/deptListForOrg", method = RequestMethod.POST)
+	@ResponseBody
+	public Object deptListForOrg(BigDecimal orgId) {
+		List<Department> deptList = deptService.listDeptForOrg(orgId);
+		return new ResponseResult(true, deptList);
 	}
 
 	// 搜索

@@ -37,4 +37,11 @@ public interface DepartmentService extends Service<Department, DepartmentExample
 	 */
 	void remove(BigDecimal id) throws BusinessException;
 
+	/**
+	 * 查询指定机构的所有子部门
+	 * @param orgId
+	 * @return
+	 */
+	List<Department> listDeptForOrg(BigDecimal orgId);
+
 }

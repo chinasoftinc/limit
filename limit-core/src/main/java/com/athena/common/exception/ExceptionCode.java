@@ -14,7 +14,7 @@ public enum ExceptionCode {
 	/**
 	 * 参数异常
 	 */
-	IllegalParamException("-2", "参数不争取等异常"),
+	IllegalParamException("-2", "参数不正确异常"),
 
 	/**
 	 * 账户异常
@@ -24,12 +24,12 @@ public enum ExceptionCode {
 	/**
 	 * 通信异常
 	 */
-	ReqTargetHostException("1", "请求目标主机通信异常"),
+	HostException("1", "网络通信异常"),
 
 	/**
 	 * 文件操作异常
 	 */
-	DownloadFileException("2", "下载操作及下载上传等磁盘异常"),
+	DownloadFileException("2", "下载或上传服务器文件磁盘存储异常"),
 
 	/**
 	 * 业务规则异常

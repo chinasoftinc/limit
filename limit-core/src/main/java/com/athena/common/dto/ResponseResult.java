@@ -15,6 +15,9 @@ public class ResponseResult implements Serializable {
 	// 是否成功
 	private boolean success;
 
+	// 远程数据
+	private Object data;
+
 	// 返回码
 	private String code;
 
@@ -23,6 +26,11 @@ public class ResponseResult implements Serializable {
 
 	// 用户提示
 	private String message;
+
+	public ResponseResult(boolean success, Object data) {
+		this.success = success;
+		this.data = data;
+	}
 
 	/**
 	 * 统一异常响应参数
@@ -113,6 +121,14 @@ public class ResponseResult implements Serializable {
 
 	public void setMessage(String message) {
 		this.message = message;
+	}
+
+	public Object getData() {
+		return data;
+	}
+
+	public void setData(Object data) {
+		this.data = data;
 	}
 
 }

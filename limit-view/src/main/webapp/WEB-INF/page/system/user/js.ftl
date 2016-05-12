@@ -49,8 +49,8 @@
 	});
 	
 	<#-- 添加用户 -->
-	function adduser(){
-		$.createSimpleWindowAutoScroll("editUser","添加用户", 680, 385, "${ctx}/system/user/addView");
+	function insertUser(){
+		$.createSimpleWindowAutoScroll("editUser","添加用户", 680, 385, "${ctx}/system/user/addUserView");
 	}
 	
 	<#-- 编辑用户 -->

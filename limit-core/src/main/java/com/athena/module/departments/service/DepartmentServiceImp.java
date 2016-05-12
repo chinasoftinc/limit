@@ -1,8 +1,10 @@
 package com.athena.module.departments.service;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.ListIterator;
 
 import org.apache.commons.collections.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -167,6 +169,25 @@ public class DepartmentServiceImp extends AbstractService<Department, Department
 			this.updateByPrimaryKeySelective(dept);
 
 		}
+	}
+
+	@Override
+	public List<Department> listDeptForOrg(BigDecimal orgId) {
+		DepartmentExample example = new DepartmentExample();
+		example.or().andDeptParentIdEqualTo(orgId).andIsDelEqualTo(Constants.IS_DEL.NOT.code);
+
+		List<Department> depts = this.selectByExample(example);
+		List<Department> temp = new ArrayList<Department>();
+		ListIterator<Department> it = depts.listIterator();
+		while (it.hasNext()) {
+			Department dept = it.next();
+			if (dept.getDeptType() == Constants.DepartmentModel.Type.ORG.code) {
+				it.remove();
+			}
+			temp.addAll(this.listDeptForOrg(dept.getId()));
+		}
+		depts.addAll(temp);
+		return depts;
 	}
 
 }

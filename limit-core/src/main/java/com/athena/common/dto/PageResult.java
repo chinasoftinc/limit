@@ -29,11 +29,20 @@ public class PageResult<bean> {
 	// 分页排序参数
 	private transient List<String> orderBy;
 
-	// 分页查询条件pojo
+	// 分页查询条件模型
 	private transient PageModel<bean> filter;
 
 	/**
-	 * 通过分页查询条件pojo构建分页查询参数
+	 * 通过分页查询条件模型构建分页查询参数
+	 * @param filter
+	 */
+	public PageResult(PageModel<bean> filter) {
+		this.filter = filter;
+		this.initPagination(filter, null);
+	}
+
+	/**
+	 * 通过分页查询条件模型构建分页查询参数
 	 * @param filter
 	 */
 	public PageResult(PageModel<bean> filter, Map<String, String> orderFieldConver) {
@@ -43,7 +52,7 @@ public class PageResult<bean> {
 
 	/**
 	 * 说明: 初始化分页参数方法
-	 * @param filter 分页查询条件参数pojo
+	 * @param filter 分页查询条件参数模型
 	 * @return
 	 */
 	private void initPagination(PageModel<?> filter, Map<String, String> orderFieldConver) {
@@ -76,7 +85,7 @@ public class PageResult<bean> {
 				list.add(sortArr[i] + " " + orderArr[i]);
 			}
 
-			// 将排序sql设置到分页查询参数pojo中
+			// 将排序sql设置到分页查询参数模型中
 			if (list.size() != 0) {
 				this.orderBy = list;
 			}

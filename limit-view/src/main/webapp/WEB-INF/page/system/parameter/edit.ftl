@@ -1,7 +1,7 @@
 <@PAGE.HTML title="编辑参数">
 <body style="margin:5px;background:#eee">
 <div style="width: 100%;height:100%;">
-	<div style="width: 100%;">
+	<div style="width: 100%">
 		<form id="form" action="${ctx}/system/parameter/saveParameter" method="POST" onsubmit="return $(this).form('validate')">
 			<table width="100%" border="0" class="form-data">
 			
