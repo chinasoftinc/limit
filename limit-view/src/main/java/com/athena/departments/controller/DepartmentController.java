@@ -107,10 +107,10 @@ public class DepartmentController extends AbstractWebController {
 		try {
 			// 添加
 			if (isAddOperation(form))
-				departmentService.insert(form);
+				departmentService.insertDept(form, null);
 			// 保存
 			else
-				departmentService.update(form);
+				departmentService.updateDept(form, null);
 			return new ResponseResult(true, "操作成功");
 		} catch (Exception e) {
 			logger.error(e.getCause().getMessage());

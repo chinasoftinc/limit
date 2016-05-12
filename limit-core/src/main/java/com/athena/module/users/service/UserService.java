@@ -22,13 +22,13 @@ public interface UserService extends Service<User, UserExample> {
 	 * @param createor
 	 * @return
 	 */
-	void insert(User model, User creator);
+	void insertUser(User model, User creator);
 
 	/**
 	 * 更新用户, 更新用户和角色和部门机构的关联
 	 * @param user
 	 */
-	void update(User user);
+	void updateUser(User user, User creator);
 
 	/**
 	 * 自定义用户分页查询

@@ -29,17 +29,16 @@ public class ReadId {
 	}
 
 	// 保存文件
-	static boolean save(BigDecimal[] primaryKey) {
-		executorService.execute(null);
+	static void save(BigDecimal[] primaryKey) {
 		FILE_NAME_SEQUENCE = new AtomicInteger(FILE_NAME_SEQUENCE.incrementAndGet()); // 每次文件序列自增
-		return false;
+		executorService.execute(null);
 	}
 
 	// 读库
 	static void run() {
 
 		// 保存到文件
-		boolean result = save(null);
+		save(null);
 	}
 
 	// 获取数据源

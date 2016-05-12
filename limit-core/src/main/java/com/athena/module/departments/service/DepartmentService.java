@@ -8,6 +8,7 @@ import com.athena.common.context.Constants.Direction;
 import com.athena.common.exception.BusinessException;
 import com.athena.module.departments.model.Department;
 import com.athena.module.departments.model.DepartmentExample;
+import com.athena.module.users.model.User;
 
 public interface DepartmentService extends Service<Department, DepartmentExample> {
 
@@ -19,9 +20,9 @@ public interface DepartmentService extends Service<Department, DepartmentExample
 
 	/**
 	 * 更新部门
-	 * @param record
+	 * @param dept
 	 */
-	void update(Department record);
+	int updateDept(Department dept, User creator);
 
 	/**
 	 * 移动位置
@@ -36,6 +37,8 @@ public interface DepartmentService extends Service<Department, DepartmentExample
 	 * @throws BusinessException
 	 */
 	void remove(BigDecimal id) throws BusinessException;
+	
+	int insertDept(Department dept, User creator);
 
 	/**
 	 * 查询指定机构的所有子部门

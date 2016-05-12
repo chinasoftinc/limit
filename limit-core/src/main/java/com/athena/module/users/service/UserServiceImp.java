@@ -41,7 +41,7 @@ public class UserServiceImp extends AbstractService<User, UserExample> implement
 	}
 
 	@Override
-	public void insert(User user, User creator) {
+	public void insertUser(User user, User creator) {
 
 		// 保存角色关联
 		if (StringUtils.isNotEmpty(user.getRoles())) {
@@ -65,9 +65,19 @@ public class UserServiceImp extends AbstractService<User, UserExample> implement
 	}
 
 	@Override
-	public void update(User user) {
+	public void updateUser(User user, User creator) {
 
-		// FIXME 权限的更新
+		// FIXME 角色的更新
+
+		// 记录操作用户
+		if (creator != null) {
+			user.setCreateUserid(creator.getId());
+			user.setUpdateUserid(creator.getId());
+		}
+
+		// 记录操作时间
+		user.setCreateTime(new Date());
+		user.setUpdateTime(new Date());
 
 		this.updateByPrimaryKeySelective(user);
 	}
@@ -87,7 +97,9 @@ public class UserServiceImp extends AbstractService<User, UserExample> implement
 
 		// FIXME 权限的删除
 
-		this.deleteByPrimaryKey(id);
+		User user = this.selectByPrimaryKey(id);
+		user.setIsDel(Constants.IS_DEL.DELED.code);
+		this.updateByPrimaryKeySelective(user);
 	}
 
 	// 建立并插入用户与角色的关联

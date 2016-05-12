@@ -4,6 +4,7 @@ import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.collections.MapUtils;
@@ -70,6 +71,21 @@ public class UserController extends AbstractWebController {
 		mv.addObject("orgList", deptService.selectByExample(example));
 
 		setAddOperation(mv);
+		setWindowsId(mv, form);
+		return mv;
+	}
+
+	// 保存用户
+	@RequestMapping(value = "/saveUser", method = RequestMethod.POST)
+	public ModelAndView saveUser(User form, HttpServletRequest request) {
+		ModelAndView mv = new ModelAndView();
+		if (isAddOperation(form)) {
+			setSuccessView(mv);
+			userService.insertUser(form, null);
+		} else {
+			setCompleteView(mv);
+			userService.updateUser(form, null);
+		}
 		setWindowsId(mv, form);
 		return mv;
 	}

@@ -22,6 +22,7 @@ import com.athena.module.departments.dao.DepartmentDao;
 import com.athena.module.departments.model.Department;
 import com.athena.module.departments.model.DepartmentExample;
 import com.athena.module.departments.model.DepartmentExample.Criteria;
+import com.athena.module.users.model.User;
 
 @Service
 public class DepartmentServiceImp extends AbstractService<Department, DepartmentExample> implements DepartmentService {
@@ -64,56 +65,63 @@ public class DepartmentServiceImp extends AbstractService<Department, Department
 	}
 
 	@Override
-	public int insert(Department record) {
+	public int insertDept(Department dept, User creator) {
 
 		// 主键
-		record.setId(departmentDao.nextSEQ());
+		dept.setId(departmentDao.nextSEQ());
 
 		// 排序自增
-		Short no = departmentDao.selectMaxSortNo(record.getDeptParentId() == null ? BigDecimal.ZERO : record.getDeptParentId());
-		record.setDeptSortNo((short) (no + 1));
+		Short no = departmentDao.selectMaxSortNo(dept.getDeptParentId() == null ? BigDecimal.ZERO : dept.getDeptParentId());
+		dept.setDeptSortNo((short) (no + 1));
 
 		// 部门代码生成
-		String code = PinyinUtils.getFirstPinyin(record.getDeptName());
+		String code = PinyinUtils.getFirstPinyin(dept.getDeptName());
 		DepartmentExample example = new DepartmentExample();
 		example.or().andIsDelEqualTo(Constants.IS_DEL.NOT.code).andDeptCodeEqualTo(code);
 		int count = this.countByExample(example);
 		if (this.countByExample(example) != 0) {
 			code += count;
 		}
-		record.setDeptCode(code);
+		dept.setDeptCode(code);
 
 		// 版本
-		record.setVersionNo(record.getVersionNo().add(new BigDecimal(1)));
+		dept.setVersionNo(dept.getVersionNo().add(new BigDecimal(1)));
 
 		// 操作时间
-		record.setCreateTime(new Date());
-		record.setUpdateTime(new Date());
+		dept.setCreateTime(new Date());
+		dept.setUpdateTime(new Date());
 
-		// FIXME 记录操作用户
+		// 记录操作用户
+		if (creator != null) {
+			dept.setCreateUserid(creator.getId());
+			dept.setUpdateUserid(creator.getId());
+		}
 
 		// 更新上级部门数量
-		Department parent = this.selectByPrimaryKey(record.getDeptParentId());
+		Department parent = this.selectByPrimaryKey(dept.getDeptParentId());
 		if (parent != null) {
 			parent.setDeptSubCount((short) (parent.getDeptSubCount() + 1));
 			this.updateByPrimaryKeySelective(parent);
 		}
 
-		return super.insertSelective(record);
+		return super.insertSelective(dept);
 	}
 
 	@Override
-	public void update(Department record) {
+	public int updateDept(Department dept, User creator) {
 
 		// 版本
-		record.setVersionNo(record.getVersionNo().add(new BigDecimal(1)));
+		dept.setVersionNo(dept.getVersionNo().add(new BigDecimal(1)));
 
 		// 操作时间
-		record.setUpdateTime(new Date());
+		dept.setUpdateTime(new Date());
 
-		// FIXME 记录操作用户
+		// 记录操作用户
+		if (creator != null) {
+			dept.setUpdateUserid(creator.getId());
+		}
 
-		this.updateByPrimaryKeySelective(record);
+		return this.updateByPrimaryKeySelective(dept);
 	}
 
 	@Override
