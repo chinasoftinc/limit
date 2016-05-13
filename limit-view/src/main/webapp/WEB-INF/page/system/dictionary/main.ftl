@@ -1,13 +1,11 @@
 <@PAGE.HTML title="数据字典" >
 <body style="margin:5px;border:1px #fff solid;background:#666">
-	<div class="easyui-panel" title="数据字典" data-options="fit:true,border:false">
-		<table id="dataGrid"></table>
-		<div id="toolBar">
-			<a href="#" onclick="addRootDirectory()" class="easyui-linkbutton" data-options="iconCls:'icon-add',plain:true">添加根目录</a>|
-			<a href="#" onclick="$('#dataGrid').treegrid('collapseAll');" class="easyui-linkbutton" data-options="iconCls:'icon-remove',plain:true">全部折叠</a>
-			<a href="#" onclick="$('#dataGrid').treegrid('expandAll');" class="easyui-linkbutton" data-options="iconCls:'icon-remove',plain:true">全部展开</a>
-		</div>
-    </div>
+	<table id="dataGrid"></table>
+	<div id="toolBar">
+		<a href="#" onclick="addRootDirectory()" class="easyui-linkbutton" data-options="iconCls:'icon-add',plain:true">添加根目录</a>|
+		<a href="#" onclick="$('#dataGrid').treegrid('collapseAll');" class="easyui-linkbutton" data-options="iconCls:'icon-remove',plain:true">全部折叠</a>
+		<a href="#" onclick="$('#dataGrid').treegrid('expandAll');" class="easyui-linkbutton" data-options="iconCls:'icon-remove',plain:true">全部展开</a>
+	</div>
 	
 	<div id="rightMouseMenuForDirectory" class="easyui-menu" style="display:none">
 		<div onclick="addSubDirectory()" data-options="iconCls:'icon-add'">添加子目录</div>

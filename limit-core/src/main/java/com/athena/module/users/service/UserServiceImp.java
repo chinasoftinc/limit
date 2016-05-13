@@ -9,7 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.athena.common.base.service.AbstractService;
-import com.athena.common.context.Constants;
+import com.athena.common.context.Constants.IS_DEL;
 import com.athena.common.dto.PageResult;
 import com.athena.common.utils.UUIDUtils;
 import com.athena.module.users.dao.UserDao;
@@ -26,7 +26,7 @@ public class UserServiceImp extends AbstractService<User, UserExample> implement
 	public boolean selectIsNotExistUsername(String username) {
 
 		UserExample example = new UserExample();
-		example.or().andUserNameEqualTo(username).andIsDelEqualTo(Constants.IS_DEL.NOT.code);
+		example.or().andUserNameEqualTo(username).andIsDelEqualTo(IS_DEL.NOT.code);
 		return countByExample(example) == 0;
 	}
 
@@ -97,12 +97,13 @@ public class UserServiceImp extends AbstractService<User, UserExample> implement
 	}
 
 	@Override
-	public void remove(BigDecimal id) {
+	public void removeUser(BigDecimal id) {
 
-		// FIXME 权限的删除
+		// FIXME 删除角色关联
 
-		User user = this.selectByPrimaryKey(id);
-		user.setIsDel(Constants.IS_DEL.DELED.code);
+		User user = new User();
+		user.setId(id);
+		user.setIsDel(IS_DEL.DELED.code);
 		this.updateByPrimaryKeySelective(user);
 	}
 

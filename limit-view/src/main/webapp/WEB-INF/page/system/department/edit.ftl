@@ -1,6 +1,6 @@
 <form id="form" action="" method="POST" onsubmit="return commitData(this)">
 <#if operation=='read'>
-<div id="form_tab" class="easyui-tabs" style="height:100%;" data-options="border:false,fit:true">
+<div id="form_tab" class="easyui-tabs" style="height:100%;" data-options="border:false,fit:true,onSelect:loadUserList()">
 </#if>
 
     <div title="基本信息" style="padding:4px 1px 4px 1px;">
@@ -86,7 +86,9 @@
     </div>
     
 <#if operation=='read'>
-    <div title="用户列表" style="padding:4px 1px 4px 1px;"><div>
+    <div title="用户列表" style="padding:4px 1px 4px 1px;">
+    	<table id="userList" deptType="${dept.deptType}" deptId="${dept.id}" ></table>
+    <div>
 </div>
 </#if>
 </form>

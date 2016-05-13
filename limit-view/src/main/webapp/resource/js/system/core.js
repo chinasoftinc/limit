@@ -196,17 +196,24 @@ $.defaultAjaxOperation = function(url, params, isAsync, isProgress, fns) {
  * @param time 显示时间[毫秒]
  */
 $.timeOutMsgTip = function(title, message, width, height, time) {
-	width = width == null ? 200 : width;
-	height = height == null ? 150 : height;
-	time = time == null ? 2500 : time;
+	width = width == null ? 300 : width;
+	height = height == null ? 80 : height;
+	time = time == null ? 1500 : time;
 
 	top.$.messager.show({
 		title : title,
+		icon: 'info',
 		msg : message,
-		showType : 'slide',
+		showType : 'fade',
 		width : width,
 		height : height,
-		timeout : time
+		timeout : time,
+		style:{
+			right:'',
+			top:$(window).height / 2 + 200,
+			bottom:''
+		}
+
 	});
 }
 
@@ -303,10 +310,9 @@ Date.prototype.format = function (format) {
     return format;
 }
 
+// input回车form自动提交
 $(document).ready(function() {
-	
-	// input回车form自动提交
-	$("input[type=text]").keydown(function(e) {
+	$(":input").not("select").keydown(function(e) {
 		if (e.which == 13) {
 			$(this).closest("form").submit();
 		}

@@ -17,7 +17,7 @@
 	    columns:[[
 	    	{field:'userCode',title:'用户编码',width:100,
 	    		formatter:function(value, row, rowIndex){
-					return '<input type="radio" name="userSelected" style="position:relative;top: 3" id="' + row.id + '" />' + '<span>' + row.userCode + '</span>';
+					return '<input type="radio" name="userSelected" style="position:relative;top: 3" id="' + row.id + '" nickName="' + row.nickName + '"/>' + '<span>' + row.userCode + '</span>';
 			 	}
 	    	},
 	        {field:'nickName',title:'用户昵称',width:100},
@@ -32,7 +32,7 @@
 	        	}
 	        },
 	        {field:'lastAccessTime',title:'最后访问时间',width:100,sortable:true,formatter: function(value,row,index){
-	        		return new Date(value).format("yyyy年MM月dd日hh时mm分");
+	        		return value == null ? "" : new Date(value).format("yyyy年MM月dd日hh时mm分");
 	        	}
 	        },
 	        {field:'onlineTime',title:'在线时长(分钟)',width:100,sortable:true}
@@ -54,32 +54,23 @@
 	}
 	
 	<#-- 编辑用户 -->
-	function edituser(){
-		var rows = $("input[type='checkbox'][name='id']:checked");
+	function editUser(){
+		var rows = $("input[type='radio'][name='userSelected']:checked");
 		if(rows.length == 1){
-			$.createSimpleWindowAutoScroll("editUser","编辑用户", 680, 500, "${ctx}/system/user/editUserView?id=" + $(rows[0]).val());
+			$.createSimpleWindowAutoScroll("editUser","编辑用户", 680, 500, "${ctx}/system/user/editUserView?id=" + $(rows[0]).attr("id"));
 		}else{
-			$.msgTip('提示','单击选中一行或双击进行编辑');
+			$.timeOutMsgTip("提示", "单击选中一行或双击进行编辑", 300, 80, 1500);
 		}
 	}
 	
 	<#-- 删除用户 -->
-	function removeuser(){
-		var rows = $("input[type='checkbox'][name='id']:checked");
-		if(rows.length != 0){
-			top.$.messager.confirm("提示","是否确认删除?", function(confirm){
-				<#-- 组装删除的ids -->
-				var ids = "";
-				$(rows).each(function(index, node){
-					ids += node.value + ",";
-				});
-				if(ids != ""){
-					ids = ids.substring(0, ids.length-1);
-				}
-				var param = {ids : ids};
+	function removeUser(){
+		var rows = $("input[type='radio'][name='userSelected']:checked");
+		if(rows.length == 1){
+			top.$.messager.confirm("提示","是否确认删除用户: " + rows.attr('nickName') + " 吗?", function(confirm){
+				var param = {id : rows.attr('id')};
 				if(confirm){
-					 <#-- 确认删除 -->
-					 $.defaultAjaxOperation("${ctx}/system/user/remove", param, true, true, 
+					 $.defaultAjaxOperation("${ctx}/system/user/removeUser", param, true, true, 
 						 {
 							 success: function (result){
 								 if(result.success){
@@ -96,7 +87,7 @@
 				 }
 			 })
 		 }else{
-			 $.msgTip('提示','没有选中任何用户, 可以选中多行进行删除');
+		 	 $.timeOutMsgTip("提示", "选中一行用户进行删除");
 		 }
 	}
 	

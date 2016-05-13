@@ -212,4 +212,41 @@
 		}
 		return false;
 	}
+	
+	<#-- 切换tab加载用户数据 -->
+	function loadUserList(){
+		return function(title, index){
+			if(index == 1){
+				var deptType = $('#userList').attr('deptType');
+				var param = deptType == '0' ? 'orgId=' + $('#userList').attr('deptId') : 'departmentId=' + $('#userList').attr('deptId')
+				$('#userList').datagrid({
+					fit:true,
+					loadMsg:'请稍后',
+					striped:true,
+				    idField:'id',
+				    animate:true,
+			    	rownumbers:true,
+			    	fitColumns:true,
+				    pagination:true,
+				    pagePosition:'top',
+				    pageList:[10,15,20,30,50,100,150],
+				    pageSize:20,
+				    singleSelect:true,
+				    url:'${ctx}/system/user/userJson?' + param,
+				    columns:[[
+				    	{field:'userCode',title:'用户编码',width:100},
+				        {field:'nickName',title:'用户昵称',width:100},
+				        {field:'userSex',title:'性别',width:50,sortable:true,formatter: function(value,row,index){
+				        		return value == '0' ? '男' : '女';
+				        	}
+				        }
+				    ]],
+				    
+				    onDblClickRow:function(rowIndex, rowData){
+				    	$.createSimpleWindowAutoScroll("userView","查看用户", 680, 500, "${ctx}/system/user/userView?id=" + rowData.id);
+				    }
+				});
+			}
+		}
+	}
 </script>

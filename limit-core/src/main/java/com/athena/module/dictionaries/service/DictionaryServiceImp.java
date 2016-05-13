@@ -8,7 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.athena.common.base.service.AbstractService;
-import com.athena.common.context.Constants;
+import com.athena.common.context.Constants.DictionaryModel;
 import com.athena.common.context.Constants.Direction;
 import com.athena.common.dto.Pagination;
 import com.athena.common.exception.BusinessException;
@@ -28,7 +28,7 @@ public class DictionaryServiceImp extends AbstractService<Dictionary, Dictionary
 	public List<Dictionary> selectDictionaries(String name) {
 
 		DictionaryExample example = new DictionaryExample();
-		example.or().andOptNameEqualTo(name).andOptTypeEqualTo(Constants.DictionaryModel.Type.DICTIONARY.code).andOptIsDirEqualTo(Constants.DictionaryModel.IsDir.NO.code);
+		example.or().andOptNameEqualTo(name).andOptTypeEqualTo(DictionaryModel.Type.DICTIONARY.code).andOptIsDirEqualTo(DictionaryModel.IsDir.NO.code);
 
 		return this.selectByExample(example);
 	}
@@ -71,7 +71,7 @@ public class DictionaryServiceImp extends AbstractService<Dictionary, Dictionary
 
 		// 查询一级路径选项字典
 		DictionaryExample example = new DictionaryExample();
-		example.or().andOptDeepEqualTo(Constants.DictionaryModel.TOP_DEEP).andOptTypeEqualTo(Constants.DictionaryModel.Type.DICTIONARY.code);
+		example.or().andOptDeepEqualTo(DictionaryModel.TOP_DEEP).andOptTypeEqualTo(DictionaryModel.Type.DICTIONARY.code);
 		example.setOrderByClause("OPT_SORT_NO");
 
 		List<Dictionary> dics = this.selectByExample(example);
@@ -97,7 +97,7 @@ public class DictionaryServiceImp extends AbstractService<Dictionary, Dictionary
 	public void update(Dictionary dic) {
 
 		// 更新选项组名称级联更新子选项名称
-		if (dic.getOptType().equals(Constants.DictionaryModel.Type.DICTIONARY_GROUP.code)) {
+		if (dic.getOptType().equals(DictionaryModel.Type.DICTIONARY_GROUP.code)) {
 			Dictionary source = selectByPrimaryKey(dic.getId());
 
 			if (!source.getOptName().equals(dic.getOptName())) {
@@ -125,7 +125,7 @@ public class DictionaryServiceImp extends AbstractService<Dictionary, Dictionary
 	public String getParameterValue(String key) {
 
 		DictionaryExample example = new DictionaryExample();
-		example.or().andOptTypeEqualTo(Constants.DictionaryModel.Type.PARAMETER.code).andOptKeyEqualTo(key);
+		example.or().andOptTypeEqualTo(DictionaryModel.Type.PARAMETER.code).andOptKeyEqualTo(key);
 
 		List<Dictionary> params = this.selectByExample(example);
 
@@ -141,7 +141,7 @@ public class DictionaryServiceImp extends AbstractService<Dictionary, Dictionary
 
 		// 查询一级路径参数
 		DictionaryExample example = new DictionaryExample();
-		example.or().andOptDeepEqualTo(Constants.DictionaryModel.TOP_DEEP).andOptTypeEqualTo(Constants.DictionaryModel.Type.PARAMETER.code);
+		example.or().andOptDeepEqualTo(DictionaryModel.TOP_DEEP).andOptTypeEqualTo(DictionaryModel.Type.PARAMETER.code);
 		example.setOrderByClause("OPT_SORT_NO");
 
 		List<Dictionary> dics = this.selectByExample(example);
@@ -169,7 +169,7 @@ public class DictionaryServiceImp extends AbstractService<Dictionary, Dictionary
 		example.setPagination(new Pagination(1, 1));
 
 		// 判断方向
-		if (direction == Constants.Direction.UP) {
+		if (direction == Direction.UP) {
 			// 查询小于当前sort, 并且是最大的
 			crt.andOptSortNoLessThan(current.getOptSortNo());
 			example.setOrderByClause("OPT_SORT_NO DESC");
@@ -201,7 +201,7 @@ public class DictionaryServiceImp extends AbstractService<Dictionary, Dictionary
 		if (group.getId() != null) {
 			or.andIdNotEqualTo(group.getId()); // 针对修改排除自身
 		}
-		or.andOptNameEqualTo(group.getOptName()).andOptTypeEqualTo(Constants.DictionaryModel.Type.DICTIONARY_GROUP.code);
+		or.andOptNameEqualTo(group.getOptName()).andOptTypeEqualTo(DictionaryModel.Type.DICTIONARY_GROUP.code);
 
 		return this.countByExample(example) == 0;
 	}
@@ -225,7 +225,7 @@ public class DictionaryServiceImp extends AbstractService<Dictionary, Dictionary
 		if (parameter.getId() != null) {
 			or.andIdNotEqualTo(parameter.getId()); // 针对修改排除自身
 		}
-		or.andOptNameEqualTo(parameter.getOptName()).andOptTypeEqualTo(Constants.DictionaryModel.Type.PARAMETER.code);
+		or.andOptNameEqualTo(parameter.getOptName()).andOptTypeEqualTo(DictionaryModel.Type.PARAMETER.code);
 
 		return this.countByExample(example) == 0;
 	}

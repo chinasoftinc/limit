@@ -22,7 +22,7 @@
 		</if>
 		<where>
 			<trim prefixOverrides="AND" suffixOverrides="AND">
-				AND u.USER_STATUS in ('0','1')
+				AND u.USER_STATUS in ('0','1') AND IS_DEL = '0'
 				<if test="filter.nickName != null &amp;&amp; filter.nickName != ''">
 					AND instr(u.NICK_NAME, #{filter.nickName}) > 0
 				</if>
@@ -66,7 +66,7 @@
 		</if>
 		<where>
 			<trim prefixOverrides="AND" suffixOverrides="AND">
-				AND u.USER_STATUS in ('0','1')
+				AND u.USER_STATUS in ('0','1') AND IS_DEL = '0'
 				<if test="filter.nickName != null &amp;&amp; filter.nickName != ''">
 					AND instr(u.NICK_NAME, #{filter.nickName}) > 0
 				</if>

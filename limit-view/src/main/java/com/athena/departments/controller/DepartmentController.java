@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.athena.common.base.controller.AbstractWebController;
-import com.athena.common.context.Constants;
+import com.athena.common.context.Constants.Direction;
 import com.athena.common.dto.ResponseResult;
 import com.athena.common.exception.BusinessException;
 import com.athena.common.exception.ExceptionCode;
@@ -142,7 +142,7 @@ public class DepartmentController extends AbstractWebController {
 	@ResponseBody
 	public Object move(Department form, String direction, HttpServletResponse response) {
 		try {
-			departmentService.updatePos(form.getId(), Constants.Direction.valueOf(direction));
+			departmentService.updatePos(form.getId(), Direction.valueOf(direction));
 			return new ResponseResult(true, "操作成功");
 		} catch (Exception e) {
 			logger.error(e.getCause().getMessage());

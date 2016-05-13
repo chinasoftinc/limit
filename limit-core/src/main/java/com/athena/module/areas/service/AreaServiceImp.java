@@ -10,7 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.athena.common.base.service.AbstractService;
-import com.athena.common.context.Constants;
+import com.athena.common.context.Constants.AreaModel;
 import com.athena.common.context.Constants.Direction;
 import com.athena.common.dto.Pagination;
 import com.athena.common.dto.TreeNode;
@@ -96,7 +96,7 @@ public class AreaServiceImp extends AbstractService<Area, AreaExample> implement
 		example.setPagination(new Pagination(1, 1));
 
 		// 判断方向
-		if (direction == Constants.Direction.UP) {
+		if (direction == Direction.UP) {
 			// 查询小于当前sort, 并且是最大的
 			crt.andAreasSortNoLessThan(current.getAreasSortNo());
 			example.setOrderByClause("AREAS_SORT_NO DESC");
@@ -134,7 +134,7 @@ public class AreaServiceImp extends AbstractService<Area, AreaExample> implement
 
 		// 顶级地区
 		if (new BigDecimal(0).compareTo(record.getAreasParentId()) == 0) {
-			record.setAreasDeep(Constants.AreaModel.TOP_DEEP);
+			record.setAreasDeep(AreaModel.TOP_DEEP);
 		}
 		// 非顶级区域
 		else {

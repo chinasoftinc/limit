@@ -17,7 +17,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.athena.common.base.controller.AbstractWebController;
-import com.athena.common.context.Constants;
+import com.athena.common.context.Constants.DepartmentModel;
+import com.athena.common.context.Constants.IS_DEL;
 import com.athena.common.dto.PageResult;
 import com.athena.common.dto.ResponseResult;
 import com.athena.module.departments.model.Department;
@@ -48,8 +49,8 @@ public class UserController extends AbstractWebController {
 
 		// 查询所有下拉选择机构
 		DepartmentExample example = new DepartmentExample();
-		example.or().andDeptTypeEqualTo(Constants.DepartmentModel.Type.ORG.code).andIsDelEqualTo(Constants.IS_DEL.NOT.code).andDeptSubCountNotEqualTo((short) 0);
-		
+		example.or().andDeptTypeEqualTo(DepartmentModel.Type.ORG.code).andIsDelEqualTo(IS_DEL.NOT.code).andDeptSubCountNotEqualTo((short) 0);
+
 		// FIXME 查询所有角色供搜索下拉生成
 
 		mv.addObject("orgList", deptService.selectByExample(example));
@@ -71,7 +72,7 @@ public class UserController extends AbstractWebController {
 
 		// 查询所有下拉选择机构
 		DepartmentExample example = new DepartmentExample();
-		example.or().andDeptTypeEqualTo(Constants.DepartmentModel.Type.ORG.code).andIsDelEqualTo(Constants.IS_DEL.NOT.code).andDeptSubCountNotEqualTo((short) 0);
+		example.or().andDeptTypeEqualTo(DepartmentModel.Type.ORG.code).andIsDelEqualTo(IS_DEL.NOT.code).andDeptSubCountNotEqualTo((short) 0);
 		mv.addObject("orgList", deptService.selectByExample(example));
 
 		setAddOperation(mv);
@@ -87,7 +88,7 @@ public class UserController extends AbstractWebController {
 
 		// 查询所有下拉选择机构
 		DepartmentExample example = new DepartmentExample();
-		example.or().andDeptTypeEqualTo(Constants.DepartmentModel.Type.ORG.code).andIsDelEqualTo(Constants.IS_DEL.NOT.code).andDeptSubCountNotEqualTo((short) 0);
+		example.or().andDeptTypeEqualTo(DepartmentModel.Type.ORG.code).andIsDelEqualTo(IS_DEL.NOT.code).andDeptSubCountNotEqualTo((short) 0);
 
 		// 根据用户机构id查询所有子部门下拉
 		List<Department> deptList = deptService.listDeptForOrg(user.getOrgId());
@@ -96,6 +97,26 @@ public class UserController extends AbstractWebController {
 		mv.addObject("deptList", deptList);
 		mv.addObject("user", user);
 		setEditOperation(mv);
+		setWindowsId(mv, form);
+		return mv;
+	}
+
+	// 查看用户
+	@RequestMapping(value = "/userView", method = RequestMethod.GET)
+	public ModelAndView userView(User form) {
+		ModelAndView mv = new ModelAndView("/system/user/view");
+		User user = userService.load(form.getId());
+
+		// 查询所有下拉选择机构
+		DepartmentExample example = new DepartmentExample();
+		example.or().andDeptTypeEqualTo(DepartmentModel.Type.ORG.code).andIsDelEqualTo(IS_DEL.NOT.code).andDeptSubCountNotEqualTo((short) 0);
+
+		// 根据用户机构id查询所有子部门下拉
+		List<Department> deptList = deptService.listDeptForOrg(user.getOrgId());
+
+		mv.addObject("orgList", deptService.selectByExample(example));
+		mv.addObject("deptList", deptList);
+		mv.addObject("user", user);
 		setWindowsId(mv, form);
 		return mv;
 	}
@@ -113,6 +134,19 @@ public class UserController extends AbstractWebController {
 		}
 		setWindowsId(mv, form);
 		return mv;
+	}
+
+	// 删除用户
+	@RequestMapping(value = "/removeUser", method = RequestMethod.POST)
+	@ResponseBody
+	public Object removeUser(BigDecimal id, HttpServletResponse response) {
+		try {
+			userService.removeUser(id);
+			return new ResponseResult(true, "删除用户成功");
+		} catch (Exception e) {
+			logger.error(e.toString());
+			return new ResponseResult(false, "删除用户失败");
+		}
 	}
 
 	// 获取机构的所有子部门

@@ -1,5 +1,5 @@
 <@PAGE.HTML title="编辑参数">
-<body style="margin:5px;background:#eee">
+<body style="margin:5px;background:#666">
 <div style="width: 100%;height:100%;">
 	<div style="width: 100%">
 		<form id="form" action="${ctx}/system/parameter/saveParameter" method="POST" onsubmit="return $(this).form('validate')">

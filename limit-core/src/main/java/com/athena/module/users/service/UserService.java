@@ -55,7 +55,7 @@ public interface UserService extends Service<User, UserExample> {
 	 * 删除用户, 级联删除权限关系
 	 * @param id
 	 */
-	void remove(BigDecimal id);
+	void removeUser(BigDecimal id);
 
 	/**
 	 * 检测用户名是否没有被使用

@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.athena.common.base.controller.AbstractWebController;
-import com.athena.common.context.Constants;
+import com.athena.common.context.Constants.Direction;
 import com.athena.common.dto.ResponseResult;
 import com.athena.module.dictionaries.model.Dictionary;
 import com.athena.module.dictionaries.model.DictionaryExample;
@@ -124,7 +124,7 @@ public class DictionaryController extends AbstractWebController {
 	@ResponseBody
 	public Object move(Dictionary form, String direction, HttpServletResponse response) {
 		try {
-			dictionaryService.updatePos(form.getId(), Constants.Direction.valueOf(direction));
+			dictionaryService.updatePos(form.getId(), Direction.valueOf(direction));
 			return new ResponseResult(true, "操作成功");
 		} catch (Exception e) {
 			logger.error(e.getCause().getMessage());

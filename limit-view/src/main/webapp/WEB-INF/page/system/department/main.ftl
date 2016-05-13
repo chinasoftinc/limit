@@ -1,7 +1,7 @@
 <@PAGE.HTML title="部门管理" >
 <body style="margin:5px;border:1px #fff solid;background:#666;" class="easyui-layout">
 
-<div id="ftp_outer" data-options="region:'west',title:'',border:false,collapsible:false" style="width:380px;padding:3px;overflow:auto;">
+<div data-options="region:'west',title:'',border:false,collapsible:false" style="width:380px;padding:3px;overflow:auto;">
 	<table id="dataGrid"></table>
 	<div id="toolBar">
 		<a href="#" onclick="addRootOrg()" class="easyui-linkbutton" data-options="iconCls:'icon-add',plain:true">添加主机构</a>|

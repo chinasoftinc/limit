@@ -202,7 +202,7 @@ public abstract class AbstractWebController {
 	@ExceptionHandler(Exception.class)
 	public String registExceptionHandler(HttpServletRequest request, Exception e) throws Exception {
 		request.setAttribute("exception", e);
-		logger.error(e.getCause().getMessage());
+		logger.error(e.getLocalizedMessage());
 		return "error/error";
 	}
 

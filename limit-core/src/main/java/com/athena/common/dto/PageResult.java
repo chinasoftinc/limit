@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.collections.MapUtils;
 
 import com.athena.common.base.entity.PageModel;
@@ -28,6 +29,9 @@ public class PageResult<bean> {
 
 	// 分页排序参数
 	private transient List<String> orderBy;
+
+	// 分页排序字符串
+	private transient String orderByString;
 
 	// 分页查询条件模型
 	private transient PageModel<bean> filter;
@@ -89,6 +93,18 @@ public class PageResult<bean> {
 			if (list.size() != 0) {
 				this.orderBy = list;
 			}
+
+			// 构建排序字符串
+			if (CollectionUtils.isNotEmpty(this.orderBy)) {
+				StringBuffer sb = new StringBuffer();
+				for (String orderBy : orderBy) {
+					sb.append(orderBy + ",");
+				}
+				if (sb.length() > 0) {
+					sb = new StringBuffer(sb.substring(0, sb.length() - 1));
+				}
+				orderByString = new String(sb);
+			}
 		}
 	}
 
@@ -143,6 +159,14 @@ public class PageResult<bean> {
 
 	public void setRows(List<bean> rows) {
 		this.rows = rows;
+	}
+
+	public String getOrderByString() {
+		return orderByString;
+	}
+
+	public void setOrderByString(String orderByString) {
+		this.orderByString = orderByString;
 	}
 
 }
