@@ -2,6 +2,7 @@ package com.athena.user.controller;
 
 import java.io.IOException;
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -21,9 +22,13 @@ import com.athena.common.context.Constants.DepartmentModel;
 import com.athena.common.context.Constants.IS_DEL;
 import com.athena.common.dto.PageResult;
 import com.athena.common.dto.ResponseResult;
+import com.athena.common.dto.TreeNode;
 import com.athena.module.departments.model.Department;
 import com.athena.module.departments.model.DepartmentExample;
 import com.athena.module.departments.service.DepartmentService;
+import com.athena.module.roles.model.Role;
+import com.athena.module.roles.model.RoleExample;
+import com.athena.module.roles.service.RoleService;
 import com.athena.module.users.model.User;
 import com.athena.module.users.service.UserService;
 
@@ -41,6 +46,9 @@ public class UserController extends AbstractWebController {
 	@Autowired
 	private DepartmentService deptService;
 
+	@Autowired
+	private RoleService roleService;
+
 	// 用户管理页面
 	@RequestMapping(value = "/main", method = RequestMethod.GET)
 	public ModelAndView roleManage(User filter) {
@@ -51,7 +59,8 @@ public class UserController extends AbstractWebController {
 		DepartmentExample example = new DepartmentExample();
 		example.or().andDeptTypeEqualTo(DepartmentModel.Type.ORG.code).andIsDelEqualTo(IS_DEL.NOT.code).andDeptSubCountNotEqualTo((short) 0);
 
-		// FIXME 查询所有角色供搜索下拉生成
+		// 查询所有角色供搜索下拉生成
+		mv.addObject("roles", roleService.selectByExample(new RoleExample()));
 
 		mv.addObject("orgList", deptService.selectByExample(example));
 		mv.addObject("filter", filter);
@@ -160,6 +169,22 @@ public class UserController extends AbstractWebController {
 	@RequestMapping(value = "/isNotExistUserName", method = RequestMethod.POST)
 	public void isNotExistUserName(String userName, HttpServletResponse response) throws IOException {
 		response.getWriter().write(String.valueOf(userService.isNotExistUserName(userName)));
+	}
+
+	// 配置角色
+	@RequestMapping(value = "/directionRole", method = RequestMethod.GET)
+	public ModelAndView directionRole(Role form) {
+		ModelAndView mv = new ModelAndView("/system/user/role");
+		setWindowsId(mv, form);
+		return mv;
+	}
+
+	// 角色数据
+	@RequestMapping(value = "/roleTreeJson", method = RequestMethod.POST)
+	@ResponseBody
+	public Object roleTreeJson(HttpServletResponse response) {
+		List<TreeNode> roles = roleService.selectRolesTree();
+		return roles == null ? new ArrayList<TreeNode>() : roles;
 	}
 
 	// 搜索

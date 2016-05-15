@@ -7,6 +7,7 @@ import com.athena.common.base.service.Service;
 import com.athena.common.dto.TreeNode;
 import com.athena.module.roles.model.Role;
 import com.athena.module.roles.model.RoleExample;
+import com.athena.module.users.model.User;
 
 public interface RoleService extends Service<Role, RoleExample> {
 
@@ -14,13 +15,13 @@ public interface RoleService extends Service<Role, RoleExample> {
 	 * 插入角色并保存角色权限的关联
 	 * @param role
 	 */
-	void insertRole(Role role);
+	void insertRole(Role role, User creator);
 
 	/**
 	 * 更新角色消息并保存角色权限的关联
 	 * @param role
 	 */
-	void updateRole(Role role);
+	void updateRole(Role role, User creator);
 
 	/**
 	 * 获取角色和权限信息

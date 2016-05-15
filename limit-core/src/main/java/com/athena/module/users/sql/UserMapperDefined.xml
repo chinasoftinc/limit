@@ -6,7 +6,7 @@
 	<select id="selectUserOfRoleId" parameterType="java.lang.Long" resultMap="BaseResultMap">
 		select *
 		from T_USERS u
-		inner join T_USER_ROLE ur on u.ID = ur.USER_ID
+		inner join T_ROLE_USER ur on u.ID = ur.USER_ID
 		where ur.ROLE_ID = #{roleid} and u.USER_STATUS in
 		('0','1') and u.IS_DEL = '0'
 	</select>
@@ -18,7 +18,7 @@
 		</if>
 		select * from T_USERS u
 		<if test="filter.searchRoleId != null">
-			inner join T_USER_ROLE ur on u.ID = ur.USER_ID
+			inner join T_ROLE_USER ur on u.ID = ur.USER_ID
 		</if>
 		<where>
 			<trim prefixOverrides="AND" suffixOverrides="AND">
@@ -62,7 +62,7 @@
 		select count(*)
 		from T_USERS u
 		<if test="filter.searchRoleId != null">
-			inner join T_USER_ROLE ur on u.ID = ur.USER_ID
+			inner join T_ROLE_USER ur on u.ID = ur.USER_ID
 		</if>
 		<where>
 			<trim prefixOverrides="AND" suffixOverrides="AND">

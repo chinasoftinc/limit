@@ -97,7 +97,7 @@ public class PageResult<bean> {
 			// 构建排序字符串
 			if (CollectionUtils.isNotEmpty(this.orderBy)) {
 				StringBuffer sb = new StringBuffer();
-				for (String orderBy : orderBy) {
+				for (String orderBy : this.orderBy) {
 					sb.append(orderBy + ",");
 				}
 				if (sb.length() > 0) {

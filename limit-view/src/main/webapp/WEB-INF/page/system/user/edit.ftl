@@ -73,16 +73,17 @@
 				<tr>
 					<td style="width:12%;text-align:right">角色配置</td>
 					<td>
-						<a class="easyui-linkbutton" onclick="directionRole()" style="height:25px;width:120px">点击赋予用户角色</a>
+						<a class="easyui-linkbutton" onclick="directionRole()" style="height:25px;width:120px">点击分配用户角色</a>
 					</td>
 				</tr>
 				<tr>
 					<td></td>
 					<td>
-						<input type="hidden" name="operation" value="${operation}"/> <#-- 带回操作类型 -->
-						<input type="hidden" name="parentWinId" value="${parentWinId}"/> <#-- 持有父窗口的引用, 用于操作父窗口响应 -->
-						<input type="hidden" name="winId" value="editUser"/> <#-- 当前窗口ID, 用于跳转到其他页面后, 关闭当前窗口 -->
-						<input type="hidden" name="roles" id="roles" value="${user.roles}"/> <#-- 角色ID字符串,逗号隔开 -->
+						<input type="hidden" name="roles" id="roles" value="${user.roles}"/>
+						
+						<input type="hidden" name="operation" value="${operation}"/>
+						<input type="hidden" name="parentWinId" value="${parentWinId}"/>
+						<input type="hidden" name="winId" value="${winId}"/>
 						
 						<#if operation=='add'>
 							<a href="#" class="easyui-linkbutton" onclick="$(this).closest('form').submit();" iconCls="icon-save">添加</a>&nbsp;
@@ -98,7 +99,6 @@
 	</div>
 </div>
 <script>
-	
 	<#-- 角色配置窗口 -->
 	function directionRole(){
 		$.createSimpleWindowAutoScroll("directionRole","赋予角色", 625, 380, "${ctx}/system/user/directionRole");

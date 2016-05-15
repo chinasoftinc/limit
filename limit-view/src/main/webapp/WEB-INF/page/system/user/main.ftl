@@ -17,6 +17,8 @@
 					<@PAGE.SPACE length=6 />
 					用户性别: <@SingleSelectTag id="userSex" name="userSex" optName="user_sex" style="" />
 					<@PAGE.SPACE length=6 />
+					角色: <@PAGE.SELECT datas=roles optKey="id" optVal="roleName" id="searchRoleId"/>
+					<@PAGE.SPACE length=6 />
 					所属机构: <@PAGE.SELECT datas=orgList optKey="id" optVal="deptShortName" id="orgId" />
 					<@PAGE.SPACE length=6 />
 					所属部门: <select id="departmentId" ><option></option></select>

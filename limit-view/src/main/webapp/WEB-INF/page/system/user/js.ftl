@@ -17,7 +17,7 @@
 	    columns:[[
 	    	{field:'userCode',title:'用户编码',width:100,
 	    		formatter:function(value, row, rowIndex){
-					return '<input type="radio" name="userSelected" style="position:relative;top: 3" id="' + row.id + '" nickName="' + row.nickName + '"/>' + '<span>' + row.userCode + '</span>';
+					return '<input type="radio" name="userSelected" style="position:relative;top: 3" userId="' + row.id + '" nickName="' + row.nickName + '"/>' + '<span>' + row.userCode + '</span>';
 			 	}
 	    	},
 	        {field:'nickName',title:'用户昵称',width:100},
@@ -40,7 +40,7 @@
 	    
      	<#-- 单选 -->
 	    onClickRow:function(index, row){ 
-	    	$("#" + row.id).attr("checked",true);
+	    	$("input[userId='" + row.id + "']").attr("checked",true);
 	    },
 	    
 	    onDblClickRow:function(rowIndex, rowData){
@@ -57,7 +57,7 @@
 	function editUser(){
 		var rows = $("input[type='radio'][name='userSelected']:checked");
 		if(rows.length == 1){
-			$.createSimpleWindowAutoScroll("editUser","编辑用户", 680, 500, "${ctx}/system/user/editUserView?id=" + $(rows[0]).attr("id"));
+			$.createSimpleWindowAutoScroll("editUser","编辑用户", 680, 500, "${ctx}/system/user/editUserView?id=" + $(rows[0]).attr("userId"));
 		}else{
 			$.timeOutMsgTip("提示", "单击选中一行或双击进行编辑", 300, 80, 1500);
 		}
@@ -68,7 +68,7 @@
 		var rows = $("input[type='radio'][name='userSelected']:checked");
 		if(rows.length == 1){
 			top.$.messager.confirm("提示","是否确认删除用户: " + rows.attr('nickName') + " 吗?", function(confirm){
-				var param = {id : rows.attr('id')};
+				var param = {id : rows.attr('userId')};
 				if(confirm){
 					 $.defaultAjaxOperation("${ctx}/system/user/removeUser", param, true, true, 
 						 {
@@ -104,7 +104,8 @@
 			userStatus : $("#userStatus").val(),
 			userSex : $("#userSex").val(),
 			orgId : $("#orgId").val(),
-			departmentId : $("#departmentId").val()
+			departmentId : $("#departmentId").val(),
+			searchRoleId : $("#searchRoleId").val()
 		});
 	}
 	

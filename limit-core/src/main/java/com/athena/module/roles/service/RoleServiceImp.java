@@ -2,6 +2,7 @@ package com.athena.module.roles.service;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.apache.commons.collections.CollectionUtils;
@@ -14,6 +15,7 @@ import com.athena.common.dto.TreeNode;
 import com.athena.module.roles.dao.RoleDao;
 import com.athena.module.roles.model.Role;
 import com.athena.module.roles.model.RoleExample;
+import com.athena.module.users.model.User;
 
 @Service
 public class RoleServiceImp extends AbstractService<Role, RoleExample> implements RoleService {
@@ -22,18 +24,39 @@ public class RoleServiceImp extends AbstractService<Role, RoleExample> implement
 	private RoleDao roleDao;
 
 	@Override
-	public void insertRole(Role role) {
-		role.setId(roleDao.nextSEQ());
+	public void insertRole(Role role, User creator) {
 
 		// FIXME 插入角色和权限关联..
 
+		// 记录操作用户
+		if (creator != null) {
+			role.setCreateUserid(creator.getId());
+			role.setUpdateUserid(creator.getId());
+		}
+
+		// 记录操作时间
+		role.setCreateTime(new Date());
+		role.setUpdateTime(new Date());
+
+		// 生成roleCode
+		role.setRoleCode(String.valueOf(role.getRoleName().hashCode()));
+
+		role.setId(roleDao.nextSEQ());
 		roleDao.insertSelective(role);
 	}
 
 	@Override
-	public void updateRole(Role role) {
+	public void updateRole(Role role, User creator) {
 
 		// FIXME 处理权限的修改..
+
+		// 记录操作用户
+		if (creator != null) {
+			role.setUpdateUserid(creator.getId());
+		}
+
+		// 记录操作时间
+		role.setUpdateTime(new Date());
 
 		roleDao.updateByPrimaryKeySelective(role);
 	}
