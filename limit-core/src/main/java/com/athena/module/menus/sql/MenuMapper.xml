@@ -1,0 +1,271 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.athena.module.menus.mapper.MenuMapper" >
+  <resultMap id="BaseResultMap" type="com.athena.module.menus.model.Menu" >
+    <id column="ID" property="id" jdbcType="DECIMAL" />
+    <result column="MENU_NAME" property="menuName" jdbcType="VARCHAR" />
+    <result column="MENU_URL" property="menuUrl" jdbcType="VARCHAR" />
+    <result column="MENU_PARENT_ID" property="menuParentId" jdbcType="DECIMAL" />
+    <result column="MENU_PRIVILEGE_CODE" property="menuPrivilegeCode" jdbcType="DECIMAL" />
+    <result column="MENU_PRIVILEGE_POS" property="menuPrivilegePos" jdbcType="DECIMAL" />
+    <result column="MENU_DESCRIPTION" property="menuDescription" jdbcType="VARCHAR" />
+    <result column="MENU_SORT_NO" property="menuSortNo" jdbcType="DECIMAL" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    ID, MENU_NAME, MENU_URL, MENU_PARENT_ID, MENU_PRIVILEGE_CODE, MENU_PRIVILEGE_POS, 
+    MENU_DESCRIPTION, MENU_SORT_NO
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.athena.module.menus.model.MenuExample" >
+    <include refid="OracleDialectPrefix" />
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from T_MENUS
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+    <include refid="OracleDialectSuffix" />
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.math.BigDecimal" >
+    select 
+    <include refid="Base_Column_List" />
+    from T_MENUS
+    where ID = #{id,jdbcType=DECIMAL}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.math.BigDecimal" >
+    delete from T_MENUS
+    where ID = #{id,jdbcType=DECIMAL}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.athena.module.menus.model.MenuExample" >
+    delete from T_MENUS
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.athena.module.menus.model.Menu" >
+    insert into T_MENUS (ID, MENU_NAME, MENU_URL, 
+      MENU_PARENT_ID, MENU_PRIVILEGE_CODE, MENU_PRIVILEGE_POS, 
+      MENU_DESCRIPTION, MENU_SORT_NO)
+    values (#{id,jdbcType=DECIMAL}, #{menuName,jdbcType=VARCHAR}, #{menuUrl,jdbcType=VARCHAR}, 
+      #{menuParentId,jdbcType=DECIMAL}, #{menuPrivilegeCode,jdbcType=DECIMAL}, #{menuPrivilegePos,jdbcType=DECIMAL}, 
+      #{menuDescription,jdbcType=VARCHAR}, #{menuSortNo,jdbcType=DECIMAL})
+  </insert>
+  <insert id="insertSelective" parameterType="com.athena.module.menus.model.Menu" >
+    insert into T_MENUS
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="menuName != null" >
+        MENU_NAME,
+      </if>
+      <if test="menuUrl != null" >
+        MENU_URL,
+      </if>
+      <if test="menuParentId != null" >
+        MENU_PARENT_ID,
+      </if>
+      <if test="menuPrivilegeCode != null" >
+        MENU_PRIVILEGE_CODE,
+      </if>
+      <if test="menuPrivilegePos != null" >
+        MENU_PRIVILEGE_POS,
+      </if>
+      <if test="menuDescription != null" >
+        MENU_DESCRIPTION,
+      </if>
+      <if test="menuSortNo != null" >
+        MENU_SORT_NO,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=DECIMAL},
+      </if>
+      <if test="menuName != null" >
+        #{menuName,jdbcType=VARCHAR},
+      </if>
+      <if test="menuUrl != null" >
+        #{menuUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="menuParentId != null" >
+        #{menuParentId,jdbcType=DECIMAL},
+      </if>
+      <if test="menuPrivilegeCode != null" >
+        #{menuPrivilegeCode,jdbcType=DECIMAL},
+      </if>
+      <if test="menuPrivilegePos != null" >
+        #{menuPrivilegePos,jdbcType=DECIMAL},
+      </if>
+      <if test="menuDescription != null" >
+        #{menuDescription,jdbcType=VARCHAR},
+      </if>
+      <if test="menuSortNo != null" >
+        #{menuSortNo,jdbcType=DECIMAL},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.athena.module.menus.model.MenuExample" resultType="java.lang.Integer" >
+    select count(*) from T_MENUS
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update T_MENUS
+    <set >
+      <if test="record.id != null" >
+        ID = #{record.id,jdbcType=DECIMAL},
+      </if>
+      <if test="record.menuName != null" >
+        MENU_NAME = #{record.menuName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.menuUrl != null" >
+        MENU_URL = #{record.menuUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="record.menuParentId != null" >
+        MENU_PARENT_ID = #{record.menuParentId,jdbcType=DECIMAL},
+      </if>
+      <if test="record.menuPrivilegeCode != null" >
+        MENU_PRIVILEGE_CODE = #{record.menuPrivilegeCode,jdbcType=DECIMAL},
+      </if>
+      <if test="record.menuPrivilegePos != null" >
+        MENU_PRIVILEGE_POS = #{record.menuPrivilegePos,jdbcType=DECIMAL},
+      </if>
+      <if test="record.menuDescription != null" >
+        MENU_DESCRIPTION = #{record.menuDescription,jdbcType=VARCHAR},
+      </if>
+      <if test="record.menuSortNo != null" >
+        MENU_SORT_NO = #{record.menuSortNo,jdbcType=DECIMAL},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update T_MENUS
+    set ID = #{record.id,jdbcType=DECIMAL},
+      MENU_NAME = #{record.menuName,jdbcType=VARCHAR},
+      MENU_URL = #{record.menuUrl,jdbcType=VARCHAR},
+      MENU_PARENT_ID = #{record.menuParentId,jdbcType=DECIMAL},
+      MENU_PRIVILEGE_CODE = #{record.menuPrivilegeCode,jdbcType=DECIMAL},
+      MENU_PRIVILEGE_POS = #{record.menuPrivilegePos,jdbcType=DECIMAL},
+      MENU_DESCRIPTION = #{record.menuDescription,jdbcType=VARCHAR},
+      MENU_SORT_NO = #{record.menuSortNo,jdbcType=DECIMAL}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.athena.module.menus.model.Menu" >
+    update T_MENUS
+    <set >
+      <if test="menuName != null" >
+        MENU_NAME = #{menuName,jdbcType=VARCHAR},
+      </if>
+      <if test="menuUrl != null" >
+        MENU_URL = #{menuUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="menuParentId != null" >
+        MENU_PARENT_ID = #{menuParentId,jdbcType=DECIMAL},
+      </if>
+      <if test="menuPrivilegeCode != null" >
+        MENU_PRIVILEGE_CODE = #{menuPrivilegeCode,jdbcType=DECIMAL},
+      </if>
+      <if test="menuPrivilegePos != null" >
+        MENU_PRIVILEGE_POS = #{menuPrivilegePos,jdbcType=DECIMAL},
+      </if>
+      <if test="menuDescription != null" >
+        MENU_DESCRIPTION = #{menuDescription,jdbcType=VARCHAR},
+      </if>
+      <if test="menuSortNo != null" >
+        MENU_SORT_NO = #{menuSortNo,jdbcType=DECIMAL},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.athena.module.menus.model.Menu" >
+    update T_MENUS
+    set MENU_NAME = #{menuName,jdbcType=VARCHAR},
+      MENU_URL = #{menuUrl,jdbcType=VARCHAR},
+      MENU_PARENT_ID = #{menuParentId,jdbcType=DECIMAL},
+      MENU_PRIVILEGE_CODE = #{menuPrivilegeCode,jdbcType=DECIMAL},
+      MENU_PRIVILEGE_POS = #{menuPrivilegePos,jdbcType=DECIMAL},
+      MENU_DESCRIPTION = #{menuDescription,jdbcType=VARCHAR},
+      MENU_SORT_NO = #{menuSortNo,jdbcType=DECIMAL}
+    where ID = #{id,jdbcType=DECIMAL}
+  </update>
+  <sql id="OracleDialectPrefix" >
+    <if test="pagination != null" >
+      select * from ( select row_.*, rownum rownum_ from ( 
+    </if>
+  </sql>
+  <sql id="OracleDialectSuffix" >
+    <if test="pagination != null" >
+      <![CDATA[ ) row_ ) where rownum_ > #{pagination.beginIndex} and rownum_ <= #{pagination.endIndex} ]]>
+    </if>
+  </sql>
+</mapper>

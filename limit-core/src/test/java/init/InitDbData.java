@@ -1,4 +1,4 @@
-package init.data;
+package init;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -23,7 +23,7 @@ import oracle.jdbc.OracleDriver;
 
 /**
  * 初始数据
- * @author NieBinxiao
+ * @author niebinxiao
  */
 public class InitDbData {
 	private static final Logger logger = Logger.getLogger(InitDbData.class);
@@ -46,6 +46,7 @@ public class InitDbData {
 		InputSource is = new InputSource(new FileInputStream(xmlFile));
 		FlatXmlProducer xmlProducer = new FlatXmlProducer(is);
 		IDataSet set = new FlatXmlDataSet(xmlProducer);
+
 		// 数据集包装类
 		ReplacementDataSet rds = new ReplacementDataSet(set);
 		rds.addReplacementObject("null", null);
@@ -63,7 +64,6 @@ public class InitDbData {
 		}
 		DriverManager.registerDriver(new OracleDriver());
 		con = DriverManager.getConnection((String) prop.get("datasource.jdbcUrl"), (String) prop.get("datasource.jdbcUserName"), (String) prop.get("datasource.jdbcPassWord"));
-		System.out.println(prop.get("db.schema"));
 		dbUnitConnection = new DatabaseConnection(con, (String) prop.get("db.schema"));
 	}
 

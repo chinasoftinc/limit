@@ -209,14 +209,6 @@ public class Constants {
 	}
 
 	/**
-	 * 用户模块常量
-	 * @author niebinxiao
-	 */
-	public static class UserModel {
-
-	}
-
-	/**
 	 * 地区模块常量
 	 * @author niebinxiao
 	 */

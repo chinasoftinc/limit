@@ -317,5 +317,7 @@ $(document).ready(function() {
 			$(this).closest("form").submit();
 		}
 	});
-	
 });
+
+
+
