@@ -13,24 +13,24 @@
 			<property name="suppressAllComments" value="true" />
 		</commentGenerator>
 
-		<jdbcConnection driverClass="oracle.jdbc.driver.OracleDriver" connectionURL="jdbc:oracle:thin:@172.18.173.5:1521/orcl" userId="CHANNEL" password="CHANNEL" />
-		<!-- <jdbcConnection driverClass="oracle.jdbc.driver.OracleDriver" connectionURL="jdbc:oracle:thin:@niebinxiao:1521/xe" userId="NIEBINXIAO" password="NIEBINXIAO" />--> 
+		<!-- <jdbcConnection driverClass="oracle.jdbc.driver.OracleDriver" connectionURL="jdbc:oracle:thin:@172.18.173.5:1521/orcl" userId="CHANNEL" password="CHANNEL" />-->
+		<jdbcConnection driverClass="oracle.jdbc.driver.OracleDriver" connectionURL="jdbc:oracle:thin:@niebinxiao:1521/xe" userId="NIEBINXIAO" password="NIEBINXIAO" /> 
 
 		<javaTypeResolver>
 			<property name="forceBigDecimals" value="false" />
 		</javaTypeResolver>
 
-		<javaModelGenerator targetPackage="com.athena.module.menus.model" targetProject="limit-core">
+		<javaModelGenerator targetPackage="com.athena.module.menus1.model" targetProject="limit-core">
 			<property name="enableSubPackages" value="true" />
 			<property name="trimStrings" value="true" />
 		</javaModelGenerator>
 
-		<sqlMapGenerator targetPackage="com.athena.module.menus.sql" targetProject="limit-core">
+		<sqlMapGenerator targetPackage="com.athena.module.menus1.sql" targetProject="limit-core">
 			<property name="enableSubPackages" value="true" />
 			<property name="useGeneratedKeys" value="true" />
 		</sqlMapGenerator>
 
-		<javaClientGenerator type="XMLMAPPER" targetPackage="com.athena.module.menus.mapper" targetProject="limit-core">
+		<javaClientGenerator type="XMLMAPPER" targetPackage="com.athena.module.menus1.mapper" targetProject="limit-core">
 			<property name="enableSubPackages" value="true" />
 		</javaClientGenerator>
 

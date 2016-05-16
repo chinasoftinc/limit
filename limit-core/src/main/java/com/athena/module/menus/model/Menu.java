@@ -23,10 +23,10 @@ public class Menu extends PageModel<Menu> {
 	private BigDecimal menuParentId;
 
 	// 权限码
-	private BigDecimal menuPrivilegeCode;
+	private Long menuPrivilegeCode;
 
 	// 权限位
-	private BigDecimal menuPrivilegePos;
+	private Long menuPrivilegePos;
 
 	// 详细说明
 	private String menuDescription;
@@ -39,7 +39,7 @@ public class Menu extends PageModel<Menu> {
 
 	// 父菜单名称
 	private String parentName;
-	
+
 	public List<Menu> getChildren() {
 		return children;
 	}
@@ -88,19 +88,19 @@ public class Menu extends PageModel<Menu> {
 		this.menuParentId = menuParentId;
 	}
 
-	public BigDecimal getMenuPrivilegeCode() {
+	public Long getMenuPrivilegeCode() {
 		return menuPrivilegeCode;
 	}
 
-	public void setMenuPrivilegeCode(BigDecimal menuPrivilegeCode) {
+	public void setMenuPrivilegeCode(Long menuPrivilegeCode) {
 		this.menuPrivilegeCode = menuPrivilegeCode;
 	}
 
-	public BigDecimal getMenuPrivilegePos() {
+	public Long getMenuPrivilegePos() {
 		return menuPrivilegePos;
 	}
 
-	public void setMenuPrivilegePos(BigDecimal menuPrivilegePos) {
+	public void setMenuPrivilegePos(Long menuPrivilegePos) {
 		this.menuPrivilegePos = menuPrivilegePos;
 	}
 
@@ -119,4 +119,5 @@ public class Menu extends PageModel<Menu> {
 	public void setMenuSortNo(Short menuSortNo) {
 		this.menuSortNo = menuSortNo;
 	}
+
 }

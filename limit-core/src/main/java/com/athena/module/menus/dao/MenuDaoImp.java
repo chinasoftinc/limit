@@ -23,12 +23,12 @@ public class MenuDaoImp extends AbstractDao<Menu, MenuExample> implements MenuDa
 	}
 
 	@Override
-	public Integer selectMaxPrivilegePos() {
+	public Long selectMaxPrivilegePos() {
 		return menuMapper.selectMaxPrivilegePos();
 	}
 
 	@Override
-	public Long selectMaxPrivilegeCode(Integer privilegePos) {
+	public Long selectMaxPrivilegeCode(Long privilegePos) {
 		return menuMapper.selectMaxPrivilegeCode(privilegePos);
 	}
 
@@ -39,7 +39,7 @@ public class MenuDaoImp extends AbstractDao<Menu, MenuExample> implements MenuDa
 	}
 
 	@Override
-	public List<Menu> selectMenusByRoleIds(List<Long> roleIds) {
+	public List<Menu> selectMenusByRoleIds(List<BigDecimal> roleIds) {
 		return menuMapper.selectMenusByRoleIds(roleIds);
 	}
 

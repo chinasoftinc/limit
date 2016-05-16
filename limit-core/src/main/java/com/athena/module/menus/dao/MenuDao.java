@@ -15,14 +15,14 @@ public interface MenuDao extends Dao<Menu, MenuExample> {
 	 * 查询最大权限位
 	 * @return
 	 */
-	Integer selectMaxPrivilegePos();
+	Long selectMaxPrivilegePos();
 
 	/**
 	 * 查询指定权限位中的最大权限码
 	 * @param privilegePos
 	 * @return
 	 */
-	Long selectMaxPrivilegeCode(@Param("privilegePos") Integer privilegePos);
+	Long selectMaxPrivilegeCode(@Param("privilegePos") Long privilegePos);
 
 	/**
 	 * 查询当前数据库最大的菜单排序
@@ -35,5 +35,5 @@ public interface MenuDao extends Dao<Menu, MenuExample> {
 	 * @param roleIds
 	 * @return
 	 */
-	List<Menu> selectMenusByRoleIds(List<Long> roleIds);
+	List<Menu> selectMenusByRoleIds(List<BigDecimal> roleIds);
 }

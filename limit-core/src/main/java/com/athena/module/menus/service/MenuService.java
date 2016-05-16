@@ -1,5 +1,6 @@
 package com.athena.module.menus.service;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 import com.athena.common.base.service.Service;
@@ -26,14 +27,14 @@ public interface MenuService extends Service<Menu, MenuExample> {
 	 * 删除菜单
 	 * @param id
 	 */
-	void deleteMenu(Long id);
+	void removeMenu(BigDecimal id);
 
 	/**
 	 * 交换两个菜单的排序位置
 	 * @param menuId
 	 * @param direction
 	 */
-	void updateMenuPos(Long menuId, Direction direction);
+	void updateMenuPos(BigDecimal menuId, Direction direction);
 
 	/**
 	 * 获取菜单树结构 [easyui treeNode]
@@ -42,15 +43,9 @@ public interface MenuService extends Service<Menu, MenuExample> {
 	List<TreeNode> selectEasyUITreeNodes();
 
 	/**
-	 * 查询最大的权限位
-	 * @return
-	 */
-	Integer selectMaxPrivilegePos();
-
-	/**
 	 * 查询指定用户的所有菜单
 	 * @param userId
 	 * @return
 	 */
-	List<Menu> selectUserMenus(Long userId);
+	List<Menu> selectUserMenus(BigDecimal userId);
 }
