@@ -60,7 +60,7 @@ public class MenuServiceImp extends AbstractService<Menu, MenuExample> implement
 	}
 
 	@Override
-	public void insertMenu(Menu menu) {
+	public int insertMenu(Menu menu) {
 
 		// 主键
 		menu.setId(menuDao.nextSEQ());
@@ -84,7 +84,12 @@ public class MenuServiceImp extends AbstractService<Menu, MenuExample> implement
 			menu.setMenuPrivilegeCode(1L);
 		}
 
-		menuDao.insert(menu);
+		return menuDao.insertSelective(menu);
+	}
+
+	@Override
+	public int updateMenu(Menu form) {
+		return this.updateByPrimaryKeySelective(form);
 	}
 
 	@Override
@@ -202,6 +207,11 @@ public class MenuServiceImp extends AbstractService<Menu, MenuExample> implement
 		} else {
 			return new ArrayList<Menu>();
 		}
+	}
+
+	@Override
+	public Long selectMaxPrivilegePos() {
+		return menuDao.selectMaxPrivilegePos();
 	}
 
 }

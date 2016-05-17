@@ -35,7 +35,7 @@ public class MenuDaoImp extends AbstractDao<Menu, MenuExample> implements MenuDa
 	@Override
 	public Short selectMaxSortNo(BigDecimal id) {
 		Short order = menuMapper.selectMaxSortNo(id);
-		return order == null || order < 1 ? 1 : order;
+		return order == null || order < 1 ? 1 : (short) (order + 1);
 	}
 
 	@Override

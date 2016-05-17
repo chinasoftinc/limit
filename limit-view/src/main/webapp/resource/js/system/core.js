@@ -319,5 +319,8 @@ $(document).ready(function() {
 	});
 });
 
-
-
+// 一次点击
+$(".onceSubmit").bind("click", function(){
+	$(this).attr("disabled", true);
+	setTimeOut("function (){$('.onceSubmit').attr('disabled',false)}", 3000);
+});

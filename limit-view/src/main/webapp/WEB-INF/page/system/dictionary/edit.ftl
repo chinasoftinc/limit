@@ -1,5 +1,5 @@
 <@PAGE.HTML title="">
-<body style="margin:5px;background:#666;">
+<body style="margin:5px;background:#fff;">
 <div style="width: 100%;height:100%;">
 	<div style="width: 100%">
 		<form id="form" action="${ctx}/system/dictionary/saveDictionary" method="POST" onsubmit="return $(this).form('validate')">

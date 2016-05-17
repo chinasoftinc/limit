@@ -12,32 +12,32 @@ import com.athena.module.users.model.User;
 public interface RoleService extends Service<Role, RoleExample> {
 
 	/**
-	 * 插入角色并保存角色权限的关联
+	 * 插入角色并保存角色菜单的关联
 	 * @param role
 	 */
 	void insertRole(Role role, User creator);
 
 	/**
-	 * 更新角色消息并保存角色权限的关联
+	 * 更新角色消息并保存角色菜单的关联
 	 * @param role
 	 */
 	void updateRole(Role role, User creator);
 
 	/**
-	 * 获取角色和权限信息
+	 * 获取角色和菜单信息
 	 * @param id
 	 * @return
 	 */
 	Role loadRole(BigDecimal id);
 
 	/**
-	 * 删除角色并删除权限关联
+	 * 删除角色并删除菜单关联
 	 * @param id
 	 */
 	void removeRole(BigDecimal id);
 
 	/**
-	 * 生成角色的树结构 [easyui treeNode]
+	 * 生成菜单的树结构
 	 * @return
 	 */
 	List<TreeNode> selectRolesTree();

@@ -1,5 +1,5 @@
 <@PAGE.HTML title="部门管理" >
-<body style="margin:5px;border:1px #fff solid;background:#666;" class="easyui-layout">
+<body style="margin:5px;border:1px #ccc solid;background:#fff;" class="easyui-layout">
 
 <div data-options="region:'west',title:'',border:false,collapsible:false" style="width:380px;padding:3px;overflow:auto;">
 	<table id="dataGrid"></table>
@@ -10,7 +10,7 @@
 	</div>
 </div>
 
-<div data-options="region:'center',title:'',border:false"  style="padding:3px;background:#666;border-left:1px solid #fff">
+<div data-options="region:'center',title:'',border:false"  style="padding:3px;background:#fff;border-left:1px solid #ccc">
 	<div id="editPanel"></div>  
 </div>
     

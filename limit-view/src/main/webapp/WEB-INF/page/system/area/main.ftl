@@ -1,10 +1,9 @@
 <@PAGE.HTML title="地区管理" >
 <#include "/system/area/css.ftl"/>
-
-<body style="margin:5px;border:1px #fff solid;background:#666">
+<body style="margin:5px;border:1px #ccc solid;background:#fff;">
 <div style="width: 100%;height:100%;">
 
-	<div style="width:100%;height:99%;padding:5px;background:#666">
+	<div style="width:100%;height:99%;padding:5px;background:#fff">
 		<div id="div1" style="border:1px #fff solid">
 			<div class="tree_toolbar">
 				<a class="easyui-linkbutton" data-options="iconCls:'icon-add'" onclick="insert(this)">添加一级地区</a>

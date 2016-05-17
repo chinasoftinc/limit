@@ -3,13 +3,13 @@
 <mapper namespace="com.athena.module.menus.mapper.MenuMapper">
 
 	<!-- 查询最大的权限位 -->
-	<select id="selectMaxPrivilegePos" resultType="java.lang.long">
-		SELECT MAX(MENU_PRIVILEGE_POS) FROM T_MENUS;
+	<select id="selectMaxPrivilegePos" resultType="java.lang.Long">
+		select max(MENU_PRIVILEGE_POS) from T_MENUS
 	</select>
 
 	<!-- 查询指定权限位中最大的权限码 -->
-	<select id="selectMaxPrivilegeCode" resultType="java.lang.long" parameterType="java.lang.long">
-		SELECT MAX(MENU_PRIVILEGE_CODE) FROM T_MENUS WHERE MENU_PRIVILEGE_POS=${privilegePos};
+	<select id="selectMaxPrivilegeCode" resultType="java.lang.Long" parameterType="java.lang.Long">
+		select max(MENU_PRIVILEGE_CODE) from T_MENUS where MENU_PRIVILEGE_POS=${privilegePos}
 	</select>
 
 	<!-- 获取指定节点的子节点最大排序 -->
@@ -19,9 +19,9 @@
 	
 	<!-- 根据角色ID集合查询所有菜单 -->
 	<select id="selectMenusByRoleIds" parameterType="java.util.List" resultMap="BaseResultMap">
-		SELECT DISTINCT m.* FROM T_MENUS m
-		INNER JOIN T_ROLE_MENU rm ON m.ID = rm.MENU_ID
-		WHERE rm.ROLE_ID IN
+		select distinct m.* FROM T_MENUS m
+		inner join T_ROLE_MENU rm ON m.ID = rm.MENU_ID
+		where rm.ROLE_ID IN
 		<foreach collection="list" separator="," open="(" close=")" item="roleId">
 			#{roleId}
 		</foreach>

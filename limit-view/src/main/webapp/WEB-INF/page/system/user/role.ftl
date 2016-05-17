@@ -1,6 +1,6 @@
 <@PAGE.HTML title="配置用户角色">
 <body>
-<div style="width: 100%;height:100%;background:#666">
+<div style="width: 100%;height:100%;background:#fff">
 	<div style="width: 100%;height:300px;overflow:auto">
 		<ul id="roleTree"></ul>
 	</div>

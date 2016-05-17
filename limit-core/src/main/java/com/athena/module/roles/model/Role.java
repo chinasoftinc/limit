@@ -38,8 +38,16 @@ public class Role extends PageModel<Role> {
 	// 最后
 	private BigDecimal updateUserid;
 
-	// 权限id, 逗号分割
-	transient String privilegeIds;
+	// 菜单id字符串
+	transient String menus;
+	
+	public String getMenus() {
+		return menus;
+	}
+
+	public void setMenus(String menus) {
+		this.menus = menus;
+	}
 
 	public BigDecimal getId() {
 		return id;

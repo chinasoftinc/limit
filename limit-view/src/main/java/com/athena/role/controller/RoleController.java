@@ -1,9 +1,12 @@
 package com.athena.role.controller;
 
-import javax.inject.Inject;
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.lang.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -14,6 +17,8 @@ import com.athena.common.base.controller.AbstractWebController;
 import com.athena.common.context.Constants.IS_DEL;
 import com.athena.common.dto.PageResult;
 import com.athena.common.dto.ResponseResult;
+import com.athena.common.dto.TreeNode;
+import com.athena.module.menus.service.MenuService;
 import com.athena.module.roles.model.Role;
 import com.athena.module.roles.model.RoleExample;
 import com.athena.module.roles.model.RoleExample.Criteria;
@@ -26,8 +31,12 @@ import com.athena.module.roles.service.RoleService;
 @Controller
 @RequestMapping("/system/role")
 public class RoleController extends AbstractWebController {
-	@Inject
+
+	@Autowired
 	private RoleService roleService;
+
+	@Autowired
+	private MenuService menuService;
 
 	// 主页
 	@RequestMapping(value = "/main", method = RequestMethod.GET)
@@ -91,6 +100,22 @@ public class RoleController extends AbstractWebController {
 			logger.error(e.toString());
 			return new ResponseResult(false, "删除角色失败");
 		}
+	}
+
+	// 配置菜单页面
+	@RequestMapping(value = "/configMenu", method = RequestMethod.GET)
+	public ModelAndView configMenu(HttpServletResponse response, Role form) {
+		ModelAndView mv = new ModelAndView("/system/role/menu");
+		setWindowsId(mv, form);
+		return mv;
+	}
+
+	// 菜单列表数据
+	@RequestMapping(value = "/menuTreeJson", method = RequestMethod.POST)
+	@ResponseBody
+	public Object menuTreeJson(HttpServletResponse response) {
+		List<TreeNode> menus = menuService.selectEasyUITreeNodes();
+		return menus == null ? new ArrayList<TreeNode>() : menus;
 	}
 
 	// 搜索

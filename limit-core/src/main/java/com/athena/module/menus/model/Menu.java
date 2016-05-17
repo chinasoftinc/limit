@@ -37,7 +37,7 @@ public class Menu extends PageModel<Menu> {
 	// 子菜单集合
 	private List<Menu> children;
 
-	// 父菜单名称
+	// 上级菜单名称
 	private String parentName;
 
 	public List<Menu> getChildren() {

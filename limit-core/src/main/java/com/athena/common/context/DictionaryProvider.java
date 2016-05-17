@@ -7,6 +7,7 @@ import java.math.BigDecimal;
 import java.util.List;
 
 import org.apache.commons.lang.StringUtils;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
@@ -92,19 +93,22 @@ public class DictionaryProvider {
 	 * @param name 选项组名称
 	 * @param fieldName 字段名
 	 */
-	public <T> void replaceModelDictionaries(T model, String name, String fieldName) {
+	@SuppressWarnings("unchecked")
+	public <T> T replaceModelDictionaries(T model, String name, String fieldName) {
 		try {
-			Field field = model.getClass().getDeclaredField(fieldName);
+			T target = (T) model.getClass().newInstance();
+			BeanUtils.copyProperties(model, target);
+
+			Field field = target.getClass().getDeclaredField(fieldName);
 			field.setAccessible(true);
-			
-			// 根据选项组名称和字段反射出的散列键查询散列值
-			String value = getDictioanryValue(name, (String) field.get(model));
-			
-			// 因为在controller中对缓存中查询出的对象做了替换操作, 所以下一次查询出的对象是替换后的, 这里暂时没好的方式处理 FIXME
+			String value = getDictioanryValue(name, (String) field.get(target));
+
 			if (StringUtils.isNotEmpty(value)) {
-				field.set(model, value);
+				field.set(target, value);
 			}
-		} catch (NoSuchFieldException | SecurityException | IllegalArgumentException | IllegalAccessException e) {
+
+			return target;
+		} catch (NoSuchFieldException | SecurityException | IllegalArgumentException | IllegalAccessException | InstantiationException e) {
 			throw new BusinessException(ExceptionCode.IllegalParamException, "对[实体类:" + model.getClass() + ", 字段名称为:" + name + "]做字典散列值替换出现异常");
 		}
 	}
@@ -116,17 +120,21 @@ public class DictionaryProvider {
 	 * @param getName 字段get方法
 	 * @param setName 字段set方法
 	 */
-	public <T> void replaceOptionValue(T model, String optName, String getName, String setName) {
+	@SuppressWarnings("unchecked")
+	public <T> T replaceOptionValue(T model, String optName, String getName, String setName) {
 		try {
-			Method getMethod = model.getClass().getMethod(getName);
-			// 从选项字典查询出指定字典名称, 指定选项值的选项显示名称
-			String optionValue = getDictioanryValue(optName, getMethod.invoke(model).toString());
-			// 因为在controller中对缓存中查询出的对象做了替换操作, 所以下一次查询出的对象是替换后的, 这里暂时没好的方式处理 FIXME
+			T target = (T) model.getClass().newInstance();
+			BeanUtils.copyProperties(model, target);
+
+			Method getMethod = target.getClass().getMethod(getName);
+			String optionValue = getDictioanryValue(optName, getMethod.invoke(target));
+
 			if (StringUtils.isNotEmpty(optionValue)) {
-				Method setMethod = model.getClass().getMethod(setName, String.class);
-				setMethod.invoke(model, optionValue);
+				Method setMethod = target.getClass().getMethod(setName, String.class);
+				setMethod.invoke(target, optionValue);
 			}
-		} catch (NoSuchMethodException | SecurityException | IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
+			return target;
+		} catch (NoSuchMethodException | SecurityException | IllegalAccessException | IllegalArgumentException | InvocationTargetException | InstantiationException e) {
 			throw new BusinessException(ExceptionCode.IllegalParamException, "对[class:" + model.getClass() + ", modelSettingMethod:" + setName + "]做字典参数替换出现异常");
 		}
 	}

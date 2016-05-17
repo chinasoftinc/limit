@@ -1,5 +1,5 @@
 <@PAGE.HTML title="查看用户">
-<body style="margin:5px;background:#666">
+<body style="margin:5px;background:#fff">
 <div style="width: 100%;height:100%;">
 	<div style="width: 100%">
 			<table width="100%" border="0" class="form-data">
@@ -69,16 +69,11 @@
 						<@RadioTag optName="user_status" checked="${user.userStatus}" disabled="disabled" style="width:12px;height:11px" />
 					</td>
 				</tr>
-				<tr>
-					<td style="width:12%;text-align:right">角色信息</td>
-					<td>
-						
-					</td>
-				</tr>
+				
 				<tr>
 					<td></td>
 					<td>
-						<a href="#" class="easyui-linkbutton" iconCls="icon-cancel" onclick="$.closeWindow('editUser')">关闭</a>
+						<a href="#" class="easyui-linkbutton" iconCls="icon-cancel" onclick="$.closeWindow('${winId}')">关闭</a>
 					</td>
 				</tr>
 			</table>

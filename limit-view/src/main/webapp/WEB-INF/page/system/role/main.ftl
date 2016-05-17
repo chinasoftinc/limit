@@ -1,5 +1,5 @@
 <@PAGE.HTML title="角色管理" >
-<body style="margin:5px;border:1px #fff solid;background:#666">
+<body style="margin:5px;border:1px #ccc solid;background:#fff;">
 	<table id="dataGrid"></table>
 	
 	<div id="toolBar">

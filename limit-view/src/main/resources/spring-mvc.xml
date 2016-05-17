@@ -34,6 +34,34 @@
 		<context:exclude-filter type="annotation" expression="org.springframework.stereotype.Service" />
 	</context:component-scan>
 
+	<bean id="securityManager" class="com.athena.common.context.SecurityManager">
+		<property name="menuService" ref="menuServiceImp" />
+		<property name="userService" ref="userServiceImp" />
+		<property name="antPathMatcher">
+			<bean class="org.springframework.util.AntPathMatcher" />
+		</property>
+		<property name="publicUrls">
+			<list>
+				<value>/resource</value>
+				<value>/login</value>
+			</list>
+		</property>
+	</bean>
+	
+	<mvc:interceptors>
+		<mvc:interceptor>
+			<mvc:mapping path="/**" />
+			<bean class="com.athena.common.interceptor.SecurityInterceptor">
+				<property name="autoLogin" value="false" />
+				<property name="openSecurityFilter" value="true" />
+				<property name="enterPage" value="/login" />
+				<property name="securityManager" ref="securityManager" />
+				<property name="urlPathHelper">
+					<bean class="org.springframework.web.util.UrlPathHelper" />
+				</property>
+			</bean>
+		</mvc:interceptor>
+	</mvc:interceptors>
 
 	<mvc:resources mapping="/resource/**" location="/resource/" />
 

@@ -79,7 +79,7 @@ public class ParameterController extends AbstractWebController {
 		setWindowsId(mv, form);
 		return mv;
 	}
-
+	
 	// 保存参数
 	@RequestMapping(value = "/saveParameter", method = RequestMethod.POST)
 	public ModelAndView saveParameter(Dictionary form) {

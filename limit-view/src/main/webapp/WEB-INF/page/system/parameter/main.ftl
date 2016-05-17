@@ -1,5 +1,5 @@
 <@PAGE.HTML title="参数配置" >
-<body style="margin:5px;border:1px #fff solid;background:#666">
+<body style="margin:5px;border:1px #ccc solid;background:#fff;">
 	<table id="dataGrid"></table>
 	<div id="toolBar">
 		<a href="#" onclick="addRootDirectory()" class="easyui-linkbutton" data-options="iconCls:'icon-add',plain:true">添加根目录</a>|

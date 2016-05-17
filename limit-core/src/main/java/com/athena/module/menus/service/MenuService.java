@@ -21,7 +21,7 @@ public interface MenuService extends Service<Menu, MenuExample> {
 	 * 添加菜单
 	 * @param menu
 	 */
-	void insertMenu(Menu menu);
+	int insertMenu(Menu menu);
 
 	/**
 	 * 删除菜单
@@ -48,4 +48,16 @@ public interface MenuService extends Service<Menu, MenuExample> {
 	 * @return
 	 */
 	List<Menu> selectUserMenus(BigDecimal userId);
+
+	/**
+	 * 更新菜单
+	 * @param form
+	 */
+	int updateMenu(Menu form);
+
+	/**
+	 * 查询最大权限位
+	 * @return
+	 */
+	Long selectMaxPrivilegePos();
 }

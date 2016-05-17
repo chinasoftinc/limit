@@ -1,5 +1,5 @@
 <@PAGE.HTML title="编辑参数">
-<body style="margin:5px;background:#666">
+<body style="margin:5px;background:#fff">
 <div style="width: 100%;height:100%;">
 	<div style="width: 100%">
 		<form id="form" action="${ctx}/system/parameter/saveParameter" method="POST" onsubmit="return $(this).form('validate')">
@@ -64,7 +64,7 @@
 						<input type="hidden" name="winId" value="${winId}"/>
 						
 						<#if operation=='add'>
-							<a href="#" class="easyui-linkbutton" onclick="$(this).closest('form').submit();" iconCls="icon-save">添加</a>&nbsp;
+							<a href="#" class="easyui-linkbutton onceSubmit" onclick="$(this).closest('form').submit();" iconCls="icon-save">添加</a>&nbsp;
 					    <#else>
 					    	<input type="hidden" name="id" value="${parameter.id}"/>
 							<a href="#" class="easyui-linkbutton" onclick="$(this).closest('form').submit();" iconCls="icon-save">更新</a>&nbsp;

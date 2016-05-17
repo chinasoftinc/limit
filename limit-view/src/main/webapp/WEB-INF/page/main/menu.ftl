@@ -4,6 +4,7 @@
     	<p><a name="menu_button" href="#" class="easyui-linkbutton" onclick="$.addTab('4','组织机构','${ctx}/system/dept/main', 'home')" style="width:100%;">组织结构</a></p>
     	<p><a name="menu_button" href="#" class="easyui-linkbutton" onclick="$.addTab('5','用户管理','${ctx}/system/user/main', 'home')" style="width:100%;">用户管理</a></p>
     	<p><a name="menu_button" href="#" class="easyui-linkbutton" onclick="$.addTab('6','角色管理','${ctx}/system/role/main', 'home')" style="width:100%;">角色管理</a></p>
+    	<p><a name="menu_button" href="#" class="easyui-linkbutton" onclick="$.addTab('7','菜单管理','${ctx}/system/menu/main', 'home')" style="width:100%;">菜单管理</a></p>
     </div>
     
 	<div title="系统管理" class="win_body" data-options="iconCls:'icon-menu'" style="padding:10px;">
