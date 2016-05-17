@@ -41,4 +41,11 @@ public interface RoleService extends Service<Role, RoleExample> {
 	 * @return
 	 */
 	List<TreeNode> selectRolesTree();
+
+	/**
+	 * 根据用户id查询所拥有权限
+	 * @param id
+	 * @return
+	 */
+	List<Role> selectRolesByUserId(BigDecimal id);
 }

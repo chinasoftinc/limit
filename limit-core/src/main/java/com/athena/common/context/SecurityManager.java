@@ -124,7 +124,7 @@ public class SecurityManager {
 				return true;
 			}
 
-			uri = uri.replace("/", "");
+			uri = uri.substring(1);
 
 			Menu matcherMenu = null;
 			MenuExample example = new MenuExample();
@@ -180,6 +180,7 @@ public class SecurityManager {
 
 		MenuExample example = new MenuExample();
 		example.or().andMenuParentIdEqualTo(BigDecimal.ZERO);
+		example.setOrderByClause("MENU_SORT_NO");
 		List<Menu> firstMenus = menuService.selectByExample(example);
 
 		User user = getLoginUser(request);
@@ -187,7 +188,9 @@ public class SecurityManager {
 		List<Menu> userMenus;
 
 		if (isAdmin(user)) {
-			userMenus = menuService.selectByExample(new MenuExample());
+			example = new MenuExample();
+			example.setOrderByClause("MENU_SORT_NO");
+			userMenus = menuService.selectByExample(example);
 
 		} else {
 			userMenus = menuService.selectUserMenus(user.getId());

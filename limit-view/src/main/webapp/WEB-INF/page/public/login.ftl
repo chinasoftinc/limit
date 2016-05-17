@@ -46,7 +46,7 @@
 				<#-- 绑定取消自动登录事件 -->
 				$("#isAuto").bind("change", function(){
 					if($("#isAuto")[0].checked == false){
-						$.removeCookie('mzj_shop_manage_autologin', { path: '/' });
+						$.removeCookie('com_athena_autologin', { path: '/' });
 					}
 				});
 			
@@ -93,7 +93,7 @@
 						
 							if($("#isAuto")[0].checked == true){
 								<#-- 默认7天, 整个项目 -->
-								$.cookie('mzj_shop_manage_autologin', username + ":" + password, { expires: 7, path: '/' });
+								$.cookie('com_athena_autologin', username + ":" + password, { expires: 7, path: '/' });
 							}
 							
 							window.location.href="${ctx}";

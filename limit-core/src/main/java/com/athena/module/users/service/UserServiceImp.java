@@ -15,6 +15,8 @@ import com.athena.common.base.service.AbstractService;
 import com.athena.common.context.Constants.IS_DEL;
 import com.athena.common.dto.PageResult;
 import com.athena.common.utils.UUIDUtils;
+import com.athena.module.roles.dao.RoleDao;
+import com.athena.module.roles.model.Role;
 import com.athena.module.roleuser.dao.RoleUserDao;
 import com.athena.module.roleuser.model.RoleUser;
 import com.athena.module.roleuser.model.RoleUserExample;
@@ -30,6 +32,9 @@ public class UserServiceImp extends AbstractService<User, UserExample> implement
 
 	@Autowired
 	private RoleUserDao roleUserDao;
+
+	@Autowired
+	private RoleDao roleDao;
 
 	@Override
 	public boolean selectIsNotExistUsername(String username) {
@@ -125,18 +130,14 @@ public class UserServiceImp extends AbstractService<User, UserExample> implement
 
 		User user = this.selectByPrimaryKey(id);
 
-		// 查询用户所有角色id, 设置到user的roles中
-		RoleUserExample example = new RoleUserExample();
-		example.or().andUserIdEqualTo(id);
-		List<RoleUser> roleusers = roleUserDao.selectByExample(example);
-		if (CollectionUtils.isNotEmpty(roleusers)) {
-			StringBuffer sb = new StringBuffer();
-			for (RoleUser roleuser : roleusers) {
-				sb.append(String.valueOf(roleuser.getRoleId()).concat(","));
-			}
-			user.setRoles(sb.substring(0, sb.length() - 1));
+		// 查询用户所有角色, 设置到user的roles中
+		List<Role> roles = roleDao.selectRolesByUserId(id);
+		StringBuffer sb = new StringBuffer();
+		for (Role role : roles) {
+			sb.append(role.getRoleName().concat(" "));
 		}
 
+		user.setRoles(new String(sb));
 		return user;
 	}
 

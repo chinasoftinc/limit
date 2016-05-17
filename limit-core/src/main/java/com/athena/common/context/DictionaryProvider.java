@@ -26,7 +26,8 @@ import com.athena.module.dictionaries.service.DictionaryService;
  */
 @Component
 public class DictionaryProvider {
-	public static final String USER_SESSION_KEY = "user";
+	
+	public static final String USER_SESSION_KEY = "user_session_key";
 
 	@Autowired
 	private DictionaryService dictionaryService;

@@ -178,4 +178,10 @@ public class RoleServiceImp extends AbstractService<Role, RoleExample> implement
 		return treeNodes;
 	}
 
+	@Override
+	public List<Role> selectRolesByUserId(BigDecimal id) {
+		
+		return roleDao.selectRolesByUserId(id);
+	}
+
 }
