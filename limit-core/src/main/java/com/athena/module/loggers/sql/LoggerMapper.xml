@@ -1,0 +1,288 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.athena.module.loggers.mapper.LoggerMapper" >
+  <resultMap id="BaseResultMap" type="com.athena.module.loggers.model.Logger" >
+    <id column="ID" property="id" jdbcType="DECIMAL" />
+    <result column="USER_ID" property="userId" jdbcType="DECIMAL" />
+    <result column="USER_NICKNAME" property="userNickname" jdbcType="VARCHAR" />
+    <result column="OPTOR_TYPE" property="optorType" jdbcType="CHAR" />
+    <result column="ENTITY_NAME" property="entityName" jdbcType="VARCHAR" />
+    <result column="MODEL_TITLE" property="modelTitle" jdbcType="VARCHAR" />
+    <result column="MODEL_ID" property="modelId" jdbcType="DECIMAL" />
+    <result column="OPTOR_TIME" property="optorTime" jdbcType="DATE" />
+    <result column="OPTOR_DETAIL" property="optorDetail" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    ID, USER_ID, USER_NICKNAME, OPTOR_TYPE, ENTITY_NAME, MODEL_TITLE, MODEL_ID, OPTOR_TIME, 
+    OPTOR_DETAIL
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.athena.module.loggers.model.LoggerExample" >
+    <include refid="OracleDialectPrefix" />
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from T_LOGGERS
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+    <include refid="OracleDialectSuffix" />
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.math.BigDecimal" >
+    select 
+    <include refid="Base_Column_List" />
+    from T_LOGGERS
+    where ID = #{id,jdbcType=DECIMAL}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.math.BigDecimal" >
+    delete from T_LOGGERS
+    where ID = #{id,jdbcType=DECIMAL}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.athena.module.loggers.model.LoggerExample" >
+    delete from T_LOGGERS
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.athena.module.loggers.model.Logger" >
+    insert into T_LOGGERS (ID, USER_ID, USER_NICKNAME, 
+      OPTOR_TYPE, ENTITY_NAME, MODEL_TITLE, 
+      MODEL_ID, OPTOR_TIME, OPTOR_DETAIL
+      )
+    values (#{id,jdbcType=DECIMAL}, #{userId,jdbcType=DECIMAL}, #{userNickname,jdbcType=VARCHAR}, 
+      #{optorType,jdbcType=CHAR}, #{entityName,jdbcType=VARCHAR}, #{modelTitle,jdbcType=VARCHAR}, 
+      #{modelId,jdbcType=DECIMAL}, #{optorTime,jdbcType=DATE}, #{optorDetail,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.athena.module.loggers.model.Logger" >
+    insert into T_LOGGERS
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="userId != null" >
+        USER_ID,
+      </if>
+      <if test="userNickname != null" >
+        USER_NICKNAME,
+      </if>
+      <if test="optorType != null" >
+        OPTOR_TYPE,
+      </if>
+      <if test="entityName != null" >
+        ENTITY_NAME,
+      </if>
+      <if test="modelTitle != null" >
+        MODEL_TITLE,
+      </if>
+      <if test="modelId != null" >
+        MODEL_ID,
+      </if>
+      <if test="optorTime != null" >
+        OPTOR_TIME,
+      </if>
+      <if test="optorDetail != null" >
+        OPTOR_DETAIL,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=DECIMAL},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=DECIMAL},
+      </if>
+      <if test="userNickname != null" >
+        #{userNickname,jdbcType=VARCHAR},
+      </if>
+      <if test="optorType != null" >
+        #{optorType,jdbcType=CHAR},
+      </if>
+      <if test="entityName != null" >
+        #{entityName,jdbcType=VARCHAR},
+      </if>
+      <if test="modelTitle != null" >
+        #{modelTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="modelId != null" >
+        #{modelId,jdbcType=DECIMAL},
+      </if>
+      <if test="optorTime != null" >
+        #{optorTime,jdbcType=DATE},
+      </if>
+      <if test="optorDetail != null" >
+        #{optorDetail,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.athena.module.loggers.model.LoggerExample" resultType="java.lang.Integer" >
+    select count(*) from T_LOGGERS
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update T_LOGGERS
+    <set >
+      <if test="record.id != null" >
+        ID = #{record.id,jdbcType=DECIMAL},
+      </if>
+      <if test="record.userId != null" >
+        USER_ID = #{record.userId,jdbcType=DECIMAL},
+      </if>
+      <if test="record.userNickname != null" >
+        USER_NICKNAME = #{record.userNickname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.optorType != null" >
+        OPTOR_TYPE = #{record.optorType,jdbcType=CHAR},
+      </if>
+      <if test="record.entityName != null" >
+        ENTITY_NAME = #{record.entityName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.modelTitle != null" >
+        MODEL_TITLE = #{record.modelTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="record.modelId != null" >
+        MODEL_ID = #{record.modelId,jdbcType=DECIMAL},
+      </if>
+      <if test="record.optorTime != null" >
+        OPTOR_TIME = #{record.optorTime,jdbcType=DATE},
+      </if>
+      <if test="record.optorDetail != null" >
+        OPTOR_DETAIL = #{record.optorDetail,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update T_LOGGERS
+    set ID = #{record.id,jdbcType=DECIMAL},
+      USER_ID = #{record.userId,jdbcType=DECIMAL},
+      USER_NICKNAME = #{record.userNickname,jdbcType=VARCHAR},
+      OPTOR_TYPE = #{record.optorType,jdbcType=CHAR},
+      ENTITY_NAME = #{record.entityName,jdbcType=VARCHAR},
+      MODEL_TITLE = #{record.modelTitle,jdbcType=VARCHAR},
+      MODEL_ID = #{record.modelId,jdbcType=DECIMAL},
+      OPTOR_TIME = #{record.optorTime,jdbcType=DATE},
+      OPTOR_DETAIL = #{record.optorDetail,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.athena.module.loggers.model.Logger" >
+    update T_LOGGERS
+    <set >
+      <if test="userId != null" >
+        USER_ID = #{userId,jdbcType=DECIMAL},
+      </if>
+      <if test="userNickname != null" >
+        USER_NICKNAME = #{userNickname,jdbcType=VARCHAR},
+      </if>
+      <if test="optorType != null" >
+        OPTOR_TYPE = #{optorType,jdbcType=CHAR},
+      </if>
+      <if test="entityName != null" >
+        ENTITY_NAME = #{entityName,jdbcType=VARCHAR},
+      </if>
+      <if test="modelTitle != null" >
+        MODEL_TITLE = #{modelTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="modelId != null" >
+        MODEL_ID = #{modelId,jdbcType=DECIMAL},
+      </if>
+      <if test="optorTime != null" >
+        OPTOR_TIME = #{optorTime,jdbcType=DATE},
+      </if>
+      <if test="optorDetail != null" >
+        OPTOR_DETAIL = #{optorDetail,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.athena.module.loggers.model.Logger" >
+    update T_LOGGERS
+    set USER_ID = #{userId,jdbcType=DECIMAL},
+      USER_NICKNAME = #{userNickname,jdbcType=VARCHAR},
+      OPTOR_TYPE = #{optorType,jdbcType=CHAR},
+      ENTITY_NAME = #{entityName,jdbcType=VARCHAR},
+      MODEL_TITLE = #{modelTitle,jdbcType=VARCHAR},
+      MODEL_ID = #{modelId,jdbcType=DECIMAL},
+      OPTOR_TIME = #{optorTime,jdbcType=DATE},
+      OPTOR_DETAIL = #{optorDetail,jdbcType=VARCHAR}
+    where ID = #{id,jdbcType=DECIMAL}
+  </update>
+  <sql id="OracleDialectPrefix" >
+    <if test="pagination != null" >
+      select * from ( select row_.*, rownum rownum_ from ( 
+    </if>
+  </sql>
+  <sql id="OracleDialectSuffix" >
+    <if test="pagination != null" >
+      <![CDATA[ ) row_ ) where rownum_ > #{pagination.beginIndex} and rownum_ <= #{pagination.endIndex} ]]>
+    </if>
+  </sql>
+</mapper>

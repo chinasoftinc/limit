@@ -57,6 +57,7 @@
 		});
 		
 		<#-- 基本校验 -->
+		var isExecute = false;
 		function validateLogin(){
 		
 			var $usernameNode = $("#loginForm input[name='userName']");
@@ -88,6 +89,11 @@
 				{
 					success: function (rs){
 						if(!rs.success){
+							if(isExecute){
+								isExecute = false;
+								return;
+							}
+							isExecute = true;
 							$.msgTip("提示", rs.message);
 						}else if(rs.success){
 						

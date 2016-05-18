@@ -17,8 +17,8 @@
     <result column="DEPARTMENT_ID" property="departmentId" jdbcType="DECIMAL" />
     <result column="ORG_ID" property="orgId" jdbcType="DECIMAL" />
     <result column="LAST_ACCESS_IP" property="lastAccessIp" jdbcType="VARCHAR" />
-    <result column="LAST_LOGIN_TIME" property="lastLoginTime" jdbcType="DATE" />
-    <result column="LAST_ACCESS_TIME" property="lastAccessTime" jdbcType="DATE" />
+    <result column="LAST_LOGIN_TIME" property="lastLoginTime" jdbcType="TIMESTAMP" />
+    <result column="LAST_ACCESS_TIME" property="lastAccessTime" jdbcType="TIMESTAMP" />
     <result column="ONLINE_TIME" property="onlineTime" jdbcType="DECIMAL" />
     <result column="ACCESS_MODULE" property="accessModule" jdbcType="VARCHAR" />
     <result column="IS_DEL" property="isDel" jdbcType="CHAR" />
@@ -139,9 +139,9 @@
       #{passwdSalt,jdbcType=VARCHAR}, #{userSex,jdbcType=CHAR}, #{userEmail,jdbcType=VARCHAR}, 
       #{userPhone,jdbcType=VARCHAR}, #{cssId,jdbcType=VARCHAR}, #{roleId,jdbcType=DECIMAL}, 
       #{departmentId,jdbcType=DECIMAL}, #{orgId,jdbcType=DECIMAL}, #{lastAccessIp,jdbcType=VARCHAR}, 
-      #{lastLoginTime,jdbcType=DATE}, #{lastAccessTime,jdbcType=DATE}, #{onlineTime,jdbcType=DECIMAL}, 
-      #{accessModule,jdbcType=VARCHAR}, #{isDel,jdbcType=CHAR}, #{createTime,jdbcType=DATE}, 
-      #{updateTime,jdbcType=DATE}, #{createUserid,jdbcType=DECIMAL}, #{updateUserid,jdbcType=DECIMAL}, 
+      #{lastLoginTime,jdbcType=TIMESTAMP}, #{lastAccessTime,jdbcType=TIMESTAMP}, #{onlineTime,jdbcType=DECIMAL}, 
+      #{accessModule,jdbcType=VARCHAR}, #{isDel,jdbcType=CHAR}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{updateTime,jdbcType=TIMESTAMP}, #{createUserid,jdbcType=DECIMAL}, #{updateUserid,jdbcType=DECIMAL}, 
       #{isLogin,jdbcType=CHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.athena.module.users.model.User" >
@@ -270,10 +270,10 @@
         #{lastAccessIp,jdbcType=VARCHAR},
       </if>
       <if test="lastLoginTime != null" >
-        #{lastLoginTime,jdbcType=DATE},
+        #{lastLoginTime,jdbcType=TIMESTAMP},
       </if>
       <if test="lastAccessTime != null" >
-        #{lastAccessTime,jdbcType=DATE},
+        #{lastAccessTime,jdbcType=TIMESTAMP},
       </if>
       <if test="onlineTime != null" >
         #{onlineTime,jdbcType=DECIMAL},
@@ -285,10 +285,10 @@
         #{isDel,jdbcType=CHAR},
       </if>
       <if test="createTime != null" >
-        #{createTime,jdbcType=DATE},
+        #{createTime,jdbcType=TIMESTAMP},
       </if>
       <if test="updateTime != null" >
-        #{updateTime,jdbcType=DATE},
+        #{updateTime,jdbcType=TIMESTAMP},
       </if>
       <if test="createUserid != null" >
         #{createUserid,jdbcType=DECIMAL},
@@ -356,10 +356,10 @@
         LAST_ACCESS_IP = #{record.lastAccessIp,jdbcType=VARCHAR},
       </if>
       <if test="record.lastLoginTime != null" >
-        LAST_LOGIN_TIME = #{record.lastLoginTime,jdbcType=DATE},
+        LAST_LOGIN_TIME = #{record.lastLoginTime,jdbcType=TIMESTAMP},
       </if>
       <if test="record.lastAccessTime != null" >
-        LAST_ACCESS_TIME = #{record.lastAccessTime,jdbcType=DATE},
+        LAST_ACCESS_TIME = #{record.lastAccessTime,jdbcType=TIMESTAMP},
       </if>
       <if test="record.onlineTime != null" >
         ONLINE_TIME = #{record.onlineTime,jdbcType=DECIMAL},
@@ -371,10 +371,10 @@
         IS_DEL = #{record.isDel,jdbcType=CHAR},
       </if>
       <if test="record.createTime != null" >
-        CREATE_TIME = #{record.createTime,jdbcType=DATE},
+        CREATE_TIME = #{record.createTime,jdbcType=TIMESTAMP},
       </if>
       <if test="record.updateTime != null" >
-        UPDATE_TIME = #{record.updateTime,jdbcType=DATE},
+        UPDATE_TIME = #{record.updateTime,jdbcType=TIMESTAMP},
       </if>
       <if test="record.createUserid != null" >
         CREATE_USERID = #{record.createUserid,jdbcType=DECIMAL},
@@ -407,13 +407,13 @@
       DEPARTMENT_ID = #{record.departmentId,jdbcType=DECIMAL},
       ORG_ID = #{record.orgId,jdbcType=DECIMAL},
       LAST_ACCESS_IP = #{record.lastAccessIp,jdbcType=VARCHAR},
-      LAST_LOGIN_TIME = #{record.lastLoginTime,jdbcType=DATE},
-      LAST_ACCESS_TIME = #{record.lastAccessTime,jdbcType=DATE},
+      LAST_LOGIN_TIME = #{record.lastLoginTime,jdbcType=TIMESTAMP},
+      LAST_ACCESS_TIME = #{record.lastAccessTime,jdbcType=TIMESTAMP},
       ONLINE_TIME = #{record.onlineTime,jdbcType=DECIMAL},
       ACCESS_MODULE = #{record.accessModule,jdbcType=VARCHAR},
       IS_DEL = #{record.isDel,jdbcType=CHAR},
-      CREATE_TIME = #{record.createTime,jdbcType=DATE},
-      UPDATE_TIME = #{record.updateTime,jdbcType=DATE},
+      CREATE_TIME = #{record.createTime,jdbcType=TIMESTAMP},
+      UPDATE_TIME = #{record.updateTime,jdbcType=TIMESTAMP},
       CREATE_USERID = #{record.createUserid,jdbcType=DECIMAL},
       UPDATE_USERID = #{record.updateUserid,jdbcType=DECIMAL},
       IS_LOGIN = #{record.isLogin,jdbcType=CHAR}
@@ -467,10 +467,10 @@
         LAST_ACCESS_IP = #{lastAccessIp,jdbcType=VARCHAR},
       </if>
       <if test="lastLoginTime != null" >
-        LAST_LOGIN_TIME = #{lastLoginTime,jdbcType=DATE},
+        LAST_LOGIN_TIME = #{lastLoginTime,jdbcType=TIMESTAMP},
       </if>
       <if test="lastAccessTime != null" >
-        LAST_ACCESS_TIME = #{lastAccessTime,jdbcType=DATE},
+        LAST_ACCESS_TIME = #{lastAccessTime,jdbcType=TIMESTAMP},
       </if>
       <if test="onlineTime != null" >
         ONLINE_TIME = #{onlineTime,jdbcType=DECIMAL},
@@ -482,10 +482,10 @@
         IS_DEL = #{isDel,jdbcType=CHAR},
       </if>
       <if test="createTime != null" >
-        CREATE_TIME = #{createTime,jdbcType=DATE},
+        CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
       </if>
       <if test="updateTime != null" >
-        UPDATE_TIME = #{updateTime,jdbcType=DATE},
+        UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
       </if>
       <if test="createUserid != null" >
         CREATE_USERID = #{createUserid,jdbcType=DECIMAL},
@@ -515,13 +515,13 @@
       DEPARTMENT_ID = #{departmentId,jdbcType=DECIMAL},
       ORG_ID = #{orgId,jdbcType=DECIMAL},
       LAST_ACCESS_IP = #{lastAccessIp,jdbcType=VARCHAR},
-      LAST_LOGIN_TIME = #{lastLoginTime,jdbcType=DATE},
-      LAST_ACCESS_TIME = #{lastAccessTime,jdbcType=DATE},
+      LAST_LOGIN_TIME = #{lastLoginTime,jdbcType=TIMESTAMP},
+      LAST_ACCESS_TIME = #{lastAccessTime,jdbcType=TIMESTAMP},
       ONLINE_TIME = #{onlineTime,jdbcType=DECIMAL},
       ACCESS_MODULE = #{accessModule,jdbcType=VARCHAR},
       IS_DEL = #{isDel,jdbcType=CHAR},
-      CREATE_TIME = #{createTime,jdbcType=DATE},
-      UPDATE_TIME = #{updateTime,jdbcType=DATE},
+      CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
       CREATE_USERID = #{createUserid,jdbcType=DECIMAL},
       UPDATE_USERID = #{updateUserid,jdbcType=DECIMAL},
       IS_LOGIN = #{isLogin,jdbcType=CHAR}
