@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.athena.common.base.controller.AbstractWebController;
+import com.athena.common.context.SecurityManager;
 import com.athena.common.context.Constants.DepartmentModel;
 import com.athena.common.context.Constants.IS_DEL;
 import com.athena.common.dto.PageResult;
@@ -48,6 +49,9 @@ public class UserController extends AbstractWebController {
 
 	@Autowired
 	private RoleService roleService;
+	
+	@Autowired
+	private SecurityManager securityManager;
 
 	// 用户管理页面
 	@RequestMapping(value = "/main", method = RequestMethod.GET)
@@ -93,7 +97,7 @@ public class UserController extends AbstractWebController {
 	@RequestMapping(value = "/editUserView", method = RequestMethod.GET)
 	public ModelAndView editUserView(User form) {
 		ModelAndView mv = new ModelAndView("/system/user/edit");
-		User user = userService.load(form.getId());
+		User user = userService.getUserWithRoleIds(form.getId());
 
 		// 查询所有下拉选择机构
 		DepartmentExample example = new DepartmentExample();
@@ -114,7 +118,7 @@ public class UserController extends AbstractWebController {
 	@RequestMapping(value = "/userView", method = RequestMethod.GET)
 	public ModelAndView userView(User form) {
 		ModelAndView mv = new ModelAndView("/system/user/view");
-		User user = userService.load(form.getId());
+		User user = userService.getUserInfo(form.getId());
 
 		// 查询所有下拉选择机构
 		DepartmentExample example = new DepartmentExample();
@@ -136,10 +140,10 @@ public class UserController extends AbstractWebController {
 		ModelAndView mv = new ModelAndView();
 		if (isAddOperation(form)) {
 			setSuccessView(mv);
-			userService.insertUser(form, null);
+			userService.insertUser(form, securityManager.getLoginUser(request));
 		} else {
 			setCompleteView(mv);
-			userService.updateUser(form, null);
+			userService.updateUser(form, securityManager.getLoginUser(request));
 		}
 		setWindowsId(mv, form);
 		return mv;
@@ -148,9 +152,9 @@ public class UserController extends AbstractWebController {
 	// 删除用户
 	@RequestMapping(value = "/removeUser", method = RequestMethod.POST)
 	@ResponseBody
-	public Object removeUser(BigDecimal id, HttpServletResponse response) {
+	public Object removeUser(BigDecimal id, HttpServletRequest request) {
 		try {
-			userService.removeUser(id);
+			userService.removeUser(id, securityManager.getLoginUser(request));
 			return new ResponseResult(true, "删除用户成功");
 		} catch (Exception e) {
 			logger.error(e.toString());

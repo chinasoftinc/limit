@@ -3,6 +3,7 @@ package com.athena.role.controller;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.lang.StringUtils;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.athena.common.base.controller.AbstractWebController;
+import com.athena.common.context.SecurityManager;
 import com.athena.common.context.Constants.IS_DEL;
 import com.athena.common.dto.PageResult;
 import com.athena.common.dto.ResponseResult;
@@ -37,6 +39,9 @@ public class RoleController extends AbstractWebController {
 
 	@Autowired
 	private MenuService menuService;
+
+	@Autowired
+	private SecurityManager securityManager;
 
 	// 主页
 	@RequestMapping(value = "/main", method = RequestMethod.GET)
@@ -76,14 +81,14 @@ public class RoleController extends AbstractWebController {
 
 	// 保存角色
 	@RequestMapping(value = "/saveRole", method = RequestMethod.POST)
-	public ModelAndView saveRole(Role form) {
+	public ModelAndView saveRole(Role form, HttpServletRequest request) {
 		ModelAndView mv = new ModelAndView();
 		if (isAddOperation(form)) {
 			setSuccessView(mv);
-			roleService.insertRole(form, null);
+			roleService.insertRole(form, securityManager.getLoginUser(request));
 		} else {
 			setCompleteView(mv);
-			roleService.updateRole(form, null);
+			roleService.updateRole(form, securityManager.getLoginUser(request));
 		}
 		setWindowsId(mv, form);
 		return mv;
@@ -92,9 +97,9 @@ public class RoleController extends AbstractWebController {
 	// 删除角色
 	@RequestMapping(value = "/removeRole", method = RequestMethod.POST)
 	@ResponseBody
-	public Object removeMenu(Role form, HttpServletResponse response) {
+	public Object removeMenu(Role form, HttpServletRequest request) {
 		try {
-			roleService.removeRole(form.getId());
+			roleService.removeRole(form.getId(), securityManager.getLoginUser(request));
 			return new ResponseResult(true, "删除角色成功");
 		} catch (Exception e) {
 			logger.error(e.toString());

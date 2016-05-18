@@ -35,13 +35,13 @@ public interface DictionaryService extends Service<Dictionary, DictionaryExample
 	 * 更新选项字典或参数
 	 * @param optdic
 	 */
-	void update(Dictionary model);
+	void updateDictionary(Dictionary model);
 
 	/**
 	 * 删除选项字典或参数
 	 * @param id
 	 */
-	void remove(BigDecimal id);
+	void removeDictionary(BigDecimal id);
 
 	/**
 	 * 根据参数键获取参数值

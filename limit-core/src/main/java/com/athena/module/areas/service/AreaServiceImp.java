@@ -121,7 +121,7 @@ public class AreaServiceImp extends AbstractService<Area, AreaExample> implement
 	}
 
 	@Override
-	public int insert(Area record) {
+	public int insertArea(Area record) {
 		record.setId(areaDao.nextSEQ());
 
 		// 生成首字母

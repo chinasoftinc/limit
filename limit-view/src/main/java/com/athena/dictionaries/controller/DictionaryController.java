@@ -90,12 +90,12 @@ public class DictionaryController extends AbstractWebController {
 			// 添加
 			if (isAddOperation(form)) {
 				setSuccessView(mv);
-				dictionaryService.insert(form);
+				dictionaryService.insertDictionary(form);
 			}
 			// 保存
 			else {
 				setCompleteView(mv);
-				dictionaryService.update(form);
+				dictionaryService.updateDictionary(form);
 			}
 		} catch (Exception e) {
 			setErrorView(mv, "操作失败");
@@ -111,7 +111,7 @@ public class DictionaryController extends AbstractWebController {
 	public Object removeDictionary(Dictionary form, HttpServletResponse response) {
 		try {
 			// 删除选项字典及子选项
-			dictionaryService.remove(form.getId());
+			dictionaryService.removeDictionary(form.getId());
 			return new ResponseResult(true, "操作成功");
 		} catch (Exception e) {
 			logger.error(e.getCause().getMessage());

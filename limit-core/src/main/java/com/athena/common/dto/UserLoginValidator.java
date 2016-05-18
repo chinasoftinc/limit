@@ -1,6 +1,6 @@
 package com.athena.common.dto;
 
-import com.athena.common.context.Constants.LoginStatus;
+import com.athena.common.context.Constants.UserModel.LoginStatus;
 import com.athena.module.users.model.User;
 
 /**

@@ -11,11 +11,13 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.athena.common.base.controller.AbstractWebController;
-import com.athena.common.context.Constants.LoginStatus;
+import com.athena.common.context.Constants.UserModel.LoginStatus;
 import com.athena.common.dto.ResponseResult;
 import com.athena.common.dto.UserLoginValidator;
 import com.athena.common.exception.BusinessException;
 import com.athena.common.exception.ExceptionCode;
+import com.athena.common.utils.EncryptUtils;
+import com.athena.common.utils.EncryptUtils.EncryType;
 import com.athena.module.menus.service.MenuService;
 import com.athena.module.users.model.User;
 import com.athena.module.users.service.UserService;
@@ -81,8 +83,8 @@ public class MainController extends AbstractWebController {
 				break;
 			}
 
+			form.setLastAccessIp(getClientIp(request)); // 设置登录IP
 			securityManager.login(form, request);
-
 			return loginResponse;
 		} catch (BusinessException e) {
 			return new ResponseResult(false, e);
@@ -111,11 +113,11 @@ public class MainController extends AbstractWebController {
 			// 获取当前用户
 			User loginUser = securityManager.getLoginUser(request);
 			// 获取带角色名的user
-			User viewUser = userService.load(loginUser.getId());
+			User viewUser = userService.getUserInfo(loginUser.getId());
 			mv.addObject("user", viewUser);
 			mv.addObject("menus", menuService.selectUserMenus(loginUser.getId()));
 
-			// 修改密码页面
+			// 个人修改密码页面
 		} else if ("edit".equals(form.getOperation())) {
 			mv.setViewName("/system/user/accoutEdit");
 			// 获取当前用户
@@ -126,17 +128,18 @@ public class MainController extends AbstractWebController {
 		return mv;
 	}
 
-	// 修改密码提交
+	// 个人修改密码提交
 	@RequestMapping(value = "/accout", method = RequestMethod.POST)
 	public ModelAndView modifyPwd(User form, String newPassword, HttpServletRequest request) {
 		ModelAndView mv = new ModelAndView("/common/tip/complete");
 
-		// 校验原密码是否正确
 		User currentUser = securityManager.getLoginUser(request);
-		if (currentUser.getPassWord().equals(form.getPassWord())) {
-			userService.updateByPrimaryKeySelective(form); // 修改用户密码为新密码
+
+		if (currentUser.getPassWord().equals(EncryptUtils.encrypt(form.getPassWord(), EncryType.MD5, currentUser.getPasswdSalt()))) {
+			form.setPassWord(EncryptUtils.encrypt(newPassword, EncryType.MD5, currentUser.getPasswdSalt()));
+			userService.updateByPrimaryKeySelective(form);
 			currentUser.setPassWord(newPassword); // 改变当前登录用户的密码为新密码
-			form.setPassWord(newPassword); // 设置新密码
+
 		} else {
 			setErrorView(mv, "原密码不正确");
 		}

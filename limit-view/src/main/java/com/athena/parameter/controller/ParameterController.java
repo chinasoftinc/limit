@@ -86,10 +86,10 @@ public class ParameterController extends AbstractWebController {
 		ModelAndView mv = new ModelAndView();
 		if (isAddOperation(form)) {
 			setSuccessView(mv);
-			dictionaryService.insert(form);
+			dictionaryService.insertDictionary(form);
 		} else {
 			setCompleteView(mv);
-			dictionaryService.update(form);
+			dictionaryService.updateDictionary(form);
 		}
 
 		setWindowsId(mv, form);
@@ -102,7 +102,7 @@ public class ParameterController extends AbstractWebController {
 	public Object removeParameter(Dictionary form, HttpServletResponse response) {
 		try {
 			// 删除所有下级目录及参数
-			dictionaryService.remove(form.getId());
+			dictionaryService.removeDictionary(form.getId());
 			return new ResponseResult(true, "操作成功");
 		} catch (Exception e) {
 			logger.error(e.getCause().getMessage());

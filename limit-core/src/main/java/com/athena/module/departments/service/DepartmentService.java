@@ -36,8 +36,14 @@ public interface DepartmentService extends Service<Department, DepartmentExample
 	 * @param id
 	 * @throws BusinessException
 	 */
-	void remove(BigDecimal id) throws BusinessException;
+	void removeDept(BigDecimal id, User creator) throws BusinessException;
 	
+	/**
+	 * 插入部门
+	 * @param dept
+	 * @param creator
+	 * @return
+	 */
 	int insertDept(Department dept, User creator);
 
 	/**

@@ -3,6 +3,7 @@ package com.athena.departments.controller;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.collections.CollectionUtils;
@@ -15,6 +16,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.athena.common.base.controller.AbstractWebController;
 import com.athena.common.context.Constants.Direction;
+import com.athena.common.context.SecurityManager;
 import com.athena.common.dto.ResponseResult;
 import com.athena.common.exception.BusinessException;
 import com.athena.common.exception.ExceptionCode;
@@ -28,6 +30,9 @@ public class DepartmentController extends AbstractWebController {
 
 	@Autowired
 	private DepartmentService departmentService;
+
+	@Autowired
+	private SecurityManager securityManager;
 
 	// 主页
 	@RequestMapping(value = "/main", method = RequestMethod.GET)
@@ -103,14 +108,14 @@ public class DepartmentController extends AbstractWebController {
 	// 保存
 	@RequestMapping(value = "/saveDept", method = RequestMethod.POST)
 	@ResponseBody
-	public Object saveDept(Department form) {
+	public Object saveDept(Department form, HttpServletRequest request) {
 		try {
 			// 添加
 			if (isAddOperation(form))
-				departmentService.insertDept(form, null);
+				departmentService.insertDept(form, securityManager.getLoginUser(request));
 			// 保存
 			else
-				departmentService.updateDept(form, null);
+				departmentService.updateDept(form, securityManager.getLoginUser(request));
 			return new ResponseResult(true, "操作成功");
 		} catch (Exception e) {
 			logger.error(e.getCause().getMessage());
@@ -121,9 +126,9 @@ public class DepartmentController extends AbstractWebController {
 	// 删除
 	@RequestMapping(value = "/removeDept", method = RequestMethod.POST)
 	@ResponseBody
-	public Object removeDept(Department form, HttpServletResponse response) {
+	public Object removeDept(Department form, HttpServletRequest request) {
 		try {
-			departmentService.remove(form.getId());
+			departmentService.removeDept(form.getId(), securityManager.getLoginUser(request));
 			return new ResponseResult(true, "操作成功");
 		} catch (Exception e) {
 			if (e instanceof BusinessException) {

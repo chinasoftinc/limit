@@ -13,10 +13,12 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.util.AntPathMatcher;
 
-import com.athena.common.context.Constants.LoginStatus;
+import com.athena.common.context.Constants.UserModel.LoginStatus;
 import com.athena.common.dto.UserLoginValidator;
 import com.athena.common.exception.BusinessException;
 import com.athena.common.exception.ExceptionCode;
+import com.athena.common.utils.EncryptUtils;
+import com.athena.common.utils.EncryptUtils.EncryType;
 import com.athena.module.menus.model.Menu;
 import com.athena.module.menus.model.MenuExample;
 import com.athena.module.menus.service.MenuService;
@@ -41,29 +43,41 @@ public class SecurityManager {
 	public UserLoginValidator validateUser(User user) throws Exception {
 
 		UserExample example = new UserExample();
-		example.or().andUserNameEqualTo(user.getUserName()).andPassWordEqualTo(user.getPassWord());
+		example.or().andUserNameEqualTo(user.getUserName());
 		List<User> users = userService.selectByExample(example);
 
 		LoginStatus status = null;
 
+		User dbUser = null;
 		if (CollectionUtils.isNotEmpty(users)) {
-			user = users.get(0);
+			dbUser = users.get(0);
 
-			if (LoginStatus.ADMIN.code.equals(user.getUserStatus())) {
-				status = LoginStatus.ADMIN;
-				logger.info("超级管理员 {}[{}] 登录", user.getNickName(), user.getUserName());
-			}
+			if (EncryptUtils.encrypt(user.getPassWord(), EncryType.MD5, dbUser.getPasswdSalt()).equals(dbUser.getPassWord())) {
 
-			else if (LoginStatus.VAILD.code.equals(user.getUserStatus())) {
-				status = LoginStatus.VAILD;
-				logger.info("用户 {}[{}] 登录系统", user.getNickName(), user.getUserName());
+				if (LoginStatus.ADMIN.code.equals(dbUser.getUserStatus())) {
+					status = LoginStatus.ADMIN;
+					logger.info("超级管理员 {}[{}] 登录", dbUser.getNickName(), dbUser.getUserName());
+				}
+
+				else if (LoginStatus.VAILD.code.equals(dbUser.getUserStatus())) {
+					status = LoginStatus.VAILD;
+					logger.info("用户 {}[{}] 登录系统", dbUser.getNickName(), dbUser.getUserName());
+					
+				} else if (LoginStatus.INVAILD.code.equals(dbUser.getUserStatus())) {
+					status = LoginStatus.INVAILD;
+					
+				} else {
+					status = LoginStatus.ERROR;
+				}
+			} else {
+				status = LoginStatus.ERROR;
 			}
 
 		} else {
 			status = LoginStatus.ERROR;
 		}
 
-		return new UserLoginValidator(user, status);
+		return new UserLoginValidator(dbUser, status);
 	}
 
 	/**
@@ -82,7 +96,7 @@ public class SecurityManager {
 		long[] privilegeSum = new long[(int) (maxPos == null ? 1 : maxPos + 1)];
 
 		List<Menu> menus;
-		if (Constants.LoginStatus.ADMIN.code.equals(user.getUserStatus())) {
+		if (LoginStatus.ADMIN.code.equals(user.getUserStatus())) {
 			menus = menuService.selectByExample(new MenuExample());
 		}
 		menus = menuService.selectUserMenus(user.getId());
@@ -94,7 +108,6 @@ public class SecurityManager {
 		}
 
 		user.setPrivilegeSum(privilegeSum);
-
 		request.getSession().setAttribute(DictionaryProvider.USER_SESSION_KEY, user);
 	}
 
@@ -157,7 +170,7 @@ public class SecurityManager {
 	 * 用户注销
 	 */
 	public void logout(HttpServletRequest request) {
-		request.getSession().removeAttribute(DictionaryProvider.USER_SESSION_KEY);
+		request.getSession().invalidate();
 	}
 
 	/**

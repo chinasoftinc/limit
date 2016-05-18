@@ -13,8 +13,12 @@ import org.springframework.stereotype.Service;
 
 import com.athena.common.base.service.AbstractService;
 import com.athena.common.context.Constants.IS_DEL;
+import com.athena.common.context.Constants.UserModel.LoginStatus;
 import com.athena.common.dto.PageResult;
+import com.athena.common.utils.EncryptUtils;
+import com.athena.common.utils.EncryptUtils.EncryType;
 import com.athena.common.utils.UUIDUtils;
+import com.athena.module.departments.dao.DepartmentDao;
 import com.athena.module.roles.dao.RoleDao;
 import com.athena.module.roles.model.Role;
 import com.athena.module.roleuser.dao.RoleUserDao;
@@ -36,6 +40,9 @@ public class UserServiceImp extends AbstractService<User, UserExample> implement
 	@Autowired
 	private RoleDao roleDao;
 
+	@Autowired
+	private DepartmentDao deptDao;
+
 	@Override
 	public boolean selectIsNotExistUsername(String username) {
 
@@ -56,6 +63,11 @@ public class UserServiceImp extends AbstractService<User, UserExample> implement
 
 	@Override
 	public void insertUser(User user, User creator) {
+
+		user.setId(userdao.nextSEQ());
+		user.setUserCode(String.valueOf(Math.abs(user.getUserName().hashCode())));
+		user.setPasswdSalt(UUIDUtils.UUIDEXcludeDash().substring(0, 3));
+
 		// 保存角色关联
 		if (StringUtils.isNotEmpty(user.getRoles())) {
 			String[] roleIds = user.getRoles().split(",");
@@ -74,9 +86,7 @@ public class UserServiceImp extends AbstractService<User, UserExample> implement
 		user.setCreateTime(new Date());
 		user.setUpdateTime(new Date());
 
-		user.setId(userdao.nextSEQ());
-		user.setUserCode(String.valueOf(Math.abs(user.getUserName().hashCode())));
-		user.setPasswdSalt(UUIDUtils.UUIDEXcludeDash().substring(0, 3));
+		user.setPassWord(EncryptUtils.encrypt(user.getPassWord(), EncryType.MD5, user.getPasswdSalt()));
 		this.insertSelective(user);
 
 	}
@@ -119,30 +129,52 @@ public class UserServiceImp extends AbstractService<User, UserExample> implement
 		}
 
 		// 记录操作时间
-		user.setCreateTime(new Date());
 		user.setUpdateTime(new Date());
 
 		this.updateByPrimaryKeySelective(user);
 	}
 
 	@Override
-	public User load(BigDecimal id) {
+	public User getUserInfo(BigDecimal id) {
 
+		User user = this.selectByPrimaryKey(id);
+
+		if (!user.getUserStatus().equals(LoginStatus.ADMIN.code)) {
+			// 查询用户所有角色, 设置到user的roles中
+			List<Role> roles = roleDao.selectRolesByUserId(id);
+			StringBuffer sb = new StringBuffer();
+			for (Role role : roles) {
+				sb.append(role.getRoleName().concat(" "));
+			}
+			user.setRoles(new String(sb));
+
+			// 查询机构名称
+			user.setOrgName(deptDao.selectByPrimaryKey(user.getOrgId()).getDeptShortName());
+
+			// 查询部门名称
+			user.setDeptName(deptDao.selectByPrimaryKey(user.getDepartmentId()).getDeptShortName());
+		}
+
+		return user;
+	}
+
+	@Override
+	public User getUserWithRoleIds(BigDecimal id) {
 		User user = this.selectByPrimaryKey(id);
 
 		// 查询用户所有角色, 设置到user的roles中
 		List<Role> roles = roleDao.selectRolesByUserId(id);
 		StringBuffer sb = new StringBuffer();
 		for (Role role : roles) {
-			sb.append(role.getRoleName().concat(" "));
+			sb.append(String.valueOf(role.getId()).concat(","));
 		}
 
-		user.setRoles(new String(sb));
+		user.setRoles(sb.substring(0, sb.length() - 1));
 		return user;
 	}
 
 	@Override
-	public void removeUser(BigDecimal id) {
+	public void removeUser(BigDecimal id, User creator) {
 
 		// 删除角色关联
 		RoleUserExample example = new RoleUserExample();
@@ -150,6 +182,16 @@ public class UserServiceImp extends AbstractService<User, UserExample> implement
 		roleUserDao.deleteByExample(example);
 
 		User user = new User();
+
+		// 记录操作用户
+		if (creator != null) {
+			user.setCreateUserid(creator.getId());
+			user.setUpdateUserid(creator.getId());
+		}
+
+		// 记录操作时间
+		user.setUpdateTime(new Date());
+
 		user.setId(id);
 		user.setIsDel(IS_DEL.DELED.code);
 		this.updateByPrimaryKeySelective(user);

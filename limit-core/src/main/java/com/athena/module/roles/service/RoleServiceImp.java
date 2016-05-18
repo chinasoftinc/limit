@@ -138,7 +138,7 @@ public class RoleServiceImp extends AbstractService<Role, RoleExample> implement
 	}
 
 	@Override
-	public void removeRole(BigDecimal id) {
+	public void removeRole(BigDecimal id, User creator) {
 		Role role = new Role();
 		role.setId(id);
 
@@ -151,6 +151,14 @@ public class RoleServiceImp extends AbstractService<Role, RoleExample> implement
 		RoleUserExample roleuserexample = new RoleUserExample();
 		roleuserexample.or().andRoleIdEqualTo(id);
 		roleuserDao.deleteByExample(roleuserexample);
+
+		// 记录操作用户
+		if (creator != null) {
+			role.setUpdateUserid(creator.getId());
+		}
+
+		// 记录操作时间
+		role.setUpdateTime(new Date());
 
 		role.setIsDel(IS_DEL.DELED.code);
 		roleDao.updateByPrimaryKeySelective(role);
@@ -180,7 +188,7 @@ public class RoleServiceImp extends AbstractService<Role, RoleExample> implement
 
 	@Override
 	public List<Role> selectRolesByUserId(BigDecimal id) {
-		
+
 		return roleDao.selectRolesByUserId(id);
 	}
 

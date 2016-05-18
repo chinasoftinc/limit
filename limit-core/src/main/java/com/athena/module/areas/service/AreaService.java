@@ -28,7 +28,7 @@ public interface AreaService extends Service<Area, AreaExample> {
 	 * 添加地区
 	 * @return
 	 */
-	int insert(Area area);
+	int insertArea(Area record);
 
 	/**
 	 * 更新地区

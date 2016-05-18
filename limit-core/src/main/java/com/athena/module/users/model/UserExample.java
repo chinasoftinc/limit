@@ -1714,6 +1714,76 @@ public class UserExample {
             return (Criteria) this;
         }
 
+        public Criteria andIsLoginIsNull() {
+            addCriterion("IS_LOGIN is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsLoginIsNotNull() {
+            addCriterion("IS_LOGIN is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsLoginEqualTo(String value) {
+            addCriterion("IS_LOGIN =", value, "isLogin");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsLoginNotEqualTo(String value) {
+            addCriterion("IS_LOGIN <>", value, "isLogin");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsLoginGreaterThan(String value) {
+            addCriterion("IS_LOGIN >", value, "isLogin");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsLoginGreaterThanOrEqualTo(String value) {
+            addCriterion("IS_LOGIN >=", value, "isLogin");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsLoginLessThan(String value) {
+            addCriterion("IS_LOGIN <", value, "isLogin");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsLoginLessThanOrEqualTo(String value) {
+            addCriterion("IS_LOGIN <=", value, "isLogin");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsLoginLike(String value) {
+            addCriterion("IS_LOGIN like", value, "isLogin");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsLoginNotLike(String value) {
+            addCriterion("IS_LOGIN not like", value, "isLogin");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsLoginIn(List<String> values) {
+            addCriterion("IS_LOGIN in", values, "isLogin");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsLoginNotIn(List<String> values) {
+            addCriterion("IS_LOGIN not in", values, "isLogin");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsLoginBetween(String value1, String value2) {
+            addCriterion("IS_LOGIN between", value1, value2, "isLogin");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsLoginNotBetween(String value1, String value2) {
+            addCriterion("IS_LOGIN not between", value1, value2, "isLogin");
+            return (Criteria) this;
+        }
+
         public Criteria andUserNameLikeInsensitive(String value) {
             addCriterion("upper(USER_NAME) like", value.toUpperCase(), "userName");
             return (Criteria) this;
@@ -1776,6 +1846,11 @@ public class UserExample {
 
         public Criteria andIsDelLikeInsensitive(String value) {
             addCriterion("upper(IS_DEL) like", value.toUpperCase(), "isDel");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsLoginLikeInsensitive(String value) {
+            addCriterion("upper(IS_LOGIN) like", value.toUpperCase(), "isLogin");
             return (Criteria) this;
         }
     }

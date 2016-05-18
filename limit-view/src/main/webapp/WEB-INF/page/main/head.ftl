@@ -1,7 +1,7 @@
 <div id="top" style="overflow:hidden">
 	<div id="topIntro" style="margin:5px">
 		<span id="user_operator">
-		 	<b>欢迎您 - - -&nbsp;${Session.user_session_key.nickName}  | ${Session.user_session_key.userName} </b>
+		 	<b>&nbsp;${Session.user_session_key.nickName}  | ${Session.user_session_key.userName} </b>
 			<a id="userMenu" href="javascript:void(0)"><img width="17px" height="17px" style="position:relative;top:-2" src="${ctx}/resource/img/setting.jpg"></a>
 		</span>
 		<br/>
@@ -34,7 +34,7 @@
 	
 	<#-- 个人信息 -->
 	function userInfo(){
-		$.createSimpleWindowAutoScroll("accout","个人信息", 600, 270, "${ctx}/accout?operation=read");
+		$.createSimpleWindowAutoScroll("accout","个人信息", 600, 400, "${ctx}/accout?operation=read");
 	}
 	
 	<#-- 修改密码 -->

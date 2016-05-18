@@ -33,8 +33,9 @@ public interface RoleService extends Service<Role, RoleExample> {
 	/**
 	 * 删除角色并删除菜单关联
 	 * @param id
+	 * @param creator 
 	 */
-	void removeRole(BigDecimal id);
+	void removeRole(BigDecimal id, User creator);
 
 	/**
 	 * 生成菜单的树结构

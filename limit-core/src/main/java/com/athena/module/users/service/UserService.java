@@ -45,17 +45,25 @@ public interface UserService extends Service<User, UserExample> {
 	int selectUserCount(PageResult<User> example);
 
 	/**
-	 * 查询用户级联角色信息
+	 * 查询用户级联角色机构部门名称
 	 * @param id
 	 * @return
 	 */
-	User load(BigDecimal id);
+	User getUserInfo(BigDecimal id);
+
+	/**
+	 * 查询用户级联角色id
+	 * @param id
+	 * @return
+	 */
+	User getUserWithRoleIds(BigDecimal id);
 
 	/**
 	 * 删除用户, 级联删除权限关系
 	 * @param id
+	 * @param creator 
 	 */
-	void removeUser(BigDecimal id);
+	void removeUser(BigDecimal id, User creator);
 
 	/**
 	 * 检测用户名是否没有被使用

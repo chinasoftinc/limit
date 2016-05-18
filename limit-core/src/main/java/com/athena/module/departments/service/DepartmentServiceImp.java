@@ -167,7 +167,7 @@ public class DepartmentServiceImp extends AbstractService<Department, Department
 	}
 
 	@Override
-	public void remove(BigDecimal id) throws BusinessException {
+	public void removeDept(BigDecimal id, User creator) throws BusinessException {
 
 		// 检测是否含有子部门
 		DepartmentExample example = new DepartmentExample();
@@ -184,6 +184,15 @@ public class DepartmentServiceImp extends AbstractService<Department, Department
 			AssertUtils.isTrue(userDao.countByExample(userexample) == 0, ExceptionCode.BusinessException, "部门含有人员, 无法删除该部门!");
 
 			dept.setIsDel(IS_DEL.DELED.code);
+
+			// 记录操作用户
+			if (creator != null) {
+				dept.setUpdateUserid(creator.getId());
+			}
+
+			// 操作时间
+			dept.setUpdateTime(new Date());
+
 			this.updateByPrimaryKeySelective(dept);
 		}
 

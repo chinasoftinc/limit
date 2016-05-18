@@ -8,7 +8,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 import org.springframework.web.util.UrlPathHelper;
 
-import com.athena.common.context.Constants.LoginStatus;
+import com.athena.common.context.Constants.UserModel.LoginStatus;
 import com.athena.common.context.SecurityManager;
 import com.athena.module.users.model.User;
 

@@ -15,6 +15,8 @@
 					<@PAGE.SPACE length=6 />
 					账户状态: <@SingleSelectTag id="userStatus" name="userStatus" optName="user_status" style="" />
 					<@PAGE.SPACE length=6 />
+					登录状态: <select id="isLogin" ><option></option><option key="1">在线</option><option key="0">离线</option></select>
+					<@PAGE.SPACE length=6 />
 					用户性别: <@SingleSelectTag id="userSex" name="userSex" optName="user_sex" style="" />
 					<@PAGE.SPACE length=6 />
 					角色: <@PAGE.SELECT datas=roles optKey="id" optVal="roleName" id="searchRoleId"/>

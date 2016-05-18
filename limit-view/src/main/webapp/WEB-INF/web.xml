@@ -22,6 +22,11 @@
 		<servlet-name>springmvc</servlet-name>
 		<url-pattern>/</url-pattern>
 	</servlet-mapping>
+	
+	<!-- session监听器 -->
+	<listener>
+		<listener-class>com.athena.common.listener.UserStatusListener</listener-class>
+	</listener>
 
 	<listener> <!-- 防止内存泄露 -->
 		<listener-class>org.springframework.web.util.IntrospectorCleanupListener</listener-class>

@@ -31,6 +31,10 @@
 	        		return value == '0' ? '停用' : '启用';
 	        	}
 	        },
+	        {field:'isLogin',title:'登录状态',width:50,sortable:true,formatter: function(value,row,index){
+	        		return value == '0' ? '离线' : '在线';
+	        	}
+	        },
 	        {field:'lastAccessTime',title:'最后访问时间',width:100,sortable:true,formatter: function(value,row,index){
 	        		return value == null ? "" : new Date(value).format("yyyy年MM月dd日hh时mm分");
 	        	}

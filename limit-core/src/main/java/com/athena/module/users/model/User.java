@@ -69,6 +69,9 @@ public class User extends PageModel<User> {
 	// 当前访问模块(记录展示名称)
 	private String accessModule;
 
+	// 是否已登录(0:否, 1:是)
+	private String isLogin;
+
 	// 是否删除(0:否, 1:删)
 	private String isDel;
 
@@ -83,12 +86,40 @@ public class User extends PageModel<User> {
 
 	// 更新者id
 	private BigDecimal updateUserid;
-	
+
 	private transient String roles;
 
 	private long[] privilegeSum;
 
 	private BigDecimal searchRoleId;
+
+	private String deptName;
+
+	private String orgName;
+
+	public String getIsLogin() {
+		return isLogin;
+	}
+
+	public void setIsLogin(String isLogin) {
+		this.isLogin = isLogin;
+	}
+
+	public String getDeptName() {
+		return deptName;
+	}
+
+	public void setDeptName(String deptName) {
+		this.deptName = deptName;
+	}
+
+	public String getOrgName() {
+		return orgName;
+	}
+
+	public void setOrgName(String orgName) {
+		this.orgName = orgName;
+	}
 
 	public String getRoles() {
 		return roles;

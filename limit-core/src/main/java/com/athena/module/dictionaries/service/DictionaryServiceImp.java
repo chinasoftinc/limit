@@ -86,7 +86,7 @@ public class DictionaryServiceImp extends AbstractService<Dictionary, Dictionary
 	}
 
 	@Override
-	public int insert(Dictionary record) {
+	public int insertDictionary(Dictionary record) {
 		record.setId(dictionaryDao.nextSEQ());
 		Short no = dictionaryDao.selectMaxSortNo(record.getOptParentId() == null ? BigDecimal.ZERO : record.getOptParentId());
 		record.setOptSortNo((short) (no + 1)); // 排序自增
@@ -94,7 +94,7 @@ public class DictionaryServiceImp extends AbstractService<Dictionary, Dictionary
 	}
 
 	@Override
-	public void update(Dictionary dic) {
+	public void updateDictionary(Dictionary dic) {
 
 		// 更新选项组名称级联更新子选项名称
 		if (dic.getOptType().equals(DictionaryModel.Type.DICTIONARY_GROUP.code)) {
@@ -117,7 +117,7 @@ public class DictionaryServiceImp extends AbstractService<Dictionary, Dictionary
 	}
 
 	@Override
-	public void remove(BigDecimal id) {
+	public void removeDictionary(BigDecimal id) {
 		dictionaryDao.removeSubs(id);
 	}
 
