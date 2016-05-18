@@ -36,16 +36,19 @@ public class RoleServiceImp extends AbstractService<Role, RoleExample> implement
 	@Autowired
 	private RoleUserDao roleuserDao;
 
+
 	@Override
 	public void insertRole(Role role, User creator) {
 
+		role.setId(roleDao.nextSEQ());
+
 		// 插入角色和菜单关联
 		if (StringUtils.isNotEmpty(role.getMenus())) {
-			for (String privilegeId : role.getMenus().split(",")) {
+			for (String menuId : role.getMenus().split(",")) {
 				RoleMenu rm = new RoleMenu();
 				rm.setId(roleMenuDao.nextSEQ());
 				rm.setRoleId(role.getId());
-				rm.setMenuId(new BigDecimal(privilegeId));
+				rm.setMenuId(new BigDecimal(menuId));
 				roleMenuDao.insert(rm);
 			}
 		}
@@ -63,7 +66,6 @@ public class RoleServiceImp extends AbstractService<Role, RoleExample> implement
 		// 生成roleCode
 		role.setRoleCode(String.valueOf(role.getRoleName().hashCode()));
 
-		role.setId(roleDao.nextSEQ());
 		roleDao.insertSelective(role);
 	}
 
@@ -81,7 +83,7 @@ public class RoleServiceImp extends AbstractService<Role, RoleExample> implement
 			newMenus.addAll(Arrays.asList((role.getMenus().split(","))));
 
 			for (RoleMenu rm : rms) {
-				if (!newMenus.contains(rm.getMenuId().toString())) {
+				if (!newMenus.contains(String.valueOf(rm.getMenuId()))) {
 					roleMenuDao.deleteByPrimaryKey(rm.getId());
 				} else {
 					newMenus.remove(String.valueOf(rm.getMenuId()));
@@ -113,7 +115,6 @@ public class RoleServiceImp extends AbstractService<Role, RoleExample> implement
 
 		// 记录操作时间
 		role.setUpdateTime(new Date());
-
 		roleDao.updateByPrimaryKeySelective(role);
 	}
 

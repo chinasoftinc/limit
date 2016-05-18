@@ -230,6 +230,67 @@ public class Constants {
 	}
 
 	/**
+	 * 日志模块常量
+	 * @author niebinxiao
+	 */
+	public static class loggerModel {
+
+		/**
+		 * 操作类型
+		 */
+		public enum OptorType {
+			insert("0"), edit("1"), remove("2");
+
+			private OptorType(String code) {
+				this.code = code;
+			}
+
+			public String code;
+
+			public String getCode() {
+				return code;
+			}
+
+			public void setCode(String code) {
+				this.code = code;
+			}
+		}
+
+		/**
+		 * 实体类型名称
+		 * @author niebinxiao
+		 */
+		public enum EntityName {
+			user("user", "用户管理"), department("department", "组织机构"), role("role", "角色管理");
+
+			public String code;
+			public String name;
+
+			public String getCode() {
+				return code;
+			}
+
+			public void setCode(String code) {
+				this.code = code;
+			}
+
+			public String getName() {
+				return name;
+			}
+
+			public void setName(String name) {
+				this.name = name;
+			}
+
+			private EntityName(String code, String name) {
+				this.code = code;
+				this.name = name;
+			}
+
+		}
+	}
+
+	/**
 	 * 地区模块常量
 	 * @author niebinxiao
 	 */
