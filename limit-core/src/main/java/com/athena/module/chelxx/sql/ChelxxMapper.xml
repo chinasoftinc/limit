@@ -1,0 +1,918 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.athena.module.chelxx.mapper.ChelxxMapper" >
+  <resultMap id="BaseResultMap" type="com.athena.module.chelxx.model.Chelxx" >
+    <result column="CHELID" property="chelid" jdbcType="VARCHAR" />
+    <result column="CHEPH" property="cheph" jdbcType="VARCHAR" />
+    <result column="CHEPYS" property="chepys" jdbcType="VARCHAR" />
+    <result column="SHIFGC" property="shifgc" jdbcType="VARCHAR" />
+    <result column="CHELLX" property="chellx" jdbcType="VARCHAR" />
+    <result column="GUIG" property="guig" jdbcType="VARCHAR" />
+    <result column="JIEG" property="jieg" jdbcType="VARCHAR" />
+    <result column="CHELHYLB" property="chelhylb" jdbcType="VARCHAR" />
+    <result column="CHESYS" property="chesys" jdbcType="VARCHAR" />
+    <result column="CHANGP" property="changp" jdbcType="VARCHAR" />
+    <result column="XINGH" property="xingh" jdbcType="VARCHAR" />
+    <result column="FADJXH" property="fadjxh" jdbcType="VARCHAR" />
+    <result column="FADJHM" property="fadjhm" jdbcType="VARCHAR" />
+    <result column="FADJGL" property="fadjgl" jdbcType="DECIMAL" />
+    <result column="CHELSBVIN" property="chelsbvin" jdbcType="VARCHAR" />
+    <result column="XINGSZCLRQ" property="xingszclrq" jdbcType="VARCHAR" />
+    <result column="CHELDJH" property="cheldjh" jdbcType="VARCHAR" />
+    <result column="DENGJZDJRQ" property="dengjzdjrq" jdbcType="VARCHAR" />
+    <result column="DENGJZFFRQ" property="dengjzffrq" jdbcType="VARCHAR" />
+    <result column="HEDZWS" property="hedzws" jdbcType="DECIMAL" />
+    <result column="RANLLXDM" property="ranllxdm" jdbcType="VARCHAR" />
+    <result column="CHELJSDJ" property="cheljsdj" jdbcType="VARCHAR" />
+    <result column="CHUCRQ" property="chucrq" jdbcType="VARCHAR" />
+    <result column="GOUCRQ" property="goucrq" jdbcType="VARCHAR" />
+    <result column="LUOHRQ" property="luohrq" jdbcType="VARCHAR" />
+    <result column="ZHOUJ" property="zhouj" jdbcType="DECIMAL" />
+    <result column="CHEC" property="chec" jdbcType="DECIMAL" />
+    <result column="CHEG" property="cheg" jdbcType="DECIMAL" />
+    <result column="CHEK" property="chek" jdbcType="DECIMAL" />
+    <result column="CHEZS" property="chezs" jdbcType="DECIMAL" />
+    <result column="HOUZGBTHPS" property="houzgbthps" jdbcType="DECIMAL" />
+    <result column="XUANJXS" property="xuanjxs" jdbcType="VARCHAR" />
+    <result column="DANGAH" property="dangah" jdbcType="VARCHAR" />
+    <result column="DAOLYSZZH" property="daolyszzh" jdbcType="VARCHAR" />
+    <result column="ZHENGJJYM" property="zhengjjym" jdbcType="VARCHAR" />
+    <result column="ZHENGJCLRQ" property="zhengjclrq" jdbcType="VARCHAR" />
+    <result column="ZHENGJYXQQ" property="zhengjyxqq" jdbcType="VARCHAR" />
+    <result column="ZHENGJYXQZ" property="zhengjyxqz" jdbcType="VARCHAR" />
+    <result column="ZHENGJFFRQ" property="zhengjffrq" jdbcType="VARCHAR" />
+    <result column="FAZJG" property="fazjg" jdbcType="VARCHAR" />
+    <result column="CHEZZDCJ" property="chezzdcj" jdbcType="VARCHAR" />
+    <result column="CHEZZDXH" property="chezzdxh" jdbcType="VARCHAR" />
+    <result column="CHEZZDBH" property="chezzdbh" jdbcType="VARCHAR" />
+    <result column="ZHONGDAZRQ" property="zhongdazrq" jdbcType="VARCHAR" />
+    <result column="XINGSJLYXH" property="xingsjlyxh" jdbcType="VARCHAR" />
+    <result column="XINGSJLYBH" property="xingsjlybh" jdbcType="VARCHAR" />
+    <result column="YEHID" property="yehid" jdbcType="VARCHAR" />
+    <result column="GUANXJG" property="guanxjg" jdbcType="VARCHAR" />
+    <result column="JINGXFWDM" property="jingxfwdm" jdbcType="VARCHAR" />
+    <result column="JINGXFWMC" property="jingxfwmc" jdbcType="VARCHAR" />
+    <result column="XINGZQHBM" property="xingzqhbm" jdbcType="VARCHAR" />
+    <result column="LISQXDM" property="lisqxdm" jdbcType="VARCHAR" />
+    <result column="CHUANGJR" property="chuangjr" jdbcType="VARCHAR" />
+    <result column="CHUANGJSJ" property="chuangjsj" jdbcType="VARCHAR" />
+    <result column="XIUGR" property="xiugr" jdbcType="VARCHAR" />
+    <result column="XIUGSJ" property="xiugsj" jdbcType="VARCHAR" />
+    <result column="ZHENGJZT" property="zhengjzt" jdbcType="VARCHAR" />
+    <result column="YINGYZT" property="yingyzt" jdbcType="VARCHAR" />
+    <result column="BAOXID" property="baoxid" jdbcType="VARCHAR" />
+    <result column="BEIZ" property="beiz" jdbcType="VARCHAR" />
+    <result column="NIANSYXRQ" property="niansyxrq" jdbcType="VARCHAR" />
+    <result column="ERJWHYXRQ" property="erjwhyxrq" jdbcType="VARCHAR" />
+    <result column="JISDJYXRQ" property="jisdjyxrq" jdbcType="VARCHAR" />
+    <result column="KECDJ" property="kecdj" jdbcType="DECIMAL" />
+    <result column="KECDJYXRQ" property="kecdjyxrq" jdbcType="VARCHAR" />
+    <result column="HEDZZL" property="hedzzl" jdbcType="DECIMAL" />
+    <result column="ICKKH" property="ickkh" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    CHELID, CHEPH, CHEPYS, SHIFGC, CHELLX, GUIG, JIEG, CHELHYLB, CHESYS, CHANGP, XINGH, 
+    FADJXH, FADJHM, FADJGL, CHELSBVIN, XINGSZCLRQ, CHELDJH, DENGJZDJRQ, DENGJZFFRQ, HEDZWS, 
+    RANLLXDM, CHELJSDJ, CHUCRQ, GOUCRQ, LUOHRQ, ZHOUJ, CHEC, CHEG, CHEK, CHEZS, HOUZGBTHPS, 
+    XUANJXS, DANGAH, DAOLYSZZH, ZHENGJJYM, ZHENGJCLRQ, ZHENGJYXQQ, ZHENGJYXQZ, ZHENGJFFRQ, 
+    FAZJG, CHEZZDCJ, CHEZZDXH, CHEZZDBH, ZHONGDAZRQ, XINGSJLYXH, XINGSJLYBH, YEHID, GUANXJG, 
+    JINGXFWDM, JINGXFWMC, XINGZQHBM, LISQXDM, CHUANGJR, CHUANGJSJ, XIUGR, XIUGSJ, ZHENGJZT, 
+    YINGYZT, BAOXID, BEIZ, NIANSYXRQ, ERJWHYXRQ, JISDJYXRQ, KECDJ, KECDJYXRQ, HEDZZL, 
+    ICKKH
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.athena.module.chelxx.model.ChelxxExample" >
+    <include refid="OracleDialectPrefix" />
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from REP_CHELXX
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+    <include refid="OracleDialectSuffix" />
+  </select>
+  <delete id="deleteByExample" parameterType="com.athena.module.chelxx.model.ChelxxExample" >
+    delete from REP_CHELXX
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.athena.module.chelxx.model.Chelxx" >
+    insert into REP_CHELXX (CHELID, CHEPH, CHEPYS, 
+      SHIFGC, CHELLX, GUIG, 
+      JIEG, CHELHYLB, CHESYS, 
+      CHANGP, XINGH, FADJXH, 
+      FADJHM, FADJGL, CHELSBVIN, 
+      XINGSZCLRQ, CHELDJH, DENGJZDJRQ, 
+      DENGJZFFRQ, HEDZWS, RANLLXDM, 
+      CHELJSDJ, CHUCRQ, GOUCRQ, 
+      LUOHRQ, ZHOUJ, CHEC, 
+      CHEG, CHEK, CHEZS, 
+      HOUZGBTHPS, XUANJXS, DANGAH, 
+      DAOLYSZZH, ZHENGJJYM, ZHENGJCLRQ, 
+      ZHENGJYXQQ, ZHENGJYXQZ, ZHENGJFFRQ, 
+      FAZJG, CHEZZDCJ, CHEZZDXH, 
+      CHEZZDBH, ZHONGDAZRQ, XINGSJLYXH, 
+      XINGSJLYBH, YEHID, GUANXJG, 
+      JINGXFWDM, JINGXFWMC, XINGZQHBM, 
+      LISQXDM, CHUANGJR, CHUANGJSJ, 
+      XIUGR, XIUGSJ, ZHENGJZT, 
+      YINGYZT, BAOXID, BEIZ, 
+      NIANSYXRQ, ERJWHYXRQ, JISDJYXRQ, 
+      KECDJ, KECDJYXRQ, HEDZZL, 
+      ICKKH)
+    values (#{chelid,jdbcType=VARCHAR}, #{cheph,jdbcType=VARCHAR}, #{chepys,jdbcType=VARCHAR}, 
+      #{shifgc,jdbcType=VARCHAR}, #{chellx,jdbcType=VARCHAR}, #{guig,jdbcType=VARCHAR}, 
+      #{jieg,jdbcType=VARCHAR}, #{chelhylb,jdbcType=VARCHAR}, #{chesys,jdbcType=VARCHAR}, 
+      #{changp,jdbcType=VARCHAR}, #{xingh,jdbcType=VARCHAR}, #{fadjxh,jdbcType=VARCHAR}, 
+      #{fadjhm,jdbcType=VARCHAR}, #{fadjgl,jdbcType=DECIMAL}, #{chelsbvin,jdbcType=VARCHAR}, 
+      #{xingszclrq,jdbcType=VARCHAR}, #{cheldjh,jdbcType=VARCHAR}, #{dengjzdjrq,jdbcType=VARCHAR}, 
+      #{dengjzffrq,jdbcType=VARCHAR}, #{hedzws,jdbcType=DECIMAL}, #{ranllxdm,jdbcType=VARCHAR}, 
+      #{cheljsdj,jdbcType=VARCHAR}, #{chucrq,jdbcType=VARCHAR}, #{goucrq,jdbcType=VARCHAR}, 
+      #{luohrq,jdbcType=VARCHAR}, #{zhouj,jdbcType=DECIMAL}, #{chec,jdbcType=DECIMAL}, 
+      #{cheg,jdbcType=DECIMAL}, #{chek,jdbcType=DECIMAL}, #{chezs,jdbcType=DECIMAL}, 
+      #{houzgbthps,jdbcType=DECIMAL}, #{xuanjxs,jdbcType=VARCHAR}, #{dangah,jdbcType=VARCHAR}, 
+      #{daolyszzh,jdbcType=VARCHAR}, #{zhengjjym,jdbcType=VARCHAR}, #{zhengjclrq,jdbcType=VARCHAR}, 
+      #{zhengjyxqq,jdbcType=VARCHAR}, #{zhengjyxqz,jdbcType=VARCHAR}, #{zhengjffrq,jdbcType=VARCHAR}, 
+      #{fazjg,jdbcType=VARCHAR}, #{chezzdcj,jdbcType=VARCHAR}, #{chezzdxh,jdbcType=VARCHAR}, 
+      #{chezzdbh,jdbcType=VARCHAR}, #{zhongdazrq,jdbcType=VARCHAR}, #{xingsjlyxh,jdbcType=VARCHAR}, 
+      #{xingsjlybh,jdbcType=VARCHAR}, #{yehid,jdbcType=VARCHAR}, #{guanxjg,jdbcType=VARCHAR}, 
+      #{jingxfwdm,jdbcType=VARCHAR}, #{jingxfwmc,jdbcType=VARCHAR}, #{xingzqhbm,jdbcType=VARCHAR}, 
+      #{lisqxdm,jdbcType=VARCHAR}, #{chuangjr,jdbcType=VARCHAR}, #{chuangjsj,jdbcType=VARCHAR}, 
+      #{xiugr,jdbcType=VARCHAR}, #{xiugsj,jdbcType=VARCHAR}, #{zhengjzt,jdbcType=VARCHAR}, 
+      #{yingyzt,jdbcType=VARCHAR}, #{baoxid,jdbcType=VARCHAR}, #{beiz,jdbcType=VARCHAR}, 
+      #{niansyxrq,jdbcType=VARCHAR}, #{erjwhyxrq,jdbcType=VARCHAR}, #{jisdjyxrq,jdbcType=VARCHAR}, 
+      #{kecdj,jdbcType=DECIMAL}, #{kecdjyxrq,jdbcType=VARCHAR}, #{hedzzl,jdbcType=DECIMAL}, 
+      #{ickkh,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.athena.module.chelxx.model.Chelxx" >
+    insert into REP_CHELXX
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="chelid != null" >
+        CHELID,
+      </if>
+      <if test="cheph != null" >
+        CHEPH,
+      </if>
+      <if test="chepys != null" >
+        CHEPYS,
+      </if>
+      <if test="shifgc != null" >
+        SHIFGC,
+      </if>
+      <if test="chellx != null" >
+        CHELLX,
+      </if>
+      <if test="guig != null" >
+        GUIG,
+      </if>
+      <if test="jieg != null" >
+        JIEG,
+      </if>
+      <if test="chelhylb != null" >
+        CHELHYLB,
+      </if>
+      <if test="chesys != null" >
+        CHESYS,
+      </if>
+      <if test="changp != null" >
+        CHANGP,
+      </if>
+      <if test="xingh != null" >
+        XINGH,
+      </if>
+      <if test="fadjxh != null" >
+        FADJXH,
+      </if>
+      <if test="fadjhm != null" >
+        FADJHM,
+      </if>
+      <if test="fadjgl != null" >
+        FADJGL,
+      </if>
+      <if test="chelsbvin != null" >
+        CHELSBVIN,
+      </if>
+      <if test="xingszclrq != null" >
+        XINGSZCLRQ,
+      </if>
+      <if test="cheldjh != null" >
+        CHELDJH,
+      </if>
+      <if test="dengjzdjrq != null" >
+        DENGJZDJRQ,
+      </if>
+      <if test="dengjzffrq != null" >
+        DENGJZFFRQ,
+      </if>
+      <if test="hedzws != null" >
+        HEDZWS,
+      </if>
+      <if test="ranllxdm != null" >
+        RANLLXDM,
+      </if>
+      <if test="cheljsdj != null" >
+        CHELJSDJ,
+      </if>
+      <if test="chucrq != null" >
+        CHUCRQ,
+      </if>
+      <if test="goucrq != null" >
+        GOUCRQ,
+      </if>
+      <if test="luohrq != null" >
+        LUOHRQ,
+      </if>
+      <if test="zhouj != null" >
+        ZHOUJ,
+      </if>
+      <if test="chec != null" >
+        CHEC,
+      </if>
+      <if test="cheg != null" >
+        CHEG,
+      </if>
+      <if test="chek != null" >
+        CHEK,
+      </if>
+      <if test="chezs != null" >
+        CHEZS,
+      </if>
+      <if test="houzgbthps != null" >
+        HOUZGBTHPS,
+      </if>
+      <if test="xuanjxs != null" >
+        XUANJXS,
+      </if>
+      <if test="dangah != null" >
+        DANGAH,
+      </if>
+      <if test="daolyszzh != null" >
+        DAOLYSZZH,
+      </if>
+      <if test="zhengjjym != null" >
+        ZHENGJJYM,
+      </if>
+      <if test="zhengjclrq != null" >
+        ZHENGJCLRQ,
+      </if>
+      <if test="zhengjyxqq != null" >
+        ZHENGJYXQQ,
+      </if>
+      <if test="zhengjyxqz != null" >
+        ZHENGJYXQZ,
+      </if>
+      <if test="zhengjffrq != null" >
+        ZHENGJFFRQ,
+      </if>
+      <if test="fazjg != null" >
+        FAZJG,
+      </if>
+      <if test="chezzdcj != null" >
+        CHEZZDCJ,
+      </if>
+      <if test="chezzdxh != null" >
+        CHEZZDXH,
+      </if>
+      <if test="chezzdbh != null" >
+        CHEZZDBH,
+      </if>
+      <if test="zhongdazrq != null" >
+        ZHONGDAZRQ,
+      </if>
+      <if test="xingsjlyxh != null" >
+        XINGSJLYXH,
+      </if>
+      <if test="xingsjlybh != null" >
+        XINGSJLYBH,
+      </if>
+      <if test="yehid != null" >
+        YEHID,
+      </if>
+      <if test="guanxjg != null" >
+        GUANXJG,
+      </if>
+      <if test="jingxfwdm != null" >
+        JINGXFWDM,
+      </if>
+      <if test="jingxfwmc != null" >
+        JINGXFWMC,
+      </if>
+      <if test="xingzqhbm != null" >
+        XINGZQHBM,
+      </if>
+      <if test="lisqxdm != null" >
+        LISQXDM,
+      </if>
+      <if test="chuangjr != null" >
+        CHUANGJR,
+      </if>
+      <if test="chuangjsj != null" >
+        CHUANGJSJ,
+      </if>
+      <if test="xiugr != null" >
+        XIUGR,
+      </if>
+      <if test="xiugsj != null" >
+        XIUGSJ,
+      </if>
+      <if test="zhengjzt != null" >
+        ZHENGJZT,
+      </if>
+      <if test="yingyzt != null" >
+        YINGYZT,
+      </if>
+      <if test="baoxid != null" >
+        BAOXID,
+      </if>
+      <if test="beiz != null" >
+        BEIZ,
+      </if>
+      <if test="niansyxrq != null" >
+        NIANSYXRQ,
+      </if>
+      <if test="erjwhyxrq != null" >
+        ERJWHYXRQ,
+      </if>
+      <if test="jisdjyxrq != null" >
+        JISDJYXRQ,
+      </if>
+      <if test="kecdj != null" >
+        KECDJ,
+      </if>
+      <if test="kecdjyxrq != null" >
+        KECDJYXRQ,
+      </if>
+      <if test="hedzzl != null" >
+        HEDZZL,
+      </if>
+      <if test="ickkh != null" >
+        ICKKH,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="chelid != null" >
+        #{chelid,jdbcType=VARCHAR},
+      </if>
+      <if test="cheph != null" >
+        #{cheph,jdbcType=VARCHAR},
+      </if>
+      <if test="chepys != null" >
+        #{chepys,jdbcType=VARCHAR},
+      </if>
+      <if test="shifgc != null" >
+        #{shifgc,jdbcType=VARCHAR},
+      </if>
+      <if test="chellx != null" >
+        #{chellx,jdbcType=VARCHAR},
+      </if>
+      <if test="guig != null" >
+        #{guig,jdbcType=VARCHAR},
+      </if>
+      <if test="jieg != null" >
+        #{jieg,jdbcType=VARCHAR},
+      </if>
+      <if test="chelhylb != null" >
+        #{chelhylb,jdbcType=VARCHAR},
+      </if>
+      <if test="chesys != null" >
+        #{chesys,jdbcType=VARCHAR},
+      </if>
+      <if test="changp != null" >
+        #{changp,jdbcType=VARCHAR},
+      </if>
+      <if test="xingh != null" >
+        #{xingh,jdbcType=VARCHAR},
+      </if>
+      <if test="fadjxh != null" >
+        #{fadjxh,jdbcType=VARCHAR},
+      </if>
+      <if test="fadjhm != null" >
+        #{fadjhm,jdbcType=VARCHAR},
+      </if>
+      <if test="fadjgl != null" >
+        #{fadjgl,jdbcType=DECIMAL},
+      </if>
+      <if test="chelsbvin != null" >
+        #{chelsbvin,jdbcType=VARCHAR},
+      </if>
+      <if test="xingszclrq != null" >
+        #{xingszclrq,jdbcType=VARCHAR},
+      </if>
+      <if test="cheldjh != null" >
+        #{cheldjh,jdbcType=VARCHAR},
+      </if>
+      <if test="dengjzdjrq != null" >
+        #{dengjzdjrq,jdbcType=VARCHAR},
+      </if>
+      <if test="dengjzffrq != null" >
+        #{dengjzffrq,jdbcType=VARCHAR},
+      </if>
+      <if test="hedzws != null" >
+        #{hedzws,jdbcType=DECIMAL},
+      </if>
+      <if test="ranllxdm != null" >
+        #{ranllxdm,jdbcType=VARCHAR},
+      </if>
+      <if test="cheljsdj != null" >
+        #{cheljsdj,jdbcType=VARCHAR},
+      </if>
+      <if test="chucrq != null" >
+        #{chucrq,jdbcType=VARCHAR},
+      </if>
+      <if test="goucrq != null" >
+        #{goucrq,jdbcType=VARCHAR},
+      </if>
+      <if test="luohrq != null" >
+        #{luohrq,jdbcType=VARCHAR},
+      </if>
+      <if test="zhouj != null" >
+        #{zhouj,jdbcType=DECIMAL},
+      </if>
+      <if test="chec != null" >
+        #{chec,jdbcType=DECIMAL},
+      </if>
+      <if test="cheg != null" >
+        #{cheg,jdbcType=DECIMAL},
+      </if>
+      <if test="chek != null" >
+        #{chek,jdbcType=DECIMAL},
+      </if>
+      <if test="chezs != null" >
+        #{chezs,jdbcType=DECIMAL},
+      </if>
+      <if test="houzgbthps != null" >
+        #{houzgbthps,jdbcType=DECIMAL},
+      </if>
+      <if test="xuanjxs != null" >
+        #{xuanjxs,jdbcType=VARCHAR},
+      </if>
+      <if test="dangah != null" >
+        #{dangah,jdbcType=VARCHAR},
+      </if>
+      <if test="daolyszzh != null" >
+        #{daolyszzh,jdbcType=VARCHAR},
+      </if>
+      <if test="zhengjjym != null" >
+        #{zhengjjym,jdbcType=VARCHAR},
+      </if>
+      <if test="zhengjclrq != null" >
+        #{zhengjclrq,jdbcType=VARCHAR},
+      </if>
+      <if test="zhengjyxqq != null" >
+        #{zhengjyxqq,jdbcType=VARCHAR},
+      </if>
+      <if test="zhengjyxqz != null" >
+        #{zhengjyxqz,jdbcType=VARCHAR},
+      </if>
+      <if test="zhengjffrq != null" >
+        #{zhengjffrq,jdbcType=VARCHAR},
+      </if>
+      <if test="fazjg != null" >
+        #{fazjg,jdbcType=VARCHAR},
+      </if>
+      <if test="chezzdcj != null" >
+        #{chezzdcj,jdbcType=VARCHAR},
+      </if>
+      <if test="chezzdxh != null" >
+        #{chezzdxh,jdbcType=VARCHAR},
+      </if>
+      <if test="chezzdbh != null" >
+        #{chezzdbh,jdbcType=VARCHAR},
+      </if>
+      <if test="zhongdazrq != null" >
+        #{zhongdazrq,jdbcType=VARCHAR},
+      </if>
+      <if test="xingsjlyxh != null" >
+        #{xingsjlyxh,jdbcType=VARCHAR},
+      </if>
+      <if test="xingsjlybh != null" >
+        #{xingsjlybh,jdbcType=VARCHAR},
+      </if>
+      <if test="yehid != null" >
+        #{yehid,jdbcType=VARCHAR},
+      </if>
+      <if test="guanxjg != null" >
+        #{guanxjg,jdbcType=VARCHAR},
+      </if>
+      <if test="jingxfwdm != null" >
+        #{jingxfwdm,jdbcType=VARCHAR},
+      </if>
+      <if test="jingxfwmc != null" >
+        #{jingxfwmc,jdbcType=VARCHAR},
+      </if>
+      <if test="xingzqhbm != null" >
+        #{xingzqhbm,jdbcType=VARCHAR},
+      </if>
+      <if test="lisqxdm != null" >
+        #{lisqxdm,jdbcType=VARCHAR},
+      </if>
+      <if test="chuangjr != null" >
+        #{chuangjr,jdbcType=VARCHAR},
+      </if>
+      <if test="chuangjsj != null" >
+        #{chuangjsj,jdbcType=VARCHAR},
+      </if>
+      <if test="xiugr != null" >
+        #{xiugr,jdbcType=VARCHAR},
+      </if>
+      <if test="xiugsj != null" >
+        #{xiugsj,jdbcType=VARCHAR},
+      </if>
+      <if test="zhengjzt != null" >
+        #{zhengjzt,jdbcType=VARCHAR},
+      </if>
+      <if test="yingyzt != null" >
+        #{yingyzt,jdbcType=VARCHAR},
+      </if>
+      <if test="baoxid != null" >
+        #{baoxid,jdbcType=VARCHAR},
+      </if>
+      <if test="beiz != null" >
+        #{beiz,jdbcType=VARCHAR},
+      </if>
+      <if test="niansyxrq != null" >
+        #{niansyxrq,jdbcType=VARCHAR},
+      </if>
+      <if test="erjwhyxrq != null" >
+        #{erjwhyxrq,jdbcType=VARCHAR},
+      </if>
+      <if test="jisdjyxrq != null" >
+        #{jisdjyxrq,jdbcType=VARCHAR},
+      </if>
+      <if test="kecdj != null" >
+        #{kecdj,jdbcType=DECIMAL},
+      </if>
+      <if test="kecdjyxrq != null" >
+        #{kecdjyxrq,jdbcType=VARCHAR},
+      </if>
+      <if test="hedzzl != null" >
+        #{hedzzl,jdbcType=DECIMAL},
+      </if>
+      <if test="ickkh != null" >
+        #{ickkh,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.athena.module.chelxx.model.ChelxxExample" resultType="java.lang.Integer" >
+    select count(*) from REP_CHELXX
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update REP_CHELXX
+    <set >
+      <if test="record.chelid != null" >
+        CHELID = #{record.chelid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.cheph != null" >
+        CHEPH = #{record.cheph,jdbcType=VARCHAR},
+      </if>
+      <if test="record.chepys != null" >
+        CHEPYS = #{record.chepys,jdbcType=VARCHAR},
+      </if>
+      <if test="record.shifgc != null" >
+        SHIFGC = #{record.shifgc,jdbcType=VARCHAR},
+      </if>
+      <if test="record.chellx != null" >
+        CHELLX = #{record.chellx,jdbcType=VARCHAR},
+      </if>
+      <if test="record.guig != null" >
+        GUIG = #{record.guig,jdbcType=VARCHAR},
+      </if>
+      <if test="record.jieg != null" >
+        JIEG = #{record.jieg,jdbcType=VARCHAR},
+      </if>
+      <if test="record.chelhylb != null" >
+        CHELHYLB = #{record.chelhylb,jdbcType=VARCHAR},
+      </if>
+      <if test="record.chesys != null" >
+        CHESYS = #{record.chesys,jdbcType=VARCHAR},
+      </if>
+      <if test="record.changp != null" >
+        CHANGP = #{record.changp,jdbcType=VARCHAR},
+      </if>
+      <if test="record.xingh != null" >
+        XINGH = #{record.xingh,jdbcType=VARCHAR},
+      </if>
+      <if test="record.fadjxh != null" >
+        FADJXH = #{record.fadjxh,jdbcType=VARCHAR},
+      </if>
+      <if test="record.fadjhm != null" >
+        FADJHM = #{record.fadjhm,jdbcType=VARCHAR},
+      </if>
+      <if test="record.fadjgl != null" >
+        FADJGL = #{record.fadjgl,jdbcType=DECIMAL},
+      </if>
+      <if test="record.chelsbvin != null" >
+        CHELSBVIN = #{record.chelsbvin,jdbcType=VARCHAR},
+      </if>
+      <if test="record.xingszclrq != null" >
+        XINGSZCLRQ = #{record.xingszclrq,jdbcType=VARCHAR},
+      </if>
+      <if test="record.cheldjh != null" >
+        CHELDJH = #{record.cheldjh,jdbcType=VARCHAR},
+      </if>
+      <if test="record.dengjzdjrq != null" >
+        DENGJZDJRQ = #{record.dengjzdjrq,jdbcType=VARCHAR},
+      </if>
+      <if test="record.dengjzffrq != null" >
+        DENGJZFFRQ = #{record.dengjzffrq,jdbcType=VARCHAR},
+      </if>
+      <if test="record.hedzws != null" >
+        HEDZWS = #{record.hedzws,jdbcType=DECIMAL},
+      </if>
+      <if test="record.ranllxdm != null" >
+        RANLLXDM = #{record.ranllxdm,jdbcType=VARCHAR},
+      </if>
+      <if test="record.cheljsdj != null" >
+        CHELJSDJ = #{record.cheljsdj,jdbcType=VARCHAR},
+      </if>
+      <if test="record.chucrq != null" >
+        CHUCRQ = #{record.chucrq,jdbcType=VARCHAR},
+      </if>
+      <if test="record.goucrq != null" >
+        GOUCRQ = #{record.goucrq,jdbcType=VARCHAR},
+      </if>
+      <if test="record.luohrq != null" >
+        LUOHRQ = #{record.luohrq,jdbcType=VARCHAR},
+      </if>
+      <if test="record.zhouj != null" >
+        ZHOUJ = #{record.zhouj,jdbcType=DECIMAL},
+      </if>
+      <if test="record.chec != null" >
+        CHEC = #{record.chec,jdbcType=DECIMAL},
+      </if>
+      <if test="record.cheg != null" >
+        CHEG = #{record.cheg,jdbcType=DECIMAL},
+      </if>
+      <if test="record.chek != null" >
+        CHEK = #{record.chek,jdbcType=DECIMAL},
+      </if>
+      <if test="record.chezs != null" >
+        CHEZS = #{record.chezs,jdbcType=DECIMAL},
+      </if>
+      <if test="record.houzgbthps != null" >
+        HOUZGBTHPS = #{record.houzgbthps,jdbcType=DECIMAL},
+      </if>
+      <if test="record.xuanjxs != null" >
+        XUANJXS = #{record.xuanjxs,jdbcType=VARCHAR},
+      </if>
+      <if test="record.dangah != null" >
+        DANGAH = #{record.dangah,jdbcType=VARCHAR},
+      </if>
+      <if test="record.daolyszzh != null" >
+        DAOLYSZZH = #{record.daolyszzh,jdbcType=VARCHAR},
+      </if>
+      <if test="record.zhengjjym != null" >
+        ZHENGJJYM = #{record.zhengjjym,jdbcType=VARCHAR},
+      </if>
+      <if test="record.zhengjclrq != null" >
+        ZHENGJCLRQ = #{record.zhengjclrq,jdbcType=VARCHAR},
+      </if>
+      <if test="record.zhengjyxqq != null" >
+        ZHENGJYXQQ = #{record.zhengjyxqq,jdbcType=VARCHAR},
+      </if>
+      <if test="record.zhengjyxqz != null" >
+        ZHENGJYXQZ = #{record.zhengjyxqz,jdbcType=VARCHAR},
+      </if>
+      <if test="record.zhengjffrq != null" >
+        ZHENGJFFRQ = #{record.zhengjffrq,jdbcType=VARCHAR},
+      </if>
+      <if test="record.fazjg != null" >
+        FAZJG = #{record.fazjg,jdbcType=VARCHAR},
+      </if>
+      <if test="record.chezzdcj != null" >
+        CHEZZDCJ = #{record.chezzdcj,jdbcType=VARCHAR},
+      </if>
+      <if test="record.chezzdxh != null" >
+        CHEZZDXH = #{record.chezzdxh,jdbcType=VARCHAR},
+      </if>
+      <if test="record.chezzdbh != null" >
+        CHEZZDBH = #{record.chezzdbh,jdbcType=VARCHAR},
+      </if>
+      <if test="record.zhongdazrq != null" >
+        ZHONGDAZRQ = #{record.zhongdazrq,jdbcType=VARCHAR},
+      </if>
+      <if test="record.xingsjlyxh != null" >
+        XINGSJLYXH = #{record.xingsjlyxh,jdbcType=VARCHAR},
+      </if>
+      <if test="record.xingsjlybh != null" >
+        XINGSJLYBH = #{record.xingsjlybh,jdbcType=VARCHAR},
+      </if>
+      <if test="record.yehid != null" >
+        YEHID = #{record.yehid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.guanxjg != null" >
+        GUANXJG = #{record.guanxjg,jdbcType=VARCHAR},
+      </if>
+      <if test="record.jingxfwdm != null" >
+        JINGXFWDM = #{record.jingxfwdm,jdbcType=VARCHAR},
+      </if>
+      <if test="record.jingxfwmc != null" >
+        JINGXFWMC = #{record.jingxfwmc,jdbcType=VARCHAR},
+      </if>
+      <if test="record.xingzqhbm != null" >
+        XINGZQHBM = #{record.xingzqhbm,jdbcType=VARCHAR},
+      </if>
+      <if test="record.lisqxdm != null" >
+        LISQXDM = #{record.lisqxdm,jdbcType=VARCHAR},
+      </if>
+      <if test="record.chuangjr != null" >
+        CHUANGJR = #{record.chuangjr,jdbcType=VARCHAR},
+      </if>
+      <if test="record.chuangjsj != null" >
+        CHUANGJSJ = #{record.chuangjsj,jdbcType=VARCHAR},
+      </if>
+      <if test="record.xiugr != null" >
+        XIUGR = #{record.xiugr,jdbcType=VARCHAR},
+      </if>
+      <if test="record.xiugsj != null" >
+        XIUGSJ = #{record.xiugsj,jdbcType=VARCHAR},
+      </if>
+      <if test="record.zhengjzt != null" >
+        ZHENGJZT = #{record.zhengjzt,jdbcType=VARCHAR},
+      </if>
+      <if test="record.yingyzt != null" >
+        YINGYZT = #{record.yingyzt,jdbcType=VARCHAR},
+      </if>
+      <if test="record.baoxid != null" >
+        BAOXID = #{record.baoxid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.beiz != null" >
+        BEIZ = #{record.beiz,jdbcType=VARCHAR},
+      </if>
+      <if test="record.niansyxrq != null" >
+        NIANSYXRQ = #{record.niansyxrq,jdbcType=VARCHAR},
+      </if>
+      <if test="record.erjwhyxrq != null" >
+        ERJWHYXRQ = #{record.erjwhyxrq,jdbcType=VARCHAR},
+      </if>
+      <if test="record.jisdjyxrq != null" >
+        JISDJYXRQ = #{record.jisdjyxrq,jdbcType=VARCHAR},
+      </if>
+      <if test="record.kecdj != null" >
+        KECDJ = #{record.kecdj,jdbcType=DECIMAL},
+      </if>
+      <if test="record.kecdjyxrq != null" >
+        KECDJYXRQ = #{record.kecdjyxrq,jdbcType=VARCHAR},
+      </if>
+      <if test="record.hedzzl != null" >
+        HEDZZL = #{record.hedzzl,jdbcType=DECIMAL},
+      </if>
+      <if test="record.ickkh != null" >
+        ICKKH = #{record.ickkh,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update REP_CHELXX
+    set CHELID = #{record.chelid,jdbcType=VARCHAR},
+      CHEPH = #{record.cheph,jdbcType=VARCHAR},
+      CHEPYS = #{record.chepys,jdbcType=VARCHAR},
+      SHIFGC = #{record.shifgc,jdbcType=VARCHAR},
+      CHELLX = #{record.chellx,jdbcType=VARCHAR},
+      GUIG = #{record.guig,jdbcType=VARCHAR},
+      JIEG = #{record.jieg,jdbcType=VARCHAR},
+      CHELHYLB = #{record.chelhylb,jdbcType=VARCHAR},
+      CHESYS = #{record.chesys,jdbcType=VARCHAR},
+      CHANGP = #{record.changp,jdbcType=VARCHAR},
+      XINGH = #{record.xingh,jdbcType=VARCHAR},
+      FADJXH = #{record.fadjxh,jdbcType=VARCHAR},
+      FADJHM = #{record.fadjhm,jdbcType=VARCHAR},
+      FADJGL = #{record.fadjgl,jdbcType=DECIMAL},
+      CHELSBVIN = #{record.chelsbvin,jdbcType=VARCHAR},
+      XINGSZCLRQ = #{record.xingszclrq,jdbcType=VARCHAR},
+      CHELDJH = #{record.cheldjh,jdbcType=VARCHAR},
+      DENGJZDJRQ = #{record.dengjzdjrq,jdbcType=VARCHAR},
+      DENGJZFFRQ = #{record.dengjzffrq,jdbcType=VARCHAR},
+      HEDZWS = #{record.hedzws,jdbcType=DECIMAL},
+      RANLLXDM = #{record.ranllxdm,jdbcType=VARCHAR},
+      CHELJSDJ = #{record.cheljsdj,jdbcType=VARCHAR},
+      CHUCRQ = #{record.chucrq,jdbcType=VARCHAR},
+      GOUCRQ = #{record.goucrq,jdbcType=VARCHAR},
+      LUOHRQ = #{record.luohrq,jdbcType=VARCHAR},
+      ZHOUJ = #{record.zhouj,jdbcType=DECIMAL},
+      CHEC = #{record.chec,jdbcType=DECIMAL},
+      CHEG = #{record.cheg,jdbcType=DECIMAL},
+      CHEK = #{record.chek,jdbcType=DECIMAL},
+      CHEZS = #{record.chezs,jdbcType=DECIMAL},
+      HOUZGBTHPS = #{record.houzgbthps,jdbcType=DECIMAL},
+      XUANJXS = #{record.xuanjxs,jdbcType=VARCHAR},
+      DANGAH = #{record.dangah,jdbcType=VARCHAR},
+      DAOLYSZZH = #{record.daolyszzh,jdbcType=VARCHAR},
+      ZHENGJJYM = #{record.zhengjjym,jdbcType=VARCHAR},
+      ZHENGJCLRQ = #{record.zhengjclrq,jdbcType=VARCHAR},
+      ZHENGJYXQQ = #{record.zhengjyxqq,jdbcType=VARCHAR},
+      ZHENGJYXQZ = #{record.zhengjyxqz,jdbcType=VARCHAR},
+      ZHENGJFFRQ = #{record.zhengjffrq,jdbcType=VARCHAR},
+      FAZJG = #{record.fazjg,jdbcType=VARCHAR},
+      CHEZZDCJ = #{record.chezzdcj,jdbcType=VARCHAR},
+      CHEZZDXH = #{record.chezzdxh,jdbcType=VARCHAR},
+      CHEZZDBH = #{record.chezzdbh,jdbcType=VARCHAR},
+      ZHONGDAZRQ = #{record.zhongdazrq,jdbcType=VARCHAR},
+      XINGSJLYXH = #{record.xingsjlyxh,jdbcType=VARCHAR},
+      XINGSJLYBH = #{record.xingsjlybh,jdbcType=VARCHAR},
+      YEHID = #{record.yehid,jdbcType=VARCHAR},
+      GUANXJG = #{record.guanxjg,jdbcType=VARCHAR},
+      JINGXFWDM = #{record.jingxfwdm,jdbcType=VARCHAR},
+      JINGXFWMC = #{record.jingxfwmc,jdbcType=VARCHAR},
+      XINGZQHBM = #{record.xingzqhbm,jdbcType=VARCHAR},
+      LISQXDM = #{record.lisqxdm,jdbcType=VARCHAR},
+      CHUANGJR = #{record.chuangjr,jdbcType=VARCHAR},
+      CHUANGJSJ = #{record.chuangjsj,jdbcType=VARCHAR},
+      XIUGR = #{record.xiugr,jdbcType=VARCHAR},
+      XIUGSJ = #{record.xiugsj,jdbcType=VARCHAR},
+      ZHENGJZT = #{record.zhengjzt,jdbcType=VARCHAR},
+      YINGYZT = #{record.yingyzt,jdbcType=VARCHAR},
+      BAOXID = #{record.baoxid,jdbcType=VARCHAR},
+      BEIZ = #{record.beiz,jdbcType=VARCHAR},
+      NIANSYXRQ = #{record.niansyxrq,jdbcType=VARCHAR},
+      ERJWHYXRQ = #{record.erjwhyxrq,jdbcType=VARCHAR},
+      JISDJYXRQ = #{record.jisdjyxrq,jdbcType=VARCHAR},
+      KECDJ = #{record.kecdj,jdbcType=DECIMAL},
+      KECDJYXRQ = #{record.kecdjyxrq,jdbcType=VARCHAR},
+      HEDZZL = #{record.hedzzl,jdbcType=DECIMAL},
+      ICKKH = #{record.ickkh,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <sql id="OracleDialectPrefix" >
+    <if test="pagination != null" >
+      select * from ( select row_.*, rownum rownum_ from ( 
+    </if>
+  </sql>
+  <sql id="OracleDialectSuffix" >
+    <if test="pagination != null" >
+      <![CDATA[ ) row_ ) where rownum_ > #{pagination.beginIndex} and rownum_ <= #{pagination.endIndex} ]]>
+    </if>
+  </sql>
+</mapper>

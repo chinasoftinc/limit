@@ -1,0 +1,529 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.athena.module.congyry.mapper.CongyryMapper" >
+  <resultMap id="BaseResultMap" type="com.athena.module.congyry.model.Congyry" >
+    <result column="CONGYRYID" property="congyryid" jdbcType="VARCHAR" />
+    <result column="XINGM" property="xingm" jdbcType="VARCHAR" />
+    <result column="XINGB" property="xingb" jdbcType="VARCHAR" />
+    <result column="CHUSRQ" property="chusrq" jdbcType="VARCHAR" />
+    <result column="SHENFZJLB" property="shenfzjlb" jdbcType="VARCHAR" />
+    <result column="SHENFZJBH" property="shenfzjbh" jdbcType="VARCHAR" />
+    <result column="LISQX" property="lisqx" jdbcType="VARCHAR" />
+    <result column="GUDDH" property="guddh" jdbcType="VARCHAR" />
+    <result column="YIDDH" property="yiddh" jdbcType="VARCHAR" />
+    <result column="SHENFZDZ" property="shenfzdz" jdbcType="VARCHAR" />
+    <result column="XIANZDZ" property="xianzdz" jdbcType="VARCHAR" />
+    <result column="DIANZYX" property="dianzyx" jdbcType="VARCHAR" />
+    <result column="ZHUZYZBM" property="zhuzyzbm" jdbcType="VARCHAR" />
+    <result column="ZHUANYJS" property="zhuanyjs" jdbcType="VARCHAR" />
+    <result column="JIASZH" property="jiaszh" jdbcType="VARCHAR" />
+    <result column="ZHUNJCX" property="zhunjcx" jdbcType="VARCHAR" />
+    <result column="JIAZCLRQ" property="jiazclrq" jdbcType="VARCHAR" />
+    <result column="JIAZYXQS" property="jiazyxqs" jdbcType="VARCHAR" />
+    <result column="JIAZYXQZ" property="jiazyxqz" jdbcType="VARCHAR" />
+    <result column="JIAZYXQX" property="jiazyxqx" jdbcType="DECIMAL" />
+    <result column="JIAZFZJG" property="jiazfzjg" jdbcType="VARCHAR" />
+    <result column="ZHAOPLJ" property="zhaoplj" jdbcType="VARCHAR" />
+    <result column="CONGYZGDM" property="congyzgdm" jdbcType="VARCHAR" />
+    <result column="CONGYZGMC" property="congyzgmc" jdbcType="VARCHAR" />
+    <result column="ANQJSJL" property="anqjsjl" jdbcType="DECIMAL" />
+    <result column="XINGZQH" property="xingzqh" jdbcType="VARCHAR" />
+    <result column="JIGID" property="jigid" jdbcType="VARCHAR" />
+    <result column="ZHUCID" property="zhucid" jdbcType="VARCHAR" />
+    <result column="CHUANGJSJ" property="chuangjsj" jdbcType="VARCHAR" />
+    <result column="CHUANGJR" property="chuangjr" jdbcType="VARCHAR" />
+    <result column="XIUGSJ" property="xiugsj" jdbcType="VARCHAR" />
+    <result column="XIUGR" property="xiugr" jdbcType="VARCHAR" />
+    <result column="FUWQBS" property="fuwqbs" jdbcType="VARCHAR" />
+    <result column="BEIZ" property="beiz" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    CONGYRYID, XINGM, XINGB, CHUSRQ, SHENFZJLB, SHENFZJBH, LISQX, GUDDH, YIDDH, SHENFZDZ, 
+    XIANZDZ, DIANZYX, ZHUZYZBM, ZHUANYJS, JIASZH, ZHUNJCX, JIAZCLRQ, JIAZYXQS, JIAZYXQZ, 
+    JIAZYXQX, JIAZFZJG, ZHAOPLJ, CONGYZGDM, CONGYZGMC, ANQJSJL, XINGZQH, JIGID, ZHUCID, 
+    CHUANGJSJ, CHUANGJR, XIUGSJ, XIUGR, FUWQBS, BEIZ
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.athena.module.congyry.model.CongyryExample" >
+    <include refid="OracleDialectPrefix" />
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from REP_CONGYRY
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+    <include refid="OracleDialectSuffix" />
+  </select>
+  <delete id="deleteByExample" parameterType="com.athena.module.congyry.model.CongyryExample" >
+    delete from REP_CONGYRY
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.athena.module.congyry.model.Congyry" >
+    insert into REP_CONGYRY (CONGYRYID, XINGM, XINGB, 
+      CHUSRQ, SHENFZJLB, SHENFZJBH, 
+      LISQX, GUDDH, YIDDH, 
+      SHENFZDZ, XIANZDZ, DIANZYX, 
+      ZHUZYZBM, ZHUANYJS, JIASZH, 
+      ZHUNJCX, JIAZCLRQ, JIAZYXQS, 
+      JIAZYXQZ, JIAZYXQX, JIAZFZJG, 
+      ZHAOPLJ, CONGYZGDM, CONGYZGMC, 
+      ANQJSJL, XINGZQH, JIGID, 
+      ZHUCID, CHUANGJSJ, CHUANGJR, 
+      XIUGSJ, XIUGR, FUWQBS, 
+      BEIZ)
+    values (#{congyryid,jdbcType=VARCHAR}, #{xingm,jdbcType=VARCHAR}, #{xingb,jdbcType=VARCHAR}, 
+      #{chusrq,jdbcType=VARCHAR}, #{shenfzjlb,jdbcType=VARCHAR}, #{shenfzjbh,jdbcType=VARCHAR}, 
+      #{lisqx,jdbcType=VARCHAR}, #{guddh,jdbcType=VARCHAR}, #{yiddh,jdbcType=VARCHAR}, 
+      #{shenfzdz,jdbcType=VARCHAR}, #{xianzdz,jdbcType=VARCHAR}, #{dianzyx,jdbcType=VARCHAR}, 
+      #{zhuzyzbm,jdbcType=VARCHAR}, #{zhuanyjs,jdbcType=VARCHAR}, #{jiaszh,jdbcType=VARCHAR}, 
+      #{zhunjcx,jdbcType=VARCHAR}, #{jiazclrq,jdbcType=VARCHAR}, #{jiazyxqs,jdbcType=VARCHAR}, 
+      #{jiazyxqz,jdbcType=VARCHAR}, #{jiazyxqx,jdbcType=DECIMAL}, #{jiazfzjg,jdbcType=VARCHAR}, 
+      #{zhaoplj,jdbcType=VARCHAR}, #{congyzgdm,jdbcType=VARCHAR}, #{congyzgmc,jdbcType=VARCHAR}, 
+      #{anqjsjl,jdbcType=DECIMAL}, #{xingzqh,jdbcType=VARCHAR}, #{jigid,jdbcType=VARCHAR}, 
+      #{zhucid,jdbcType=VARCHAR}, #{chuangjsj,jdbcType=VARCHAR}, #{chuangjr,jdbcType=VARCHAR}, 
+      #{xiugsj,jdbcType=VARCHAR}, #{xiugr,jdbcType=VARCHAR}, #{fuwqbs,jdbcType=VARCHAR}, 
+      #{beiz,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.athena.module.congyry.model.Congyry" >
+    insert into REP_CONGYRY
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="congyryid != null" >
+        CONGYRYID,
+      </if>
+      <if test="xingm != null" >
+        XINGM,
+      </if>
+      <if test="xingb != null" >
+        XINGB,
+      </if>
+      <if test="chusrq != null" >
+        CHUSRQ,
+      </if>
+      <if test="shenfzjlb != null" >
+        SHENFZJLB,
+      </if>
+      <if test="shenfzjbh != null" >
+        SHENFZJBH,
+      </if>
+      <if test="lisqx != null" >
+        LISQX,
+      </if>
+      <if test="guddh != null" >
+        GUDDH,
+      </if>
+      <if test="yiddh != null" >
+        YIDDH,
+      </if>
+      <if test="shenfzdz != null" >
+        SHENFZDZ,
+      </if>
+      <if test="xianzdz != null" >
+        XIANZDZ,
+      </if>
+      <if test="dianzyx != null" >
+        DIANZYX,
+      </if>
+      <if test="zhuzyzbm != null" >
+        ZHUZYZBM,
+      </if>
+      <if test="zhuanyjs != null" >
+        ZHUANYJS,
+      </if>
+      <if test="jiaszh != null" >
+        JIASZH,
+      </if>
+      <if test="zhunjcx != null" >
+        ZHUNJCX,
+      </if>
+      <if test="jiazclrq != null" >
+        JIAZCLRQ,
+      </if>
+      <if test="jiazyxqs != null" >
+        JIAZYXQS,
+      </if>
+      <if test="jiazyxqz != null" >
+        JIAZYXQZ,
+      </if>
+      <if test="jiazyxqx != null" >
+        JIAZYXQX,
+      </if>
+      <if test="jiazfzjg != null" >
+        JIAZFZJG,
+      </if>
+      <if test="zhaoplj != null" >
+        ZHAOPLJ,
+      </if>
+      <if test="congyzgdm != null" >
+        CONGYZGDM,
+      </if>
+      <if test="congyzgmc != null" >
+        CONGYZGMC,
+      </if>
+      <if test="anqjsjl != null" >
+        ANQJSJL,
+      </if>
+      <if test="xingzqh != null" >
+        XINGZQH,
+      </if>
+      <if test="jigid != null" >
+        JIGID,
+      </if>
+      <if test="zhucid != null" >
+        ZHUCID,
+      </if>
+      <if test="chuangjsj != null" >
+        CHUANGJSJ,
+      </if>
+      <if test="chuangjr != null" >
+        CHUANGJR,
+      </if>
+      <if test="xiugsj != null" >
+        XIUGSJ,
+      </if>
+      <if test="xiugr != null" >
+        XIUGR,
+      </if>
+      <if test="fuwqbs != null" >
+        FUWQBS,
+      </if>
+      <if test="beiz != null" >
+        BEIZ,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="congyryid != null" >
+        #{congyryid,jdbcType=VARCHAR},
+      </if>
+      <if test="xingm != null" >
+        #{xingm,jdbcType=VARCHAR},
+      </if>
+      <if test="xingb != null" >
+        #{xingb,jdbcType=VARCHAR},
+      </if>
+      <if test="chusrq != null" >
+        #{chusrq,jdbcType=VARCHAR},
+      </if>
+      <if test="shenfzjlb != null" >
+        #{shenfzjlb,jdbcType=VARCHAR},
+      </if>
+      <if test="shenfzjbh != null" >
+        #{shenfzjbh,jdbcType=VARCHAR},
+      </if>
+      <if test="lisqx != null" >
+        #{lisqx,jdbcType=VARCHAR},
+      </if>
+      <if test="guddh != null" >
+        #{guddh,jdbcType=VARCHAR},
+      </if>
+      <if test="yiddh != null" >
+        #{yiddh,jdbcType=VARCHAR},
+      </if>
+      <if test="shenfzdz != null" >
+        #{shenfzdz,jdbcType=VARCHAR},
+      </if>
+      <if test="xianzdz != null" >
+        #{xianzdz,jdbcType=VARCHAR},
+      </if>
+      <if test="dianzyx != null" >
+        #{dianzyx,jdbcType=VARCHAR},
+      </if>
+      <if test="zhuzyzbm != null" >
+        #{zhuzyzbm,jdbcType=VARCHAR},
+      </if>
+      <if test="zhuanyjs != null" >
+        #{zhuanyjs,jdbcType=VARCHAR},
+      </if>
+      <if test="jiaszh != null" >
+        #{jiaszh,jdbcType=VARCHAR},
+      </if>
+      <if test="zhunjcx != null" >
+        #{zhunjcx,jdbcType=VARCHAR},
+      </if>
+      <if test="jiazclrq != null" >
+        #{jiazclrq,jdbcType=VARCHAR},
+      </if>
+      <if test="jiazyxqs != null" >
+        #{jiazyxqs,jdbcType=VARCHAR},
+      </if>
+      <if test="jiazyxqz != null" >
+        #{jiazyxqz,jdbcType=VARCHAR},
+      </if>
+      <if test="jiazyxqx != null" >
+        #{jiazyxqx,jdbcType=DECIMAL},
+      </if>
+      <if test="jiazfzjg != null" >
+        #{jiazfzjg,jdbcType=VARCHAR},
+      </if>
+      <if test="zhaoplj != null" >
+        #{zhaoplj,jdbcType=VARCHAR},
+      </if>
+      <if test="congyzgdm != null" >
+        #{congyzgdm,jdbcType=VARCHAR},
+      </if>
+      <if test="congyzgmc != null" >
+        #{congyzgmc,jdbcType=VARCHAR},
+      </if>
+      <if test="anqjsjl != null" >
+        #{anqjsjl,jdbcType=DECIMAL},
+      </if>
+      <if test="xingzqh != null" >
+        #{xingzqh,jdbcType=VARCHAR},
+      </if>
+      <if test="jigid != null" >
+        #{jigid,jdbcType=VARCHAR},
+      </if>
+      <if test="zhucid != null" >
+        #{zhucid,jdbcType=VARCHAR},
+      </if>
+      <if test="chuangjsj != null" >
+        #{chuangjsj,jdbcType=VARCHAR},
+      </if>
+      <if test="chuangjr != null" >
+        #{chuangjr,jdbcType=VARCHAR},
+      </if>
+      <if test="xiugsj != null" >
+        #{xiugsj,jdbcType=VARCHAR},
+      </if>
+      <if test="xiugr != null" >
+        #{xiugr,jdbcType=VARCHAR},
+      </if>
+      <if test="fuwqbs != null" >
+        #{fuwqbs,jdbcType=VARCHAR},
+      </if>
+      <if test="beiz != null" >
+        #{beiz,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.athena.module.congyry.model.CongyryExample" resultType="java.lang.Integer" >
+    select count(*) from REP_CONGYRY
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update REP_CONGYRY
+    <set >
+      <if test="record.congyryid != null" >
+        CONGYRYID = #{record.congyryid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.xingm != null" >
+        XINGM = #{record.xingm,jdbcType=VARCHAR},
+      </if>
+      <if test="record.xingb != null" >
+        XINGB = #{record.xingb,jdbcType=VARCHAR},
+      </if>
+      <if test="record.chusrq != null" >
+        CHUSRQ = #{record.chusrq,jdbcType=VARCHAR},
+      </if>
+      <if test="record.shenfzjlb != null" >
+        SHENFZJLB = #{record.shenfzjlb,jdbcType=VARCHAR},
+      </if>
+      <if test="record.shenfzjbh != null" >
+        SHENFZJBH = #{record.shenfzjbh,jdbcType=VARCHAR},
+      </if>
+      <if test="record.lisqx != null" >
+        LISQX = #{record.lisqx,jdbcType=VARCHAR},
+      </if>
+      <if test="record.guddh != null" >
+        GUDDH = #{record.guddh,jdbcType=VARCHAR},
+      </if>
+      <if test="record.yiddh != null" >
+        YIDDH = #{record.yiddh,jdbcType=VARCHAR},
+      </if>
+      <if test="record.shenfzdz != null" >
+        SHENFZDZ = #{record.shenfzdz,jdbcType=VARCHAR},
+      </if>
+      <if test="record.xianzdz != null" >
+        XIANZDZ = #{record.xianzdz,jdbcType=VARCHAR},
+      </if>
+      <if test="record.dianzyx != null" >
+        DIANZYX = #{record.dianzyx,jdbcType=VARCHAR},
+      </if>
+      <if test="record.zhuzyzbm != null" >
+        ZHUZYZBM = #{record.zhuzyzbm,jdbcType=VARCHAR},
+      </if>
+      <if test="record.zhuanyjs != null" >
+        ZHUANYJS = #{record.zhuanyjs,jdbcType=VARCHAR},
+      </if>
+      <if test="record.jiaszh != null" >
+        JIASZH = #{record.jiaszh,jdbcType=VARCHAR},
+      </if>
+      <if test="record.zhunjcx != null" >
+        ZHUNJCX = #{record.zhunjcx,jdbcType=VARCHAR},
+      </if>
+      <if test="record.jiazclrq != null" >
+        JIAZCLRQ = #{record.jiazclrq,jdbcType=VARCHAR},
+      </if>
+      <if test="record.jiazyxqs != null" >
+        JIAZYXQS = #{record.jiazyxqs,jdbcType=VARCHAR},
+      </if>
+      <if test="record.jiazyxqz != null" >
+        JIAZYXQZ = #{record.jiazyxqz,jdbcType=VARCHAR},
+      </if>
+      <if test="record.jiazyxqx != null" >
+        JIAZYXQX = #{record.jiazyxqx,jdbcType=DECIMAL},
+      </if>
+      <if test="record.jiazfzjg != null" >
+        JIAZFZJG = #{record.jiazfzjg,jdbcType=VARCHAR},
+      </if>
+      <if test="record.zhaoplj != null" >
+        ZHAOPLJ = #{record.zhaoplj,jdbcType=VARCHAR},
+      </if>
+      <if test="record.congyzgdm != null" >
+        CONGYZGDM = #{record.congyzgdm,jdbcType=VARCHAR},
+      </if>
+      <if test="record.congyzgmc != null" >
+        CONGYZGMC = #{record.congyzgmc,jdbcType=VARCHAR},
+      </if>
+      <if test="record.anqjsjl != null" >
+        ANQJSJL = #{record.anqjsjl,jdbcType=DECIMAL},
+      </if>
+      <if test="record.xingzqh != null" >
+        XINGZQH = #{record.xingzqh,jdbcType=VARCHAR},
+      </if>
+      <if test="record.jigid != null" >
+        JIGID = #{record.jigid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.zhucid != null" >
+        ZHUCID = #{record.zhucid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.chuangjsj != null" >
+        CHUANGJSJ = #{record.chuangjsj,jdbcType=VARCHAR},
+      </if>
+      <if test="record.chuangjr != null" >
+        CHUANGJR = #{record.chuangjr,jdbcType=VARCHAR},
+      </if>
+      <if test="record.xiugsj != null" >
+        XIUGSJ = #{record.xiugsj,jdbcType=VARCHAR},
+      </if>
+      <if test="record.xiugr != null" >
+        XIUGR = #{record.xiugr,jdbcType=VARCHAR},
+      </if>
+      <if test="record.fuwqbs != null" >
+        FUWQBS = #{record.fuwqbs,jdbcType=VARCHAR},
+      </if>
+      <if test="record.beiz != null" >
+        BEIZ = #{record.beiz,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update REP_CONGYRY
+    set CONGYRYID = #{record.congyryid,jdbcType=VARCHAR},
+      XINGM = #{record.xingm,jdbcType=VARCHAR},
+      XINGB = #{record.xingb,jdbcType=VARCHAR},
+      CHUSRQ = #{record.chusrq,jdbcType=VARCHAR},
+      SHENFZJLB = #{record.shenfzjlb,jdbcType=VARCHAR},
+      SHENFZJBH = #{record.shenfzjbh,jdbcType=VARCHAR},
+      LISQX = #{record.lisqx,jdbcType=VARCHAR},
+      GUDDH = #{record.guddh,jdbcType=VARCHAR},
+      YIDDH = #{record.yiddh,jdbcType=VARCHAR},
+      SHENFZDZ = #{record.shenfzdz,jdbcType=VARCHAR},
+      XIANZDZ = #{record.xianzdz,jdbcType=VARCHAR},
+      DIANZYX = #{record.dianzyx,jdbcType=VARCHAR},
+      ZHUZYZBM = #{record.zhuzyzbm,jdbcType=VARCHAR},
+      ZHUANYJS = #{record.zhuanyjs,jdbcType=VARCHAR},
+      JIASZH = #{record.jiaszh,jdbcType=VARCHAR},
+      ZHUNJCX = #{record.zhunjcx,jdbcType=VARCHAR},
+      JIAZCLRQ = #{record.jiazclrq,jdbcType=VARCHAR},
+      JIAZYXQS = #{record.jiazyxqs,jdbcType=VARCHAR},
+      JIAZYXQZ = #{record.jiazyxqz,jdbcType=VARCHAR},
+      JIAZYXQX = #{record.jiazyxqx,jdbcType=DECIMAL},
+      JIAZFZJG = #{record.jiazfzjg,jdbcType=VARCHAR},
+      ZHAOPLJ = #{record.zhaoplj,jdbcType=VARCHAR},
+      CONGYZGDM = #{record.congyzgdm,jdbcType=VARCHAR},
+      CONGYZGMC = #{record.congyzgmc,jdbcType=VARCHAR},
+      ANQJSJL = #{record.anqjsjl,jdbcType=DECIMAL},
+      XINGZQH = #{record.xingzqh,jdbcType=VARCHAR},
+      JIGID = #{record.jigid,jdbcType=VARCHAR},
+      ZHUCID = #{record.zhucid,jdbcType=VARCHAR},
+      CHUANGJSJ = #{record.chuangjsj,jdbcType=VARCHAR},
+      CHUANGJR = #{record.chuangjr,jdbcType=VARCHAR},
+      XIUGSJ = #{record.xiugsj,jdbcType=VARCHAR},
+      XIUGR = #{record.xiugr,jdbcType=VARCHAR},
+      FUWQBS = #{record.fuwqbs,jdbcType=VARCHAR},
+      BEIZ = #{record.beiz,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <sql id="OracleDialectPrefix" >
+    <if test="pagination != null" >
+      select * from ( select row_.*, rownum rownum_ from ( 
+    </if>
+  </sql>
+  <sql id="OracleDialectSuffix" >
+    <if test="pagination != null" >
+      <![CDATA[ ) row_ ) where rownum_ > #{pagination.beginIndex} and rownum_ <= #{pagination.endIndex} ]]>
+    </if>
+  </sql>
+</mapper>
