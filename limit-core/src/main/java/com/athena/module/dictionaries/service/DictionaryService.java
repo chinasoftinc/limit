@@ -32,6 +32,13 @@ public interface DictionaryService extends Service<Dictionary, DictionaryExample
 	List<Dictionary> selectDictionariesTree();
 
 	/**
+	 * 添加字典
+	 * @param record
+	 * @return
+	 */
+	int insertDictionary(Dictionary record);
+
+	/**
 	 * 更新选项字典或参数
 	 * @param optdic
 	 */

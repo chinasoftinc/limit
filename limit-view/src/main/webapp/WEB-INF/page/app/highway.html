@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width,initial-scale=1" />
+		<title>登录</title>
+		<link href="css/bootstrap.css" rel="stylesheet">
+		<!--你自己的样式文件 -->
+		<link href="css/style.css" rel="stylesheet">
+		<!--<link rel="stylesheet" type="text/css" href="css/style.css" media="screen">-->
+		<link rel="stylesheet" type="text/css" href="css/jquery.easy-pie-chart.css" media="screen">
+		<!-- 以下两个插件用于在IE8以及以下版本浏览器支持HTML5元素和媒体查询，如果不需要用可以移除 -->
+		<!--[if lt IE 9]>
+        <script src="js/html5shiv.js"></script>
+        <script src="js/respond.min.js"></script>
+        <![endif]-->
+		<script src="js/jquery.1.11.1.js"></script>
+		<script src="js/bootstrap.min.js"></script>
+		<!--<script src="js/html5.js"></script>-->
+		<!--<script src="js/excanvas.js"></script>-->
+		<script src="js/jquery.easy-pie-chart.js"></script>
+		<script>
+			var initPieChart = function() {
+				$('.percentage').easyPieChart({
+					animate: 1000
+				});
+				$('.percentage-light').easyPieChart({
+					barColor: function(percent) {
+						percent /= 100;
+						return "rgb(" + Math.round(255 * (1 - percent)) + ", " + Math.round(255 * percent) + ", 0)";
+					},
+					trackColor: '#666',
+					scaleColor: false,
+					lineCap: 'butt',
+					lineWidth: 20,
+					animate: 1000
+				});
+				$('.updateEasyPieChart').on('click', function(e) {
+					e.preventDefault();
+					$('.percentage, .percentage-light').each(function() {
+						var newValue = Math.round(100 * Math.random());
+						$(this).data('easyPieChart').update(newValue);
+						$('span', this).text(newValue);
+					});
+				});
+			};
+		</script>
+	</head>
+
+	<body onLoad="initPieChart();">
+		<div class="container">
+			<div class="text-center">
+				<h1 class="title" style="font-weight: bold; font-size: 5rem;">运管处</h1>
+			</div>
+			<div class="row pull-right">
+				<!--<nav class="navbar" role="navigation">-->
+				<div class="navbar-brand">
+					<span class="glyphicon glyphicon-user"></span>
+					<a href="#">您好</a>
+					<a href="#">admin</a>&nbsp;|&nbsp;
+					<a href="#">修改密码</a>&nbsp;|&nbsp;
+					<a href="#">安全退出</a>&nbsp;|&nbsp;
+					<a href="#">首页</a>
+				</div>
+			</div>
+		</div>
+		<div class="mt50 main ">
+			
+				<div class="col-lg-2" id="left-nav">
+					<div class="panel-group" id="accordion">
+						<h1 class="text-center">
+							运 管 处
+						</h1>
+						<div class="panel panel-info">
+							<a data-toggle="collapse" data-parent="#accordion"  href="#collapseOne">
+							<div class="panel-heading">
+								<h4 class="panel-title">
+									道路客运
+									<span class="glyphicon glyphicon-chevron-right" style="float: right;"></span>
+								</h4>
+							</div>
+							</a>
+							<div id="collapseOne" class="panel-collapse collapse">
+								<div class="list-group">
+									<a href="#" class="list-group-item">车辆信息</a>
+									<a href="#" class="list-group-item">业务报表</a>
+								</div>
+							</div>
+						</div>
+						<div class="panel panel-info">
+							<a data-toggle="collapse" data-parent="#accordion"  href="#collapseTwo">
+							<div class="panel-heading">
+								<h4 class="panel-title">
+									道路货运
+									<span class="glyphicon glyphicon-chevron-right" style="float: right;"></span>
+								</h4>
+							</div>
+							</a>	
+							<div id="collapseTwo" class="panel-collapse collapse">
+								<div class="list-group">
+									<a href="#" class="list-group-item">车辆信息</a>
+									<a href="#" class="list-group-item">业务报表</a>
+								</div>
+							</div>
+						</div>
+						<div class="panel panel-info">
+							<a data-toggle="collapse" data-parent="#accordion"  href="#collapseThree">
+							<div class="panel-heading">
+								<h4 class="panel-title">
+									城市客运
+									<span class="glyphicon glyphicon-chevron-right" style="float: right;"></span>
+								</h4>
+							</div>
+							</a>
+							<div id="collapseThree" class="panel-collapse collapse">
+								<div class="list-group">
+									<a href="#" class="list-group-item">车辆信息</a>
+									<a href="#" class="list-group-item">业务报表</a>
+								</div>
+							</div>
+						</div>
+						<div class="panel panel-info">
+							<a data-toggle="collapse" data-parent="#accordion"  href="#collapseFour">
+							<div class="panel-heading">
+								<h4 class="panel-title">
+									水路运输
+									<span class="glyphicon glyphicon-chevron-right" style="float: right;"></span>
+								</h4>
+							</div>
+							</a>
+							<div id="collapseFour" class="panel-collapse collapse">
+								<div class="list-group">
+									<a href="#" class="list-group-item">客船信息</a>
+									<a href="#" class="list-group-item">业务报表</a>
+								</div>
+							</div>
+						</div>
+						<div class="panel panel-info">
+							<a data-toggle="collapse" data-parent="#accordion"  href="#collapseFive">
+							<div class="panel-heading">
+								<h4 class="panel-title">
+									汽车维修/驾驶培训
+									<span class="glyphicon glyphicon-chevron-right" style="float: right;"></span>
+								</h4>
+							</div>
+							</a>
+							<div id="collapseFive" class="panel-collapse collapse">
+								<div class="list-group">
+									<a href="#" class="list-group-item">1</a>
+									<a href="#" class="list-group-item">2</a>
+								</div>
+							</div>
+						</div>
+						<div class="panel panel-info">
+							<a data-toggle="collapse" data-parent="#accordion"  href="#collapseSix">
+							<div class="panel-heading">
+								<h4 class="panel-title">
+									从业人员
+									<span class="glyphicon glyphicon-chevron-right" style="float: right;"></span>
+								</h4>
+							</div>
+							</a>	
+							<div id="collapseSix" class="panel-collapse collapse">
+								<div class="list-group">
+									<a href="#" class="list-group-item">1</a>
+									<a href="#" class="list-group-item">2</a>
+								</div>
+							</div>
+						</div>
+						<div class="panel panel-info">
+							<a data-toggle="collapse" data-parent="#accordion"  href="#collapseSeven">
+							<div class="panel-heading">
+								<h4 class="panel-title">
+									行政执法
+									<span class="glyphicon glyphicon-chevron-right" style="float: right;"></span>
+								</h4>
+							</div>
+							</a>
+							<div id="collapseSeven" class="panel-collapse collapse">
+								<div class="list-group">
+									<a href="#" class="list-group-item">1</a>
+									<a href="#" class="list-group-item">2</a>
+								</div>
+							</div>
+						</div>
+						<div class="panel panel-info">
+							<a data-toggle="collapse" data-parent="#accordion"  href="#collapseEight">
+							<div class="panel-heading">
+								<h4 class="panel-title">
+									车辆监督	
+									<span class="glyphicon glyphicon-chevron-right" style="float: right;"></span>
+								</h4>
+							</div>
+							</a>
+							<div id="collapseEight" class="panel-collapse collapse">
+								<div class="list-group">
+									<a href="#" class="list-group-item">1</a>
+									<a href="#" class="list-group-item">2</a>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+        <div class="col-lg-1" id="right-info"></div>				
+       <div class="col-lg-7" id="right-info">
+					<h1 class="text-center" style="font-weight: bold;">运营处各业务处室报表示例</h1>
+					<div class="row" id="state">
+						<div class="col-lg-1"></div>
+						<div class="col-lg-2">
+							<div class="chart">
+								<div class="percentage-light" data-percent="20">
+										<span style="font-size: 2rem; font-weight: bold;" >道路客运<br>30%</span>
+								</div>
+							</div>
+						</div>
+						
+						<div class="col-lg-2">
+							<div class="chart">
+								<div class="percentage-light" data-percent="30"><span style="font-size: 2rem; font-weight: bold;" >道路客运<br>30%</span></div>
+							</div>
+						</div>
+						
+						<div class="col-lg-2">
+							<div class="chart">
+								<div class="percentage-light" data-percent="40"><span style="font-size: 2rem; font-weight: bold;" >道路客运<br>30%</span></div>
+							</div>
+						</div>
+						
+						<div class="col-lg-2">
+							<div class="chart">
+								<div class="percentage-light" data-percent="50"><span style="font-size: 2rem; font-weight: bold;" >道路客运<br>30%</span></div>
+							</div>
+						</div>
+						
+						<div class="col-lg-2">
+							<div class="chart">
+								<div class="percentage-light" data-percent="60"><span style="font-size: 2rem; font-weight: bold;" >道路客运<br>30%</span></div>
+							</div>	
+						</div>
+						<div class="col-lg-1"></div>
+					</div>	
+					<div class="row" id="state">
+						<div class="col-lg-1"></div>
+						<div class="col-lg-2">
+							<div class="chart">
+								<div class="percentage-light" data-percent="70"><span style="font-size: 2rem; font-weight: bold;" >道路客运<br>30%</span></div>
+							</div>
+						</div>
+						<div class="col-lg-2">
+							<div class="chart">
+								<div class="percentage-light" data-percent="80"><span style="font-size: 2rem; font-weight: bold;" >道路客运<br>30%</span></div>
+							</div>
+						</div>
+						<div class="col-lg-2">
+							<div class="chart">
+								<div class="percentage-light" data-percent="90"><span style="font-size: 2rem; font-weight: bold;" >道路客运<br>30%</span></div>
+							</div>
+						</div>
+						<div class="col-lg-2">
+							<div class="chart">
+								<div class="percentage-light" data-percent="90"><span style="font-size: 2rem; font-weight: bold;" >道路客运<br>30%</span></div>
+							</div>
+						</div>
+						<div class="col-lg-2">
+							<div class="chart">
+								<div class="percentage-light" data-percent="90"><span style="font-size: 2rem; font-weight: bold;" >道路客运<br>30%</span></div>
+							</div>
+						</div>
+						<div class="col-lg-1"></div>
+						
+					</div>
+					
+				</div>
+				
+				<div class="col-lg-2" id="right-info"></div>
+			
+		</div>
+	</body>
+
+</html>

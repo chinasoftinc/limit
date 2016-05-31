@@ -32,7 +32,7 @@ public abstract class AbstractService<bean, example> implements Service<bean, ex
 		return dao.deleteByPrimaryKey(id);
 	}
 
-	public int insertDictionary(bean record) {
+	public int insert(bean record) {
 		return dao.insert(record);
 	}
 

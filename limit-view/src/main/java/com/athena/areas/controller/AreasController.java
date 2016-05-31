@@ -50,7 +50,7 @@ public class AreasController extends AbstractWebController {
 	public Object saveArea(Area form, HttpServletResponse response) {
 		try {
 			if (isAddOperation(form)) {
-				areaService.insertDictionary(form);
+				areaService.insertArea(form);
 				return new ResponseResult(true, "添加成功");
 			} else {
 				areaService.update(form);

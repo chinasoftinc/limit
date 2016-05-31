@@ -15,16 +15,15 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.athena.common.base.controller.AbstractWebController;
-import com.athena.common.context.SecurityManager;
 import com.athena.common.context.Constants.IS_DEL;
 import com.athena.common.dto.PageResult;
 import com.athena.common.dto.ResponseResult;
-import com.athena.common.dto.TreeNode;
 import com.athena.module.menus.service.MenuService;
 import com.athena.module.roles.model.Role;
 import com.athena.module.roles.model.RoleExample;
 import com.athena.module.roles.model.RoleExample.Criteria;
 import com.athena.module.roles.service.RoleService;
+import com.fasterxml.jackson.core.TreeNode;
 
 /**
  * 角色
@@ -41,7 +40,7 @@ public class RoleController extends AbstractWebController {
 	private MenuService menuService;
 
 	@Autowired
-	private SecurityManager securityManager;
+	private com.athena.common.context.SecurityManager securityManager;
 
 	// 主页
 	@RequestMapping(value = "/main", method = RequestMethod.GET)
@@ -119,7 +118,7 @@ public class RoleController extends AbstractWebController {
 	@RequestMapping(value = "/menuTreeJson", method = RequestMethod.POST)
 	@ResponseBody
 	public Object menuTreeJson(HttpServletResponse response) {
-		List<TreeNode> menus = menuService.selectEasyUITreeNodes();
+		List<com.athena.common.dto.TreeNode> menus = menuService.selectEasyUITreeNodes();
 		return menus == null ? new ArrayList<TreeNode>() : menus;
 	}
 

@@ -1,71 +1,91 @@
-<@PAGE.HTML title="系统登录">
-<body style="padding-top:300px">
-	<form id="loginForm" onsubmit="return validateLogin()">
-		<fieldset>
-			<center>
-				<label style="font-size:12px;display:inline">帐号</label>
-				<input name="userName" type="text" tabindex="1" autocomplete="off" />
-				
-				<label style="font-size:12px;display:inline" autocomplete="off" >密码</label>
-				<input name="passWord" type="password" tabindex="2" />
-				
-				<label><input id="isAuto" name="isAuto" type="checkbox" value="3" tabindex="3" /><font style="font-size:12px">记住我</font></label>
-				<input type="submit" value="Login" tabindex="4" />
-			<center>
-		</fieldset>
-	</form>
-	
-	<footer id="main">
-		<div style="font-size:12px;background:#666">
-			<center>
-				<span style="position:relative;color:#fff">版权所有 © com.athena</span>
-			</center>
-		</div>
-	</footer>
-	
-	<script type="text/javascript">
-		$(function(){
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width,initial-scale=1" />
+		<title>登录</title>
+		<link href="${ctx}/resource/css/bootstrap.css" rel="stylesheet">
+		<!--你自己的样式文件 -->
+		<link href="${ctx}/resource/css/style.css" rel="stylesheet">
+		<!-- 以下两个插件用于在IE8以及以下版本浏览器支持HTML5元素和媒体查询，如果不需要用可以移除 -->
+		<!--[if lt IE 9]>
+        <script src="/${ctx}/resource/js/html5shiv.js"></script>
+        <script src="/${ctx}/resource/js/respond.min.js"></script>
+        <![endif]-->
+		<script src="${ctx}/resource/js/jquery.1.11.1.js"></script>
+		<script src="${ctx}/resource/js/bootstrap.min.js"></script>
+		<script type="text/javascript" src="${ctx}/resource/js/validator.js"></script>
+		<style>
+			
+          
 		
-			<#-- 始终父窗口显示 -->
+		</style>
+	</head>
+	<body style="background: url(${ctx}/resource/img/login.jpg) no-repeat;">
+		<div class="container">
+			<div class="text-center">
+				<h1 class="title">泰州交通综合信息平台</h1>
+				<h3>Taizhou Transport Integrated Information Platform</h3>
+			</div>
+		</div>
+		<div class="login">
+			<div class="col-lg-4 col-md-3 col-sm-3 col-xs-2"></div>
+			<div class="col-lg-4 col-md-6 col-sm-6 col-xs-8 login-bg">
+			<div style="margin-top: 9%;">
+				<h3 class="text-center" style="font-weight: bold;">用户登录</h3>
+				<br />
+				<form class="form-horizontal center-block" role="form" onsubmit="return validateLogin()" >
+					<div class="form-group">
+						<div class="input-group input-group-lg">
+							<span class="input-group-addon">
+								<span class="glyphicon glyphicon-user"></span>
+							</span>
+							<input name="userName" type="text" class="form-control" placeholder="用户名" >
+						</div>
+					</div>
+					<div class="form-group">
+						<div class="input-group input-group-lg">
+							<span class="input-group-addon">
+								<span class="glyphicon glyphicon-lock"></span>
+							</span>
+							<input name="passWord" type="password" class="form-control" placeholder="密码">
+						</div>
+					</div>
+					<div class="form-group">
+						<button type="submit" class="btn btn-primary btn-lg btn-block">登录</button>
+					</div>
+				</form>
+				</div>	
+			</div>
+			<div class="col-lg-4 col-md-3 col-sm-3 col-xs-2"></div>
+		</div>
+	</body>
+	
+	<script>
+		$(function(){
 			if(window != window.parent){
 				window.top.location.href = window.location.href;
-				
 			}else{
-				<#-- 处理自动登录cookie -->
-				var autoLoginCookie = $.cookie('com_athena_autologin')
-				
-				if(autoLoginCookie != undefined){
-					var arr = autoLoginCookie.split(':');
-					var username = arr[0];
-					var password = arr[1];
-					$("input[name='userName']").val(username);
-					$("input[name='passWord']").val(password);
-					$("#isAuto")[0].checked = true;
-				}
-				
-				<#-- 绑定取消自动登录事件 -->
-				$("#isAuto").bind("change", function(){
-					if($("#isAuto")[0].checked == false){
-						$.removeCookie('com_athena_autologin', { path: '/' });
+				$("input[name='userName']").focus();
+				$(":input").not("select").keydown(function(e) {
+					if (e.which == 13) {
+						$(this).closest("form").submit();
 					}
 				});
-			
-				<#-- 初始化用户名输入框获取焦点 -->
-				var $usernameNode = $("#loginForm input[name='userName']");
-				$usernameNode.focus();
 			}
+			
 		});
 		
-		<#-- 基本校验 -->
 		var isExecute = false;
 		function validateLogin(){
 		
-			var $usernameNode = $("#loginForm input[name='userName']");
-			var $passwordNode = $("#loginForm input[name='passWord']");
+			var $usernameNode = $("input[name='userName']");
+			var $passwordNode = $("input[name='passWord']");
 		
 			var username = $usernameNode.val();
 			var password = $passwordNode.val();
-			var isAuto = $("#loginForm input[name='isAuto']").val();
 			
 			if(!Validator.isRequired(username)){
 				$usernameNode.focus();
@@ -85,32 +105,32 @@
 			}
 			
 			var param = {userName:username,passWord:password};
-			$.defaultAjaxOperation("${ctx}/login", param, true, true, 
-				{
-					success: function (rs){
-						if(!rs.success){
-							if(isExecute){
-								isExecute = false;
-								return;
-							}
-							isExecute = true;
-							$.msgTip("提示", rs.message);
-						}else if(rs.success){
-						
-							if($("#isAuto")[0].checked == true){
-								<#-- 默认7天, 整个项目 -->
-								$.cookie('com_athena_autologin', username + ":" + password, { expires: 7, path: '/' });
-							}
-							
-							window.location.href="${ctx}";
-						}else{
-						 	$.errorTip("警告", "登录失败, 请联系系统管理人员");
+			
+			$.ajax({
+				url : '${ctx}/login',
+				type : 'post',
+				dataType : 'json',
+				async : false,
+				data : param,
+				success : function(NULL, success, jqXHR) {
+					var rs = eval("(" + jqXHR.responseText + ")");
+					if(!rs.success){
+						if(isExecute){
+							isExecute = false;
+							return;
 						}
-					 }
+						isExecute = true;
+						alert(rs.message);
+						
+					} else if(rs.success){
+						window.location.href="${ctx}";
+					} else{
+						alert(rs.message);
+					}
 				}
-			);
+			});
+			
 			return false;
 		}
 	</script>
-</body>
-</@PAGE.HTML>
+</html>

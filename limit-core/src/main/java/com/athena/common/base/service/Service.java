@@ -16,7 +16,7 @@ public interface Service<bean, example> {
 
 	int deleteByPrimaryKey(BigDecimal id);
 
-	int insertDictionary(bean model);
+	int insert(bean model);
 
 	int insertSelective(bean model);
 

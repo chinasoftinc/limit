@@ -8,7 +8,7 @@
 		http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-4.1.xsd">
 
 	<bean id="abstractXADataSource" class="com.atomikos.jdbc.AtomikosDataSourceBean" init-method="init" destroy-method="close" abstract="true">
-		<property name="xaDataSourceClassName" value="com.alibaba.druid.pool.xa.DruidXADataSource" />
+		<property name="xaDataSourceClassName" value="oracle.jdbc.xa.client.OracleXADataSource" />
 		<property name="poolSize" value="10" />
 		<property name="minPoolSize" value="10" />
 		<property name="maxPoolSize" value="30" />
@@ -24,22 +24,9 @@
 		<property name="uniqueResourceName" value="master" />
 		<property name="xaProperties">
 			<props>
-				<prop key="driverClassName">${datasource.driverClassName}</prop>
-				<prop key="url">${datasource.jdbcUrl}</prop>
+				<prop key="URL">${datasource.jdbcUrl}</prop>
+				<prop key="user">${datasource.jdbcUserName}</prop>
 				<prop key="password">${datasource.jdbcPassWord}</prop>
-				<prop key="username">${datasource.jdbcUserName}</prop>
-				<prop key="initialSize">0</prop>
-				<prop key="maxActive">20</prop>
-				<prop key="minIdle">0</prop>
-				<prop key="maxWait">60000</prop>
-				<prop key="validationQuery">select 1 from dual</prop>
-				<prop key="testOnBorrow">false</prop>
-				<prop key="testOnReturn">false</prop>
-				<prop key="testWhileIdle">true</prop>
-				<prop key="removeAbandoned">true</prop>
-				<prop key="removeAbandonedTimeout">1800</prop>
-				<prop key="logAbandoned">true</prop>
-				<prop key="filters">mergeStat</prop>
 			</props>
 		</property>
 	</bean>
@@ -48,22 +35,9 @@
 		<property name="uniqueResourceName" value="slave" />
 		<property name="xaProperties">
 			<props>
-				<prop key="driverClassName">${datasource.driverClassName}</prop>
-				<prop key="url">${datasource.jdbcUrl}</prop>
+				<prop key="URL">${datasource.jdbcUrl}</prop>
+				<prop key="user">${datasource.jdbcUserName}</prop>
 				<prop key="password">${datasource.jdbcPassWord}</prop>
-				<prop key="username">${datasource.jdbcUserName}</prop>
-				<prop key="initialSize">0</prop>
-				<prop key="maxActive">20</prop>
-				<prop key="minIdle">0</prop>
-				<prop key="maxWait">60000</prop>
-				<prop key="validationQuery">select 1 from dual</prop>
-				<prop key="testOnBorrow">false</prop>
-				<prop key="testOnReturn">false</prop>
-				<prop key="testWhileIdle">true</prop>
-				<prop key="removeAbandoned">true</prop>
-				<prop key="removeAbandonedTimeout">1800</prop>
-				<prop key="logAbandoned">true</prop>
-				<prop key="filters">mergeStat</prop>
 			</props>
 		</property>
 	</bean>

@@ -38,9 +38,17 @@ public class MainController extends AbstractWebController {
 	@Autowired
 	private MenuService menuService;
 
-	// 入口页面
+	// 首页
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public ModelAndView main(HttpServletRequest request, HttpServletResponse response) {
+		ModelAndView mv = new ModelAndView("/main/index");
+
+		return mv;
+	}
+
+	// 管理首页
+	@RequestMapping(value = "/manage", method = RequestMethod.GET)
+	public ModelAndView manange(HttpServletRequest request, HttpServletResponse response) {
 		ModelAndView mv = new ModelAndView("/main/main");
 
 		// 查询用户的授权菜单

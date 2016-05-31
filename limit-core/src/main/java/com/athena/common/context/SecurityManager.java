@@ -62,10 +62,10 @@ public class SecurityManager {
 				else if (LoginStatus.VAILD.code.equals(dbUser.getUserStatus())) {
 					status = LoginStatus.VAILD;
 					logger.info("用户 {}[{}] 登录系统", dbUser.getNickName(), dbUser.getUserName());
-					
+
 				} else if (LoginStatus.INVAILD.code.equals(dbUser.getUserStatus())) {
 					status = LoginStatus.INVAILD;
-					
+
 				} else {
 					status = LoginStatus.ERROR;
 				}
@@ -134,6 +134,14 @@ public class SecurityManager {
 			}
 
 			if ("/".equals(uri)) {
+				return true;
+			}
+
+			if (uri.equals("/manage") && CollectionUtils.isNotEmpty(menuService.selectUserMenus(user.getId()))) {
+				return true;
+			}
+
+			if (uri.startsWith("/business")) {
 				return true;
 			}
 
