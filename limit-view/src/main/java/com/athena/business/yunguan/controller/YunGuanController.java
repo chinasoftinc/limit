@@ -1,7 +1,11 @@
 package com.athena.business.yunguan.controller;
 
+import java.net.URLDecoder;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 
+import org.apache.http.util.EncodingUtils;
+import org.apache.wicket.request.UrlEncoder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -36,15 +40,19 @@ public class YunGuanController extends AbstractWebController {
 
 	@RequestMapping("/chelxxJson")
 	@ResponseBody
-	public Object chelxxJson(PageModel model) {
+	public Object chelxxJson(Chelxx filter, PageModel model) {
 
+		if(filter.getChepys() != null){
+			System.out.println(URLDecoder.decode(filter.getChepys()));
+		}
+		
 		ChelxxExample example = new ChelxxExample();
 
 		Pagination p = new Pagination(model.getPageNumber(), model.getPageSize());
 		example.setPagination(p);
 
 		model.setData(chelxxService.selectByExample(example));
-		
+
 		return model;
 	}
 

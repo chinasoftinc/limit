@@ -184,26 +184,26 @@
 										<li class="dropdown">
 											<a href="#" class="dropdown-toggle btn btn-default" data-toggle="dropdown">颜色 <b class="caret"></b></a>
 											<ul class="dropdown-menu">
-												<li><a href="##">黑色</a></li>
-												<li><a href="##">白色</a></li>
-												<li><a href="##">蓝色</a></li>
-												<li><a href="##">红色</a></li>
-												<li><a href="##">银灰</a></li>
+												<li><a href="javascript:searchData('chepys=黑')">黑色</a></li>
+												<li><a href="javascript:searchData('chepys=白')"">白色</a></li>
+												<li><a href="javascript:searchData('chepys=蓝')"">蓝色</a></li>
+												<li><a href="javascript:searchData('chepys=黄')"">黄色</a></li>
+												<li><a href="javascript:searchData('chepys=银')"">银色</a></li>
 											</ul>
 										</li>
 									</ul>
 								</div>
 								<div class="form-group">
-									<input type="text" class="form-control" placeholder="">
+									<input type="text" class="form-control" placeholder="车牌">
 								</div>
 								<div class="form-group">
 									<ul class="nav navbar-nav navbar-left">
 										<li class="dropdown">
 										<a href="#" class="dropdown-toggle btn btn-default" data-toggle="dropdown">车高 <b class="caret"></b></a>
 										<ul class="dropdown-menu">
-											<li><a href="##">1.5米</a></li>
-											<li><a href="##">2.5米</a></li>
-											<li><a href="##">3.5米</a></li>
+											<li><a href="javascript:searchData('cheg=1500-1999')">1500-1999</a></li>
+											<li><a href="javascript:searchData('cheg=2000-2499')">2000-2499</a></li>
+											<li><a href="javascript:searchData('cheg=2500-5000')">2500-5000</a></li>
 										</ul>
 										</li>
 									</ul>
@@ -213,8 +213,8 @@
 										<li class="dropdown">
 										<a href="#" class="dropdown-toggle btn btn-default" data-toggle="dropdown">发证机构<b class="caret"></b></a>
 										<ul class="dropdown-menu">
-											<li><a href="##">泰州交通局</a></li>
-											<li><a href="##">其他交通局</a></li>
+											<li><a href="javascript:searchData('fazjg=泰州市运输管理处')">泰州市运输管理处</a></li>
+											<li><a href="javascript:searchData('fazjg=靖江市运输管理处')">靖江市运输管理处</a></li>
 										</ul>
 										</li>
 									</ul>
@@ -224,14 +224,18 @@
 										<li class="dropdown">
 										<a href="#" class="dropdown-toggle btn btn-default" data-toggle="dropdown">座位数<b class="caret"></b></a>
 										<ul class="dropdown-menu">
-											<li><a href="##">4</a></li>
-											<li><a href="##">5</a></li>
-											<li><a href="##">6</a></li>
+											<li><a href="javascript:searchData('hedzws=2')">2</a></li>
+											<li><a href="javascript:searchData('hedzws=3')">3</a></li>
+											<li><a href="javascript:searchData('hedzws=4')">4</a></li>
+											<li><a href="javascript:searchData('hedzws=5')">5</a></li>
+											<li><a href="javascript:searchData('hedzws=6')">6</a></li>
+											<li><a href="javascript:searchData('hedzws=7')">7</a></li>
+											<li><a href="javascript:searchData('hedzws=8')">8</a></li>
 										</ul>
 										</li>
 									</ul>
 								</div>
-								<div class="form-group"><button type="submit" class="dropdown-toggle btn btn-default" onclick="return reCreateList()" class="btn btn-default glyphicon glyphicon-search">搜索</button></div>
+								<div class="form-group"><button type="submit" class="dropdown-toggle btn btn-default" onclick="return searchData()" class="btn btn-default glyphicon glyphicon-search">搜索</button></div>
 							</form>
 						</div>
 					</nav>
@@ -270,12 +274,14 @@
 		</div>
 		<script src="${ctx}/resource/js/pagination.js"></script>
 		<script>
-			var htmllist="<td>1</td><td>@{PC}</td><td>黑色</td><td>1.5米</td><td>5</td><td>泰州交通局</td><td>6A-6108</td><td>5</td><td><a href='##'> 查看</a></td>";
+			var htmllist="<td>@{seq}</td><td>@{cheph}</td><td>@{chepys}</td><td>@{cheg}</td><td>@{chec}</td><td>@{fazjg}</td><td>@{fadjxh}</td><td>@{hedzws}</td><td><a href='##'> 查看</a></td>";
 			var container;
 			
 			var options = {
 				pageSize: 10,
+				
 				dataSource: '${ctx}/business/yunguan/chelxxJson',
+				
 				locator: 'data',
 				totalNumber: ${page.totalNumber},
 				className: 'paginationjs-theme-blue',
@@ -284,10 +290,18 @@
 				
 					var dataHtml = '';
 					$.each(response, function(index, item) {
-						dataHtml += '<tr>' + htmllist.replace("@{PC}", item.cheph) + '</tr>';
+						dataHtml += '<tr>'
+						 + htmllist.replace("@{cheph}", item.cheph == null ? '未知' : item.cheph)
+						 		   .replace("@{seq}", (pagination.pageNumber - 1) * pagination.pageSize + index)
+						 		   .replace("@{chepys}", item.chepys == null ? '未知' : item.chepys)
+						 		   .replace("@{cheg}", item.cheg == null ? '未知' : item.cheg)
+						 		   .replace("@{chec}", item.chec == null ? '未知' : item.chec)
+						 		   .replace("@{fazjg}", item.fazjg == null ? '未知' : item.fazjg)
+						 		   .replace("@{fadjxh}", item.fadjxh == null ? '未知' : item.fadjxh)
+						 		   .replace("@{hedzws}", item.hedzws == null ? '未知' : item.hedzws)
+						 + '</tr>';
 					});
 					container.prev().children("tbody").html(dataHtml);
-					console.info(options);
 				}
 			};
 				
@@ -302,7 +316,14 @@
 			});
 
 
-			function reCreateList(){
+			function searchData(subQuery){
+				if(subQuery != null){
+					if(options.dataSource.indexOf("?") != -1){
+						options.dataSource = options.dataSource += "&" + encodeURI(encodeURI(subQuery));
+					}else{
+						options.dataSource = options.dataSource += "?" + encodeURI(encodeURI(subQuery));
+					}
+				}
 				createDemo('btn');
 				return false;
 			}

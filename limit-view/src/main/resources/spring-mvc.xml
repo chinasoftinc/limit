@@ -52,7 +52,7 @@
 		<mvc:interceptor>
 			<mvc:mapping path="/**" />
 			<bean class="com.athena.common.interceptor.SecurityInterceptor">
-				<property name="autoLogin" value="false" />
+				<property name="autoLogin" value="true" />
 				<property name="openSecurityFilter" value="true" />
 				<property name="enterPage" value="/login" />
 				<property name="securityManager" ref="securityManager" />

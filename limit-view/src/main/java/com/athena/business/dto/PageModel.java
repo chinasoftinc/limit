@@ -5,8 +5,6 @@ import java.util.List;
 
 public class PageModel {
 
-	private Object filter;
-
 	private List data = new ArrayList();
 
 	private int pageNumber;
@@ -21,14 +19,6 @@ public class PageModel {
 
 	public void setData(List data) {
 		this.data = data;
-	}
-
-	public Object getFilter() {
-		return filter;
-	}
-
-	public void setFilter(Object filter) {
-		this.filter = filter;
 	}
 
 	public int getPageNumber() {
