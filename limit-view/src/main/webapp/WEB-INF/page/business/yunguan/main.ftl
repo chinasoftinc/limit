@@ -180,62 +180,50 @@
 						<div class="clearfix">
 							<form class="navbar-form navbar-left" role="search">
 								<div class="form-group">
-									<ul class="nav navbar-nav navbar-left">
-										<li class="dropdown">
-											<a href="#" class="dropdown-toggle btn btn-default" data-toggle="dropdown">颜色 <b class="caret"></b></a>
-											<ul class="dropdown-menu">
-												<li><a href="javascript:searchData('chepys=黑')">黑色</a></li>
-												<li><a href="javascript:searchData('chepys=白')"">白色</a></li>
-												<li><a href="javascript:searchData('chepys=蓝')"">蓝色</a></li>
-												<li><a href="javascript:searchData('chepys=黄')"">黄色</a></li>
-												<li><a href="javascript:searchData('chepys=银')"">银色</a></li>
-											</ul>
-										</li>
-									</ul>
+									颜色
+									<select id="query_chepys" class="dropdown-toggle btn btn-default" data-toggle="dropdown" >
+										<option value=""></option>
+										<#list chepysList as item>
+										<option value="${item}">${item}</option>
+										</#list>
+									</select>
 								</div>
 								<div class="form-group">
 									<input type="text" class="form-control" placeholder="车牌">
 								</div>
 								<div class="form-group">
-									<ul class="nav navbar-nav navbar-left">
-										<li class="dropdown">
-										<a href="#" class="dropdown-toggle btn btn-default" data-toggle="dropdown">车高 <b class="caret"></b></a>
-										<ul class="dropdown-menu">
-											<li><a href="javascript:searchData('cheg=1500-1999')">1500-1999</a></li>
-											<li><a href="javascript:searchData('cheg=2000-2499')">2000-2499</a></li>
-											<li><a href="javascript:searchData('cheg=2500-5000')">2500-5000</a></li>
-										</ul>
-										</li>
-									</ul>
+									车高
+									<select id="query_cheg" class="dropdown-toggle btn btn-default" data-toggle="dropdown" >
+										<option value=""></option>
+										<option value="1500-1999">1500-1999</option>
+										<option value="2000-2499">2000-2499</option>
+										<option value="2500-5000">2500-5000</option>
+									</select>
 								</div>
 								<div class="form-group">
-									<ul class="nav navbar-nav navbar-left">
-										<li class="dropdown">
-										<a href="#" class="dropdown-toggle btn btn-default" data-toggle="dropdown">发证机构<b class="caret"></b></a>
-										<ul class="dropdown-menu">
-											<li><a href="javascript:searchData('fazjg=泰州市运输管理处')">泰州市运输管理处</a></li>
-											<li><a href="javascript:searchData('fazjg=靖江市运输管理处')">靖江市运输管理处</a></li>
-										</ul>
-										</li>
-									</ul>
+									发证机构
+									<select id="query_fazjg" class="dropdown-toggle btn btn-default" data-toggle="dropdown" >
+										<option value=""></option>
+										<#list fazjgList as item>
+										<option value="${item}">${item}</option>
+										</#list>
+									</select>
 								</div>
 								<div class="form-group">
-									<ul class="nav navbar-nav navbar-right">
-										<li class="dropdown">
-										<a href="#" class="dropdown-toggle btn btn-default" data-toggle="dropdown">座位数<b class="caret"></b></a>
-										<ul class="dropdown-menu">
-											<li><a href="javascript:searchData('hedzws=2')">2</a></li>
-											<li><a href="javascript:searchData('hedzws=3')">3</a></li>
-											<li><a href="javascript:searchData('hedzws=4')">4</a></li>
-											<li><a href="javascript:searchData('hedzws=5')">5</a></li>
-											<li><a href="javascript:searchData('hedzws=6')">6</a></li>
-											<li><a href="javascript:searchData('hedzws=7')">7</a></li>
-											<li><a href="javascript:searchData('hedzws=8')">8</a></li>
-										</ul>
-										</li>
-									</ul>
+									座位数
+									<select id="query_hedzws" class="dropdown-toggle btn btn-default" data-toggle="dropdown" >
+										<option value=""></option>
+										<option value="2">2</option>
+										<option value="3">3</option>
+										<option value="4">4</option>
+										<option value="5">5</option>
+										<option value="6">6</option>
+										<option value="7">7</option>
+										<option value="8">8</option>
+										<option value="9">9</option>
+									</select>
 								</div>
-								<div class="form-group"><button type="submit" class="dropdown-toggle btn btn-default" onclick="return searchData()" class="btn btn-default glyphicon glyphicon-search">搜索</button></div>
+								<div class="form-group"><input type="button" class="dropdown-toggle btn btn-default" onclick="searchData()" class="btn btn-default glyphicon glyphicon-search" value="搜索"></input></div>
 							</form>
 						</div>
 					</nav>
@@ -279,15 +267,12 @@
 			
 			var options = {
 				pageSize: 10,
-				
 				dataSource: '${ctx}/business/yunguan/chelxxJson',
-				
 				locator: 'data',
 				totalNumber: ${page.totalNumber},
 				className: 'paginationjs-theme-blue',
 				    
 				callback: function(response, pagination) {
-				
 					var dataHtml = '';
 					$.each(response, function(index, item) {
 						dataHtml += '<tr>'
@@ -306,6 +291,9 @@
 			};
 				
 			function createDemo(name) {
+				if(container != null){
+					container.pagination("destroy");
+				}
 				container = $('#pagination-' + name);
 				container.pagination(options);
 				return container;
@@ -315,15 +303,29 @@
 				createDemo('btn');
 			});
 
-
-			function searchData(subQuery){
-				if(subQuery != null){
-					if(options.dataSource.indexOf("?") != -1){
-						options.dataSource = options.dataSource += "&" + encodeURI(encodeURI(subQuery));
-					}else{
-						options.dataSource = options.dataSource += "?" + encodeURI(encodeURI(subQuery));
-					}
+			var srcQuery = options.dataSource;
+			function searchData(){
+				var query_chepys = $("#query_chepys").val();
+				var query_cheg = $("#query_cheg").val();
+				var query_hedzws = $("#query_hedzws").val();
+				var query_fazjg = $("#query_fazjg").val();
+				
+				var subQuery = "?";
+				if(query_chepys != ""){
+					subQuery += "chepys=" + query_chepys + "&";
 				}
+				if(query_cheg != ""){
+					subQuery += "cheg=" + query_cheg + "&";
+				}
+				if(query_hedzws != ""){
+					subQuery += "hedzws=" + query_hedzws + "&";
+				}
+				if(query_fazjg != ""){
+					subQuery += "fazjg=" + query_fazjg + "&";
+				}
+				
+				options.dataSource = srcQuery;
+				options.dataSource = options.dataSource + encodeURI(encodeURI(subQuery));
 				createDemo('btn');
 				return false;
 			}
