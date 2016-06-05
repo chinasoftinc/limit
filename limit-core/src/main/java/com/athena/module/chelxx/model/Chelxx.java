@@ -94,6 +94,17 @@ public class Chelxx extends PageModel<Chelxx> {
 
 	// 车高
 	private Integer cheg;
+	
+	// 车高范围查询参数
+	transient String chegRange;
+	
+	public String getChegRange() {
+		return chegRange;
+	}
+
+	public void setChegRange(String chegRange) {
+		this.chegRange = chegRange;
+	}
 
 	// 车宽
 	private Integer chek;

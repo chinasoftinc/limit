@@ -178,7 +178,7 @@
 				<div class="col-lg-10" id="right-info">
 					<nav class="navbar navbar-default" role="navigation">
 						<div class="clearfix">
-							<form class="navbar-form navbar-left" role="search">
+							<form id="searchInput" class="navbar-form navbar-left" role="search">
 								<div class="form-group">
 									颜色
 									<select id="query_chepys" class="dropdown-toggle btn btn-default" data-toggle="dropdown" >
@@ -189,7 +189,7 @@
 									</select>
 								</div>
 								<div class="form-group">
-									<input type="text" class="form-control" placeholder="车牌">
+									<input id="query_cheph" type="text" class="form-control" placeholder="车牌">
 								</div>
 								<div class="form-group">
 									车高
@@ -224,6 +224,7 @@
 									</select>
 								</div>
 								<div class="form-group"><input type="button" class="dropdown-toggle btn btn-default" onclick="searchData()" class="btn btn-default glyphicon glyphicon-search" value="搜索"></input></div>
+								<div class="form-group"><input type="button" class="dropdown-toggle btn btn-default" onclick="cleanSearch()" class="btn btn-default glyphicon glyphicon-search" value="重置"></input></div>
 							</form>
 						</div>
 					</nav>
@@ -299,13 +300,15 @@
 				return container;
 			}
 				
+			var srcQuery;
 			$(function() {
+				srcQuery = options.dataSource;
 				createDemo('btn');
 			});
 
-			var srcQuery = options.dataSource;
 			function searchData(){
 				var query_chepys = $("#query_chepys").val();
+				var query_cheph = $("#query_cheph").val();
 				var query_cheg = $("#query_cheg").val();
 				var query_hedzws = $("#query_hedzws").val();
 				var query_fazjg = $("#query_fazjg").val();
@@ -314,8 +317,11 @@
 				if(query_chepys != ""){
 					subQuery += "chepys=" + query_chepys + "&";
 				}
+				if(query_cheph != ""){
+					subQuery += "cheph=" + query_cheph + "&";
+				}
 				if(query_cheg != ""){
-					subQuery += "cheg=" + query_cheg + "&";
+					subQuery += "chegRange=" + query_cheg + "&";
 				}
 				if(query_hedzws != ""){
 					subQuery += "hedzws=" + query_hedzws + "&";
@@ -324,10 +330,25 @@
 					subQuery += "fazjg=" + query_fazjg + "&";
 				}
 				
+				console.info(srcQuery);
+				console.info(options.dataSource);
 				options.dataSource = srcQuery;
 				options.dataSource = options.dataSource + encodeURI(encodeURI(subQuery));
+				
+				$.ajax({url : options.dataSource,type : 'post',dataType : 'json',async:false,data : {},
+					success : function(NULL, success, jqXHR) {
+						var rs = eval("(" + jqXHR.responseText + ")");
+						options.totalNumber = rs.totalNumber == 0 ? 1 : rs.totalNumber;
+					}
+			
+				});
+				
 				createDemo('btn');
 				return false;
+			}
+			
+			function cleanSearch(){
+				$("#searchInput")[0].reset();
 			}
 		
 		</script>
